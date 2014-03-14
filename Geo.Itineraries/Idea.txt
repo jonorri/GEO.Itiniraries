@@ -1,0 +1,12 @@
+﻿I am in RVK Iceland for X time
+I am interested in
+- Going to the movies
+- Going to the theater
+- Going to a concert
+  - Rock
+  - Indie
+  - ...
+
+App on phone
+Backend with data
+Bands, movie theaters, tourist guidances, ... register stuff to do in an "admin" interface.

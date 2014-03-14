@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+<div class="jumbotron">
+    <h1>GEO Stuff</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <select id="cboCategories" name="cboCategories"></select>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div id="map-canvas"></div>
+</div>
+
+
+<script>
+    $(cboCategories).change(function () {
+        jQuery.support.cors = true;
+        
+        // TODO: KRAPP Making a new map erases all other markers on the map
+        $.ajax(
+            {
+                type: "GET",
+                url: 'http://localhost:57022/geo/getEvents/',
+                data: { Position: position.coords.latitude + ":" + position.coords.longitude },
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    var mapOptions = {
+                        zoom: 15,
+                        center: myLatlng
+                    }
+
+                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                    $.each(data, function (i, theItem) {
+                        var infowindow = new google.maps.InfoWindow({
+                            content: theItem["EventDescription"]
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(theItem["Latitude"], theItem["Longitude"]),
+                            map: map,
+                            title: theItem["EventName"]
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
+                        });
+                        
+                    });
+                },
+                error: function (msg, url, line) {
+                    alert('error trapped in error: function(msg, url, line)');
+                    alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+                }
+            });
+    });
+
+    function initialize() {
+        jQuery.support.cors = true;
+        navigator.geolocation.getCurrentPosition(getEvents);
+
+        function getEvents(geoPosition) {
+            position = geoPosition;
+            var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var mapOptions = {
+                zoom: 4,
+                center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'You are here!'
+            });
+
+            $.ajax(
+                {
+                    type: "GET",
+                    url: 'http://localhost:57022/geo/getter/',
+                    data: { Position: position.coords.latitude + ":" + position.coords.longitude },
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+
+                        $.each(data, function (i, theItem) {
+                            var combo = document.getElementById("cboCategories");
+                            var option = document.createElement("option");
+                            option.text = theItem["CategoryName"];
+                            option.value = theItem["CategoryId"];
+                            try {
+                                combo.add(option, null); // Other browsers
+                            }
+                            catch (error) {
+                                alert('error found');
+                                combo.add(option); // really old browser
+                            }
+
+                        });
+                    },
+                    error: function (msg, url, line) {
+                        alert('error trapped in error: function(msg, url, line)');
+                        alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+
+                    }
+                });
+        }
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
