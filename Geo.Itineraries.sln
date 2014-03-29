@@ -14,17 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7EC73E
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{4DCF8318-6C27-4215-ABF3-4016B33C0BF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web1", "Web1\Web1.csproj", "{76455EAB-CE23-466E-BB64-D3B78C801C29}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularStart1", "AngularStart1\AngularStart1.csproj", "{9B8BF380-7F42-4F02-8107-2C03CA88527C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{94DFCBE3-6B4F-41DB-89A9-92FB4C631B64}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApplication1", "MvcApplication1\MvcApplication1.csproj", "{4FC56597-051B-420B-8256-235927D44291}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApplication2", "MvcApplication2\MvcApplication2.csproj", "{43AD85A2-1BB2-4D34-9EE5-B592BAF56C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,30 +34,10 @@ Global
 		{1BE39C86-CA10-4AFB-AC3F-ED8D551FBA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BE39C86-CA10-4AFB-AC3F-ED8D551FBA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BE39C86-CA10-4AFB-AC3F-ED8D551FBA92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DCF8318-6C27-4215-ABF3-4016B33C0BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DCF8318-6C27-4215-ABF3-4016B33C0BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DCF8318-6C27-4215-ABF3-4016B33C0BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DCF8318-6C27-4215-ABF3-4016B33C0BF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76455EAB-CE23-466E-BB64-D3B78C801C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76455EAB-CE23-466E-BB64-D3B78C801C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76455EAB-CE23-466E-BB64-D3B78C801C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76455EAB-CE23-466E-BB64-D3B78C801C29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B8BF380-7F42-4F02-8107-2C03CA88527C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B8BF380-7F42-4F02-8107-2C03CA88527C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8BF380-7F42-4F02-8107-2C03CA88527C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B8BF380-7F42-4F02-8107-2C03CA88527C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94DFCBE3-6B4F-41DB-89A9-92FB4C631B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94DFCBE3-6B4F-41DB-89A9-92FB4C631B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94DFCBE3-6B4F-41DB-89A9-92FB4C631B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94DFCBE3-6B4F-41DB-89A9-92FB4C631B64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FC56597-051B-420B-8256-235927D44291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FC56597-051B-420B-8256-235927D44291}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FC56597-051B-420B-8256-235927D44291}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FC56597-051B-420B-8256-235927D44291}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43AD85A2-1BB2-4D34-9EE5-B592BAF56C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43AD85A2-1BB2-4D34-9EE5-B592BAF56C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43AD85A2-1BB2-4D34-9EE5-B592BAF56C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43AD85A2-1BB2-4D34-9EE5-B592BAF56C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
