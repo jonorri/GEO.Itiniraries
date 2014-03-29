@@ -1,4 +1,4 @@
-﻿namespace Geo.Itineraries.Storage
+﻿namespace Geo.Itineraries.Storage.ApisIs
 {
     using Geo.Itineraries.Models;
     using System.Collections.Generic;
@@ -25,6 +25,8 @@
 
                 var content = await result.Content.ReadAsStringAsync();
                 var content2 = JsonConvert.DeserializeObject<MovieListModel>(content);
+
+                // TODO: KRAPP ILL HAVE TO SUM UP INTO THE DESCRIPTION TEXT WHAT IS HAPPENING.
 
                 // TODO: KRAPP Multiply events in the collection
                 // TODO: KRAPP Fix the time to datetime

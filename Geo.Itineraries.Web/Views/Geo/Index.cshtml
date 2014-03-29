@@ -6,118 +6,220 @@
 
 <div class="jumbotron">
     <h1>GEO Stuff</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <select id="cboCategories" name="cboCategories"></select>
-    </div>
+<div id="log">
+
 </div>
+
+<h3>Movies</h3>
+<div class="check">
+    <input id="chkMovies" class="check" type="checkbox" value="1">
+    <label for="chkMovies"></label>
+</div>        
+<h3>Theater</h3>
+<div class="check">
+    <input id="chkTheater" class="check" type="checkbox" value="1">
+    <label for="chkTheater"></label>
+</div>
+<h3>Concerts</h3>
+<div class="check">
+    <input id="chkConcerts" class="check" type="checkbox" value="1">
+    <label for="chkConcerts"></label>
+</div>
+<h3>Sports</h3>
+<div class="check">
+    <input id="chkSports" class="check" type="checkbox" value="1">
+    <label for="chkSports"></label>
+</div>
+
+<label for=radiusSlider>Time:</label>
+<input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
+<datalist id=timeTickmarks>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+</datalist>
+<output for=timeSlider id=time>Now</output>
+
+<br />
+
+<label for=radiusSlider>Radius:</label>
+<input type=range id=radiusSlider min=1 max=8 value=1 step=1 list=radiusTickmarks onchange="updateRadiusOutput(value)">
+<datalist id=radiusTickmarks>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+</datalist>
+<output for=radiusSlider id=radius>100m</output>
+
+<input type="button" id="btnSearch" value="Search" />
 <hr />
+
 <div class="row">
     <div id="map-canvas"></div>
 </div>
 
-
 <script>
-    $(cboCategories).change(function () {
+    function updateTimeOutput(value) {
+        var stringValue;
+        switch (value) {
+            case "1":
+                stringValue = "Now";
+                break;
+            case "2":
+                stringValue = "Next 3 Hours";
+                break;
+            case "3":
+                stringValue = "Next 6 Hours";
+                break;
+            case "4":
+                stringValue = "Next 12 Hours";
+                break;
+            case "5":
+                stringValue = "Next Day";
+                break;
+            case "6":
+                stringValue = "Next 3 Days";
+                break;
+            case "7":
+                stringValue = "Next Week";
+                break;
+            default:
+                stringValue = "All";
+                break;
+        }
+
+        document.querySelector('#time').value = stringValue;
+    }
+
+    function updateRadiusOutput(value) {
+        document.querySelector('#radius').value = getMeters(value) + 'm';
+    }
+
+    function log(value) {
+        $('#log').append(value);
+    }
+
+    function getHours(value) {
+        switch (value) {
+            case 1:
+                return 1;
+            case 2:
+                return 3;
+            case 3:
+                return 6;
+            case 4:
+                return 12;
+            case 5:
+                return 24;
+            case 6:
+                return 72;
+            case 7:
+                return 168;
+            default:
+                return 999999;
+        }
+    };
+
+    function getMeters(value) {
+        switch (value) {
+            case '1':
+                return 100;
+            case '2':
+                return 250;
+            case '3':
+                return 500;
+            case '4':
+                return 1000;
+            case '5':
+                return 5000;
+            case '6':
+                return 10000;
+            case '7':
+                return 15000;
+            default:
+                return 999999;
+        }
+    }
+
+    $("#btnSearch").click(function () {
         jQuery.support.cors = true;
-        
-        // TODO: KRAPP Making a new map erases all other markers on the map
-        $.ajax(
-            {
-                type: "GET",
-                url: 'http://localhost:57022/geo/getEvents/',
-                data: { Position: position.coords.latitude + ":" + position.coords.longitude },
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    var mapOptions = {
-                        zoom: 15,
-                        center: myLatlng
-                    }
 
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                    $.each(data, function (i, theItem) {
-                        var infowindow = new google.maps.InfoWindow({
-                            content: theItem["EventDescription"]
-                        });
-
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(theItem["Latitude"], theItem["Longitude"]),
-                            map: map,
-                            title: theItem["EventName"]
-                        });
-
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.open(map, marker);
-                        });
-                        
-                    });
-                },
-                error: function (msg, url, line) {
-                    alert('error trapped in error: function(msg, url, line)');
-                    alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
-                }
-            });
-    });
-
-    function initialize() {
-        jQuery.support.cors = true;
+        var position;
         navigator.geolocation.getCurrentPosition(getEvents);
 
-        function getEvents(geoPosition) {
-            position = geoPosition;
-            var myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var mapOptions = {
-                zoom: 4,
-                center: myLatlng
-            }
-            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        function getEvents(position) {
 
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: 'You are here!'
-            });
+            var dataSet = {};
 
+            dataSet.position = position.coords.latitude + ":" + position.coords.longitude;
+            dataSet.radiusRange = getMeters(document.getElementById("radiusSlider").value);
+            dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
+
+            var dict = new Object();
+            dict["Concerts"] = $("#chkConcerts").is(':checked');
+            dict["Movies"] = $("#chkMovies").is(':checked');
+            dict["Theater"] = $("#chkTheater").is(':checked');
+            dict["Sports"] = $("#chkSports").is(':checked');
+
+            dataSet.categories = dict;
+            // TODO: KRAPP TEST THIS THOROUGHLY
             $.ajax(
                 {
                     type: "GET",
-                    url: 'http://localhost:57022/geo/getter/',
-                    data: { Position: position.coords.latitude + ":" + position.coords.longitude },
+                    url: 'http://localhost:57022/events/get',
+                    data: dataSet,
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
+                        // TODO: KRAPP THE HOME POSITION ISNT DISPLAYING PROPERLY
+                        myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        mapOptions = {
+                            zoom: 15,
+                            center: myLatlng
+                        }
 
-                        $.each(data, function (i, theItem) {
-                            var combo = document.getElementById("cboCategories");
-                            var option = document.createElement("option");
-                            option.text = theItem["CategoryName"];
-                            option.value = theItem["CategoryId"];
-                            try {
-                                combo.add(option, null); // Other browsers
-                            }
-                            catch (error) {
-                                alert('error found');
-                                combo.add(option); // really old browser
-                            }
+                        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                        homeMarker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+                            title: "You are here"
+                        });
+
+                        $.each(data["EventModels"], function (i, theItem) {
+                            var infowindow = new google.maps.InfoWindow({
+                                content: theItem["EventDescription"]
+                            });
+
+                            var marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
+                                map: map,
+                                title: theItem["EventName"]
+                            });
+                            
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
 
                         });
                     },
                     error: function (msg, url, line) {
                         alert('error trapped in error: function(msg, url, line)');
                         alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
-
                     }
                 });
-        }
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
+        };
+    });
 </script>

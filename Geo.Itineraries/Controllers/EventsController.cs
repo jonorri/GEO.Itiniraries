@@ -1,6 +1,7 @@
 ﻿using Geo.Itineraries.Models;
 using Geo.Itineraries.Storage;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,9 +20,10 @@ namespace Geo.Itineraries.Controllers
         }
 
         // GET api/events
-        public IEnumerable<EventModel> Get(string location)
+        public async Task<IEnumerable<EventModel>> Get(string location)
         {
-            return this.itineraryStorage.GetEvents(1, location);
+            // TODO: KRAPP RENAME TO *ASYNC
+            return await this.itineraryStorage.GetEvents(1, location);
         }
     }
 }

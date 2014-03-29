@@ -20,5 +20,10 @@ namespace Geo.Itineraries.Models
         public int VenueId { get; set; }
 
         public VenueModel Venue { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}", this.EventName, this.Venue != null ? this.Venue.VenueName : string.Empty);
+        }
     }
 }

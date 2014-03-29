@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class ItineraryStorage : IItineraryStorage
     {
@@ -38,14 +39,17 @@
             return this.categoryList;
         }
 
-        public IList<EventModel> GetEvents(int categoryId, string location)
+        public async Task<IList<EventModel>> GetEvents(int categoryId, string location)
         {
-            throw new NotImplementedException();
+            IEventHandler eventHandler = new ApisIs.MovieHandler();
+            return await eventHandler.GetEvents();
         }
 
-        public IList<EventModel> GetEventsByCategory(int categoryId)
+        public async Task<IList<EventModel>> GetEventsByCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            IEventHandler eventHandler = new ApisIs.MovieHandler();
+            // TODO: KRAPP RENAME TO *ASYNC
+            return await eventHandler.GetEvents();
         }
 
         public CategoryModel GetCategory(int id)

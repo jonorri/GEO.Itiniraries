@@ -100,12 +100,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geo.Itineraries\Geo.Itineraries.csproj">
-      <Project>{89ED9EAA-3368-4BCE-8ACB-22F8D5FC0241}</Project>
-      <Name>Geo.Itineraries</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

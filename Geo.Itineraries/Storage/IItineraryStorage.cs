@@ -1,4 +1,5 @@
 ﻿using Geo.Itineraries.Models;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 namespace Geo.Itineraries.Storage
 {
@@ -6,9 +7,9 @@ namespace Geo.Itineraries.Storage
     {
         IList<CategoryModel> GetCategories();
 
-        IList<EventModel> GetEventsByCategory(int categoryId);
+        Task<IList<EventModel>> GetEventsByCategory(int categoryId);
 
-        IList<EventModel> GetEvents(int categoryId, string location);
+        Task<IList<EventModel>> GetEvents(int categoryId, string location);
 
         CategoryModel GetCategory(int id);
     }
