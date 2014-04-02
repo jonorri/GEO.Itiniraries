@@ -1,0 +1,109 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+#map-canvas 
+{
+    height: 1000px;
+    margin: 0px;
+    padding: 0px;
+}
+
+input[type=checkbox] {
+	visibility: hidden;
+}
+
+/**
+ * Checkbox Two
+ */
+.check {
+	width: 120px;
+	height: 40px;
+	background: #333;
+	margin: 20px 60px;
+
+	border-radius: 50px;
+	position: relative;
+}
+
+/**
+ * Create the line for the circle to move across
+ */
+.check:before {
+	content: '';
+	position: absolute;
+	top: 19px;
+	left: 14px;
+	height: 2px;
+	width: 90px;
+	background: #111;
+}
+
+/**
+ * Create the circle to click
+ */
+.check label {
+	display: block;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	-ms-transition: all .5s ease;
+	transition: all .5s ease;
+	cursor: pointer;
+	position: absolute;
+	top: 9px;
+	z-index: 1;
+	left: 12px;
+	background: #ddd;
+}
+
+/**
+ * Create the click event for the checkbox
+ */
+.check input[type=checkbox]:checked + label {
+	left: 84px;
+	background: #26ca28;
+}
