@@ -9,7 +9,7 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
 {
     public class TheaterHandler : IEventHandler
     {
-        public override void GetEvents()
+        public override void GetEvents(Action<EventListModel> updateStorage)
         {
             
         }

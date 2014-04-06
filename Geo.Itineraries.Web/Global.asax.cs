@@ -29,7 +29,7 @@ namespace Geo.Itineraries.Web
 
         void primeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ItineraryStorage storage = new ItineraryStorage();
+            RedisStorage storage = new RedisStorage();
             storage.PrimeCache();
         }
     }

@@ -12,8 +12,7 @@ namespace Geo.Itineraries.IntegrationTests.Storage
         [TestMethod]
         public void GetEvents()
         {
-            IEventHandler handler = new MovieHandler();
-            handler.GetEvents();
+            // TOOD: KRAPP UNIT TEST THE SOLUTION
         }
     }
 }

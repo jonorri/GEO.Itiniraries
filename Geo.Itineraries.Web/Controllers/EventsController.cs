@@ -20,38 +20,42 @@ namespace Geo.Itineraries.Web.Controllers
 
         public EventsController()
         {
-            itineraryStorage = new ItineraryStorage();
+            itineraryStorage = new RedisStorage();
         }
 
-        public string Get(string position, RadiusRanges radiusRange, TimeRanges hourRange, Dictionary<object, object> categories)
+        // TODO: KRAPP THIS SHOULD BY ALL MEANS NOT JUST RETURN A JSON STRING
+        public string Get(GetEventModel model)
         {
-            // TODO: KRAPP VALIDATE INPUT
+            if (!ModelState.IsValid || model == null)
+            {
+                return string.Empty; // TODO: KRAPP THIS IS NOT RIGHT. THIS SHOULD RETURN AN ERROR INSTEAD
+            }
 
-            var latitudePosition = double.Parse(position.Split(':')[0]);
-            var longitudePosition = double.Parse(position.Split(':')[1]);
+            var latitudePosition = double.Parse(model.Position.Split(':')[0]);
+            var longitudePosition = double.Parse(model.Position.Split(':')[1]);
 
             IList<EventTypes> eventTypes = new List<EventTypes>();
-            if (categories.Keys.Contains("Movies") && (categories["Movies"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Keys.Contains("Movies") && (model.Categories["Movies"] as string[]).FirstOrDefault() == "true")
             {
                 eventTypes.Add(EventTypes.Movies);
             }
 
-            if (categories.Keys.Contains("Theater") && (categories["Theater"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Keys.Contains("Theater") && (model.Categories["Theater"] as string[]).FirstOrDefault() == "true")
             {
                 eventTypes.Add(EventTypes.Theater);
             }
 
-            if (categories.Keys.Contains("Concerts") && (categories["Concerts"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Keys.Contains("Concerts") && (model.Categories["Concerts"] as string[]).FirstOrDefault() == "true")
             {
                 eventTypes.Add(EventTypes.Concert);
             }
 
-            if (categories.Keys.Contains("Sports") && (categories["Sports"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Keys.Contains("Sports") && (model.Categories["Sports"] as string[]).FirstOrDefault() == "true")
             {
                 eventTypes.Add(EventTypes.Sports);
             }
 
-            return JsonConvert.SerializeObject(this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), hourRange, radiusRange, eventTypes));
+            return JsonConvert.SerializeObject(this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.HourRange, model.RadiusRange, eventTypes));
         }
     }
 }

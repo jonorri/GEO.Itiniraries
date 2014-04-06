@@ -15,7 +15,7 @@
 
     public class MovieHandler : IEventHandler
     {
-        public override void GetEvents()
+        public override void GetEvents(Action<EventListModel> updateStorage)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -32,7 +32,7 @@
                     var venues = ManuallyGetVenuesMAJORHACK(content2.Results);
                     var venueShowTimes = ManualGetShowtimesMAJORHACK(venues, content2.Results);
 
-                    UpdateRedis(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
+                    updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
                 }
             }
         }
