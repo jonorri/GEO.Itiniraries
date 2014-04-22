@@ -10,7 +10,7 @@
 
     public class SportHandler : IEventHandler
     {
-        public override void GetEvents()
+        public override void GetEvents(Action<EventListModel> updateStorage)
         {
             
         }

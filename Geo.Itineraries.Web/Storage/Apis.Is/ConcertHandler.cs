@@ -13,7 +13,7 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
 {
     public class ConcertHandler : IEventHandler
     {
-        public override async void GetEvents()
+        public override async void GetEvents(Action<EventListModel> updateStorage)
         {
             using (HttpClient client = new HttpClient())
             {

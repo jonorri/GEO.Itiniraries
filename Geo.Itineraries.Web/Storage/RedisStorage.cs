@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class ItineraryStorage : IItineraryStorage
+    public class RedisStorage : IItineraryStorage
     {
         public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, RadiusRanges radiusRange, IList<EventTypes> categories)
         {
@@ -30,6 +30,8 @@
                     list.EventModels.AddRange(krapp);
                 }
             }
+
+            // TODO: KRAPP SEPERATE THE STORAGE AND THE HANDLERS
 
             // TODO: KRAPP SAFEGURAD THIS AGAINST A REDIS FAILURE
 
@@ -60,10 +62,18 @@
         /// </summary>
         public void PrimeCache()
         {
+<<<<<<< HEAD:Geo.Itineraries.Web/Storage/ItineraryStorage.cs
             Task.Factory.StartNew(new ApisIs.MovieHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.SportHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.ConcertHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.TheaterHandler().GetEvents);
+=======
+            // TODO: KRAPP BE SURE TO HANDLE ERRORS IN THE HANDLERS
+            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateRedis));
+>>>>>>> 97ff06b5f28dd02597a463a1ac226d972c2f304b:Geo.Itineraries.Web/Storage/RedisStorage.cs
         }
 
         /// <summary>
@@ -77,6 +87,24 @@
             var eventClient = redisClient.As<EventListModel>();
 
             return eventClient.GetById((int)eventType);
+        }
+
+        private void UpdateRedis(EventListModel eventModels)
+        {
+            // TODO: KRAPP THIS SHOULD BE AN UPDATE NOT A BLIND STORE
+
+            try
+            {
+                var redisClient = new RedisClient("localhost");
+                var eventClient = redisClient.As<EventListModel>();
+
+                eventClient.Store(eventModels);
+            }
+            catch (System.Exception)
+            {
+                // TODO: KRAPP SWALLOW ALL EXCEPTIONS
+            }
+
         }
     }
 }

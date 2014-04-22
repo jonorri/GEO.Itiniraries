@@ -5,7 +5,6 @@ using System.Web;
 
 namespace Geo.Itineraries.Web.Models
 {
-    // TODO: KRAPP THIS DOESNT WORK WHEN THE INFORMATION COMES FROM THE FRONTEND
     public enum TimeRanges
     {
         NextHour = 1,

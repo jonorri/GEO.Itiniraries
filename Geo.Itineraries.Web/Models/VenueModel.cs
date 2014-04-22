@@ -11,9 +11,6 @@ namespace Geo.Itineraries.Web.Models
         [DataMember]
         public string VenueName { get; set; }
 
-        // TODO: KRAPP FIND THIS OUT BASED ON ADDRESS 
-        // https://developers.google.com/maps/documentation/geocoding/#Limits
-        // https://groups.google.com/forum/#!topic/tasker/E-3DnR-WbfA
         [DataMember]
         public double Latitude { get; set; }
 
