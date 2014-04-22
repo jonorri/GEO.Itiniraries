@@ -11,6 +11,7 @@ using Geo.Itineraries.Models;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.Device.Location;
+using System.Globalization;
 
 namespace Geo.Itineraries.Web.Controllers
 {
@@ -27,8 +28,8 @@ namespace Geo.Itineraries.Web.Controllers
         {
             // TODO: KRAPP VALIDATE INPUT
 
-            var latitudePosition = double.Parse(position.Split(':')[0]);
-            var longitudePosition = double.Parse(position.Split(':')[1]);
+            var latitudePosition = double.Parse(position.Split(':')[0], CultureInfo.InvariantCulture);
+            var longitudePosition = double.Parse(position.Split(':')[1], CultureInfo.InvariantCulture);
 
             IList<EventTypes> eventTypes = new List<EventTypes>();
             if (categories.Keys.Contains("Movies") && (categories["Movies"] as string[]).FirstOrDefault() == "true")

@@ -41,6 +41,13 @@
             return list;
         }
 
+        /// <summary>
+        /// Checks whether a certain venue is within some radius
+        /// </summary>
+        /// <param name="venueModel">Venue model to check</param>
+        /// <param name="position">Geo coordinate position</param>
+        /// <param name="metersInRadius">Radius to filter by</param>
+        /// <returns>True / False</returns>
         private bool IsVenueWithinRadius(VenueModel venueModel, GeoCoordinate position, int metersInRadius)
         {
             var distance = GeoHelpers.DistanceBetween(venueModel.Latitude, venueModel.Longitude, position.Latitude, position.Longitude);
@@ -48,15 +55,22 @@
             return distance < metersInRadius;
         }
 
+        /// <summary>
+        /// Primes the redis storage layer with data from apis.is
+        /// </summary>
         public void PrimeCache()
         {
-            // TODO: KRAPP BE SURE TO HANDLE ERRORS IN THE HANDLERS
             Task.Factory.StartNew(new ApisIs.MovieHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.SportHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.ConcertHandler().GetEvents);
             Task.Factory.StartNew(new ApisIs.TheaterHandler().GetEvents);
         }
 
+        /// <summary>
+        /// Gets event list models by event type
+        /// </summary>
+        /// <param name="eventType">Event type to get by</param>
+        /// <returns>An event list model</returns>
         private EventListModel FetchFromRedis(EventTypes eventType)
         {
             var redisClient = new RedisClient("localhost");

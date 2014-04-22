@@ -21,7 +21,7 @@ namespace Geo.Itineraries.Web.Storage
             }
             catch (System.Exception)
             {
-                // TODO: KRAPP SWALLOW ALL EXCEPTIONS
+                // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }
             
         }
