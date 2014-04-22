@@ -14,7 +14,8 @@
         public void UpdatesRedisWithData()
         {
             MovieHandler handler = new MovieHandler();
-            handler.GetEvents();
+            // TODO: KRAPP IN ALL TESTS THIS SHOULDN'T BE NULL BUT A VERIFIABLE METHOD
+            handler.GetEvents(null);
 
             var redisClient = new RedisClient("localhost");
             var eventClient = redisClient.As<EventListModel>();

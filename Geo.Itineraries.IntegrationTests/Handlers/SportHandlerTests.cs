@@ -14,7 +14,7 @@
         public void UpdatesRedisWithData()
         {
             SportHandler handler = new SportHandler();
-            handler.GetEvents();
+            handler.GetEvents(null);
 
             var redisClient = new RedisClient("localhost");
             var eventClient = redisClient.As<EventListModel>();

@@ -16,7 +16,7 @@
             [TestMethod]
             public void WhenCalledItShouldFetchInformationFromAllSources()
             {
-                ItineraryStorage storage = new ItineraryStorage();
+                RedisStorage storage = new RedisStorage();
                 storage.PrimeCache();
 
                 var redisClient = new RedisClient("localhost");

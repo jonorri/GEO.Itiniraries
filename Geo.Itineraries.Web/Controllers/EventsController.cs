@@ -32,8 +32,8 @@ namespace Geo.Itineraries.Web.Controllers
                 return string.Empty; // TODO: KRAPP THIS IS NOT RIGHT. THIS SHOULD RETURN AN ERROR INSTEAD
             }
 
-            var latitudePosition = double.Parse(position.Split(':')[0], CultureInfo.InvariantCulture);
-            var longitudePosition = double.Parse(position.Split(':')[1], CultureInfo.InvariantCulture);
+            var latitudePosition = double.Parse(model.Position.Split(':')[0], CultureInfo.InvariantCulture);
+            var longitudePosition = double.Parse(model.Position.Split(':')[1], CultureInfo.InvariantCulture);
 
             IList<EventTypes> eventTypes = new List<EventTypes>();
             if (model.Categories.Keys.Contains("Movies") && (model.Categories["Movies"] as string[]).FirstOrDefault() == "true")

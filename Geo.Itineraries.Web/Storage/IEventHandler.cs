@@ -8,8 +8,6 @@ namespace Geo.Itineraries.Web.Storage
 {
     public abstract class IEventHandler
     {
-        public abstract void GetEvents();
-
         protected void UpdateRedis(EventListModel eventModels)
         {
             // TODO: KRAPP THIS SHOULD BE AN UPDATE NOT A BLIND STORE
