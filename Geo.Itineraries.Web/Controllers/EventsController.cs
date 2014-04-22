@@ -27,6 +27,8 @@ namespace Geo.Itineraries.Web.Controllers
         // TODO: KRAPP THIS SHOULD BY ALL MEANS NOT JUST RETURN A JSON STRING
         public string Get(GetEventModel model)
         {
+            // TODO: KRAPP FIND OUT HOW TO CONTROL THE MAPS ZOOM CONCERNING THE METERS
+
             if (!ModelState.IsValid || model == null)
             {
                 return string.Empty; // TODO: KRAPP THIS IS NOT RIGHT. THIS SHOULD RETURN AN ERROR INSTEAD
