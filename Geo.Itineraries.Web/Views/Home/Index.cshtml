@@ -17,26 +17,20 @@
 </div>
 
 <h3>Movies</h3>
-<div class="check">
-    <input id="chkMovies" class="check" type="checkbox" value="1">
-    <label for="chkMovies"></label>
-</div>        
-<h3>Theater</h3>
-<div class="check">
-    <input id="chkTheater" class="check" type="checkbox" value="1">
-    <label for="chkTheater"></label>
-</div>
-<h3>Concerts</h3>
-<div class="check">
-    <input id="chkConcerts" class="check" type="checkbox" value="1">
-    <label for="chkConcerts"></label>
-</div>
-<h3>Sports</h3>
-<div class="check">
-    <input id="chkSports" class="check" type="checkbox" value="1">
-    <label for="chkSports"></label>
-</div>
-
+<!--TODO: KRAPP AM TRYING TO STYLE FROM HERE: http://montrezorro.github.io/bootstrap-checkbox/ -->
+<label class="checkbox-inline">
+    <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
+</label>
+<label class="checkbox-inline">
+    <input type="checkbox" id="chkTheater" class="style3" value="option2"> Theater
+</label>
+<label class="checkbox-inline">
+    <input type="checkbox" id="chkConcerts" class="style3" value="option3"> Concerts
+</label>
+<label class="checkbox-inline">
+    <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
+</label>
+<br />
 <label for=radiusSlider>Time:</label>
 <input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
 <datalist id=timeTickmarks>
