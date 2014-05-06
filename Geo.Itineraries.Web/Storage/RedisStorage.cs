@@ -22,19 +22,11 @@
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
-                // KRAPP FIX THIS
-                var eventListModels = FetchFromRedis(category);
-                if (eventListModels != null)
-                {
-                    var krapp = eventListModels.EventModels;
-                    list.EventModels.AddRange(krapp);
-                }
+                var eventListModels = this.FetchFromRedis(category);
+                list.EventModels.AddRange(eventListModels.EventModels);
             }
 
             // TODO: KRAPP SEPERATE THE STORAGE AND THE HANDLERS
-
-            // TODO: KRAPP SAFEGURAD THIS AGAINST A REDIS FAILURE
-
             list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
 
             // TODO: KRAPP THIS FAILS BADLY IF THERE IS NO VENUE DEFINED
@@ -75,10 +67,17 @@
         /// <returns>An event list model</returns>
         private EventListModel FetchFromRedis(EventTypes eventType)
         {
-            var redisClient = new RedisClient("localhost");
-            var eventClient = redisClient.As<EventListModel>();
+            try
+            {
+                var redisClient = new RedisClient("localhost");
+                var eventClient = redisClient.As<EventListModel>();
 
-            return eventClient.GetById((int)eventType);
+                return eventClient.GetById((int)eventType);
+            }
+            catch (Exception)
+            {
+                return new EventListModel();
+            }
         }
 
         private void UpdateRedis(EventListModel eventModels)
@@ -92,7 +91,7 @@
 
                 eventClient.Store(eventModels);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // TODO: KRAPP SWALLOW ALL EXCEPTIONS
             }
