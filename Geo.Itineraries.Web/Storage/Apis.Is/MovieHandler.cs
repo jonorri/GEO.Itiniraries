@@ -31,8 +31,6 @@
                     var venues = ManuallyGetVenues(content2.Results);
                     var venueShowTimes = ManualGetShowtimes(venues, content2.Results);
                     
-                    // TODO: KRAPP REMOVE AND LOG OUT ALL MISSING VENUES
-
                     updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
                 }
             }

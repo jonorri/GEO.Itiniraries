@@ -33,7 +33,7 @@
             // TODO: KRAPP SEPERATE THE STORAGE AND THE HANDLERS
             list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
 
-            // TODO: KRAPP THIS FAILS BADLY IF THERE IS NO VENUE DEFINED
+            list.EventModels.RemoveAll(x => x.Venue == null);
             list.EventModels.RemoveAll(x => !IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
 
             return list;
