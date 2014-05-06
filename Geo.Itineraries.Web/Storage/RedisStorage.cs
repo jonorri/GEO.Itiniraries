@@ -33,7 +33,8 @@ namespace Geo.Itineraries.Web.Storage
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
-                var eventListModels = this.FetchFromRedis(category);
+                var eventListModels = this.FetchFromRedis(category) ?? new EventListModel();
+                
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
 
