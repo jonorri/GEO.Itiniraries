@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.Models
+﻿// <copyright file="CategoryModel.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Models
 {
     /// <summary>
     /// Category model

@@ -108,7 +108,7 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
     /// <summary>
     /// Class to keep track of venue show times
     /// </summary>
-    private class VenueShowTime
+    public class VenueShowTime
     {
         /// <summary>
         /// Gets or sets the venue

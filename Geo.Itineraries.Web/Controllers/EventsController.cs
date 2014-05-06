@@ -1,38 +1,45 @@
-﻿// <copyright file="FilterConfig.cs" company="CCP hf.">
+﻿// <copyright file="EventsController.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-using Geo.Itineraries.Web.Models;
-using Geo.Itineraries.Web.Storage;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Geo.Itineraries.Models;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using System.Device.Location;
-using System.Globalization;
-
 namespace Geo.Itineraries.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Device.Location;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Geo.Itineraries.Web.Models;
+    using Geo.Itineraries.Web.Storage;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// The events controller
+    /// </summary>
     public class EventsController : Controller
     {
+        /// <summary>
+        /// The IItineraryStorage implementation to use
+        /// </summary>
         private readonly IItineraryStorage itineraryStorage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventsController"/> class.
+        /// </summary>
         public EventsController()
         {
-            itineraryStorage = new RedisStorage();
+            this.itineraryStorage = new RedisStorage();
         }
 
-        // TODO: KRAPP THIS SHOULD BY ALL MEANS NOT JUST RETURN A JSON STRING
+        /// <summary>
+        /// The get model returns a filtered list of all events that are happening
+        /// </summary>
+        /// <param name="model">Get event model filters out all unnecessary events</param>
+        /// <returns>A JSON string</returns>
         public string Get(GetEventModel model)
         {
+            // TODO: KRAPP THIS SHOULD BY ALL MEANS NOT JUST RETURN A JSON STRING
             // TODO: KRAPP FIND OUT HOW TO CONTROL THE MAPS ZOOM CONCERNING THE METERS
-
             if (!ModelState.IsValid || model == null)
             {
                 return string.Empty; // TODO: KRAPP THIS IS NOT RIGHT. THIS SHOULD RETURN AN ERROR INSTEAD

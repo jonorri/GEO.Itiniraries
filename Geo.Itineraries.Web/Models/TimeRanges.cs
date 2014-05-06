@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.Web.Models
+﻿// <copyright file="TimeRanges.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Models
 {
     /// <summary>
     /// Time ranges supported by the system
@@ -41,7 +45,7 @@
         NextWeek = 168,
 
         /// <summary>
-        /// All
+        /// All events
         /// </summary>
         All = 999999
     }

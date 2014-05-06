@@ -4,9 +4,9 @@
 
 namespace Geo.Itineraries.Web.Helpers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Geo.Itineraries.Web.Models;
-    using System.Collections.Generic;
     
     /// <summary>
     /// The venue helper provides helper methods for venues
@@ -19,13 +19,14 @@ namespace Geo.Itineraries.Web.Helpers
         private static Dictionary<string, VenueModel> venues = new Dictionary<string, VenueModel>();
 
         /// <summary>
-        /// Initializes a new instance of the VenueHelper
+        /// Initializes static members of the <see cref="VenueHelper" /> class."/>
         /// </summary>
         static VenueHelper()
         {
             // THIS SHOULD BE STORED SOMEWHERE FOR EASY UPDATE/ACCESS
             venues.Add("BORGARBÍÓ", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
             venues.Add("BORGARBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
+
             // TODO: KRAPP THIS IS NOT AT THE CORRECT PLACE
             venues.Add("SAMBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
             venues.Add("SAMBÍÓIN_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });

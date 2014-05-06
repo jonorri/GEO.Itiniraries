@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Mvc;
+﻿// <copyright file="GeoController.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace Geo.Itineraries.Web.Controllers
 {
+    using System.Web.Mvc;
+
+    /// <summary>
+    /// The geo controller
+    /// </summary>
     public class GeoController : Controller
     {
+        /// <summary>
+        /// The index method returns the geo index view
+        /// </summary>
+        /// <returns>The index view</returns>
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
     }
 }

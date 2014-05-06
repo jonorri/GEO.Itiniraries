@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.Web.Models
+﻿// <copyright file="VenueModel.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Models
 {
     using System;
     using System.Runtime.Serialization;

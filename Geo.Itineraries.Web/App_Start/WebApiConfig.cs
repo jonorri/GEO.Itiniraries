@@ -1,9 +1,20 @@
-﻿namespace Geo.Itineraries.Web
+﻿// <copyright file="WebApiConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web
 {
     using System.Web.Http;
     
+    /// <summary>
+    /// Web API config
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers the HTTP config
+        /// </summary>
+        /// <param name="config">HTTP config to register</param>
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();

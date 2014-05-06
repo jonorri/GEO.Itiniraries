@@ -1,17 +1,23 @@
-﻿using Geo.Itineraries.Web.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Timers;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
+﻿// <copyright file="Global.asax.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace Geo.Itineraries.Web
 {
+    using System.Timers;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using Geo.Itineraries.Web.Storage;
+
+    /// <summary>
+    /// The MVC application
+    /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// The application start method
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,13 +27,18 @@ namespace Geo.Itineraries.Web
 
             Timer primeCacheTimer = new Timer();
             primeCacheTimer.Interval = 3600000;
-            primeCacheTimer.Elapsed += primeCacheTimer_Elapsed;
+            primeCacheTimer.Elapsed += this.PrimeCacheTimer_Elapsed;
             primeCacheTimer.Start();
 
-            this.primeCacheTimer_Elapsed(null, null);
+            this.PrimeCacheTimer_Elapsed(null, null);
         }
 
-        void primeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)
+        /// <summary>
+        /// The prime cache timer elapsed event handler
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The elapsed event argument</param>
+        private void PrimeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             RedisStorage storage = new RedisStorage();
             storage.PrimeCache();
