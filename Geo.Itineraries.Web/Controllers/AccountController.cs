@@ -53,7 +53,7 @@ namespace Geo.Itineraries.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 }
             }
 
@@ -87,7 +87,7 @@ namespace Geo.Itineraries.Web.Controllers
                 }
                 else
                 {
-                    AddErrors(result);
+                    this.AddErrors(result);
                 }
             }
 
@@ -123,7 +123,7 @@ namespace Geo.Itineraries.Web.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
+                : string.Empty;
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
@@ -149,7 +149,7 @@ namespace Geo.Itineraries.Web.Controllers
                     }
                     else
                     {
-                        AddErrors(result);
+                        this.AddErrors(result);
                     }
                 }
             }
@@ -171,7 +171,7 @@ namespace Geo.Itineraries.Web.Controllers
                     }
                     else
                     {
-                        AddErrors(result);
+                        this.AddErrors(result);
                     }
                 }
             }
@@ -276,7 +276,8 @@ namespace Geo.Itineraries.Web.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                AddErrors(result);
+
+                this.AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -368,11 +369,11 @@ namespace Geo.Itineraries.Web.Controllers
         {
             if (Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl);
+                return this.Redirect(returnUrl);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Index", "Home");
             }
         }
 

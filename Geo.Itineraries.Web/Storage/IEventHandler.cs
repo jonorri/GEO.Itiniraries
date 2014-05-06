@@ -1,30 +1,21 @@
-﻿using Geo.Itineraries.Web.Models;
-using ServiceStack.Redis;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿// <copyright file="IEventHandler.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace Geo.Itineraries.Web.Storage
 {
+    using System;
+    using Geo.Itineraries.Web.Models;
+
+    /// <summary>
+    /// The event handler interface
+    /// </summary>
     public abstract class IEventHandler
     {
-        protected void UpdateRedis(EventListModel eventModels)
-        {
-            // TODO: KRAPP THIS SHOULD BE AN UPDATE NOT A BLIND STORE
-            
-            try
-            {
-                var redisClient = new RedisClient("localhost");
-                var eventClient = redisClient.As<EventListModel>();
-
-                eventClient.Store(eventModels);
-            }
-            catch (Exception)
-            {
-                // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
-            }
-            
-        }
+        /// <summary>
+        /// Gets events and stores them in REDIS
+        /// </summary>
+        /// <param name="updateStorage">The method to call to update the storage</param>
         public abstract void GetEvents(Action<EventListModel> updateStorage);
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.Web.Storage.ApisIs
+﻿// <copyright file="ConcertHandler.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Storage.ApisIs
 {
     using System;
     using System.Net.Http;
@@ -6,6 +10,9 @@
     using Geo.Itineraries.Web.Models;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The concert event handler
+    /// </summary>
     public class ConcertHandler : IEventHandler
     {
         /// <summary>

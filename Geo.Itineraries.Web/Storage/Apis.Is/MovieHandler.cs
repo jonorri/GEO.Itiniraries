@@ -1,20 +1,28 @@
-﻿namespace Geo.Itineraries.Web.Storage.ApisIs
+﻿// <copyright file="MovieHandler.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Storage.ApisIs
 {
-    using Geo.Itineraries.Models;
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Threading.Tasks;
-    using Newtonsoft.Json;
-    using Geo.Itineraries.Web.Helpers;
-    using Geo.Itineraries.Models.ApisIs;
-    using Geo.Itineraries.Web.Models;
-    using ServiceStack.Redis;
     using System.Text;
+    using Geo.Itineraries.Models.ApisIs;
+    using Geo.Itineraries.Web.Helpers;
+    using Geo.Itineraries.Web.Models;
+    using Newtonsoft.Json;
 
+    /// <summary>
+    /// The movie event handler
+    /// </summary>
     public class MovieHandler : IEventHandler
     {
+        /// <summary>
+        /// Gets movie events and stores them in REDIS
+        /// </summary>
+        /// <param name="updateStorage">The method to call to update the storage</param>
         public override void GetEvents(Action<EventListModel> updateStorage)
         {
             using (HttpClient client = new HttpClient())
@@ -28,8 +36,8 @@
                     var content = result.Content.ReadAsStringAsync().Result;
                     var content2 = JsonConvert.DeserializeObject<MovieListModel>(content);
 
-                    var venues = ManuallyGetVenues(content2.Results);
-                    var venueShowTimes = ManualGetShowtimes(venues, content2.Results);
+                    var venues = this.ManuallyGetVenues(content2.Results);
+                    var venueShowTimes = this.ManualGetShowtimes(venues, content2.Results);
                     
                     updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
                 }
@@ -37,10 +45,10 @@
         }
 
         /// <summary>
-        /// Manually gets show times from the response from the apis.is web service
+        /// Manually gets show times from the response from the APIS.is web service
         /// This is a bit of a hack. Will refactor later if needed
         /// </summary>
-        /// <param name="venues">Venues to find showtimes for</param>
+        /// <param name="venues">Venues to find show times for</param>
         /// <param name="movieModels">Movie models</param>
         /// <returns>List of venue show times</returns>
         private IList<VenueShowTime> ManualGetShowtimes(HashSet<string> venues, ICollection<MovieModel> movieModels)
@@ -74,7 +82,7 @@
         }
 
         /// <summary>
-        /// This manually gets venues from the response from the apis.is web service.
+        /// This manually gets venues from the response from the APIS.is web service.
         /// This is a bit of a manual approach. Will refactor later if needed
         /// </summary>
         /// <param name="collection">Collection to find venues from</param>
@@ -82,9 +90,9 @@
         private HashSet<string> ManuallyGetVenues(ICollection<MovieModel> collection)
         {
             HashSet<string> hash = new HashSet<string>();
-            foreach(var movie in collection)
+            foreach (var movie in collection)
             {
-                foreach(var showtime in movie.ShowTimes)
+                foreach (var showtime in movie.ShowTimes)
                 {
                     if (!hash.Contains(showtime.Theater))
                     {
@@ -97,12 +105,24 @@
         }
     }
 
-    class VenueShowTime
+    /// <summary>
+    /// Class to keep track of venue show times
+    /// </summary>
+    private class VenueShowTime
     {
+        /// <summary>
+        /// Gets or sets the venue
+        /// </summary>
         public string Venue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the show times
+        /// </summary>
         public IList<DateTime> ShowTimes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the venue description
+        /// </summary>
         public string VenueDescription { get; set; }
     }
 }

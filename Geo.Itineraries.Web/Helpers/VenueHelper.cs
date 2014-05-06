@@ -1,15 +1,26 @@
-﻿using Geo.Itineraries.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// <copyright file="VenueHelper.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace Geo.Itineraries.Web.Helpers
 {
+    using System.Linq;
+    using Geo.Itineraries.Web.Models;
+    using System.Collections.Generic;
+    
+    /// <summary>
+    /// The venue helper provides helper methods for venues
+    /// </summary>
     public static class VenueHelper
     {
-        private static Dictionary<string, VenueModel> venues = new Dictionary<string,VenueModel>();
+        /// <summary>
+        /// All venues the system keeps track of
+        /// </summary>
+        private static Dictionary<string, VenueModel> venues = new Dictionary<string, VenueModel>();
 
+        /// <summary>
+        /// Initializes a new instance of the VenueHelper
+        /// </summary>
         static VenueHelper()
         {
             // THIS SHOULD BE STORED SOMEWHERE FOR EASY UPDATE/ACCESS

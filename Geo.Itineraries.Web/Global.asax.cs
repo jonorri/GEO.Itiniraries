@@ -24,7 +24,7 @@ namespace Geo.Itineraries.Web
             primeCacheTimer.Elapsed += primeCacheTimer_Elapsed;
             primeCacheTimer.Start();
 
-            primeCacheTimer_Elapsed(null, null);
+            this.primeCacheTimer_Elapsed(null, null);
         }
 
         void primeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)

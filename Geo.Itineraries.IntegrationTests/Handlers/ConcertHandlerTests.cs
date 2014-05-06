@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.IntegrationTests.Handlers
+﻿// <copyright file="FilterConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.IntegrationTests.Handlers
 {
     using System;
     using System.Linq;

@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.IntegrationTests.Storage
+﻿// <copyright file="FilterConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.IntegrationTests.Storage
 {
     using System;
     using System.Linq;

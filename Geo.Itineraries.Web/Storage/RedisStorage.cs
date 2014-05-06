@@ -1,4 +1,8 @@
-﻿namespace Geo.Itineraries.Web.Storage
+﻿// <copyright file="RedisStorage.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Storage
 {
     using System;
     using System.Collections.Generic;
@@ -8,10 +12,13 @@
     using Geo.Itineraries.Web.Models;
     using ServiceStack.Redis;
 
+    /// <summary>
+    /// REDIS storage
+    /// </summary>
     public class RedisStorage : IItineraryStorage
     {
         /// <summary>
-        /// This method gets events from Redis and filters out based on parameters
+        /// This method gets events from REDIS and filters out based on parameters
         /// </summary>
         /// <param name="position">GEO coordination</param>
         /// <param name="hourRange">Hour range</param>
@@ -34,9 +41,20 @@
             list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
 
             list.EventModels.RemoveAll(x => x.Venue == null);
-            list.EventModels.RemoveAll(x => !IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
+            list.EventModels.RemoveAll(x => !this.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
 
             return list;
+        }
+
+        /// <summary>
+        /// Primes the REDIS storage layer with data from APIS.is
+        /// </summary>
+        public void PrimeCache()
+        {
+            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(this.UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(this.UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(this.UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(this.UpdateRedis));
         }
 
         /// <summary>
@@ -51,17 +69,6 @@
             var distance = GeoHelpers.DistanceBetween(venueModel.Latitude, venueModel.Longitude, position.Latitude, position.Longitude);
 
             return distance < metersInRadius;
-        }
-
-        /// <summary>
-        /// Primes the redis storage layer with data from apis.is
-        /// </summary>
-        public void PrimeCache()
-        {
-            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateRedis));
         }
 
         /// <summary>
@@ -85,9 +92,9 @@
         }
 
         /// <summary>
-        /// Updates Redis with the event list model
+        /// Updates REDIS with the event list model
         /// </summary>
-        /// <param name="eventModels">Event list model to update Redis with</param>
+        /// <param name="eventModels">Event list model to update REDIS with</param>
         private void UpdateRedis(EventListModel eventModels)
         {
             try
@@ -101,7 +108,6 @@
             {
                 // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }
-
         }
     }
 }

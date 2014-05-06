@@ -1,4 +1,8 @@
-﻿using Geo.Itineraries.Web.Models;
+﻿// <copyright file="FilterConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+using Geo.Itineraries.Web.Models;
 using Geo.Itineraries.Web.Storage;
 using System;
 using System.Threading.Tasks;
