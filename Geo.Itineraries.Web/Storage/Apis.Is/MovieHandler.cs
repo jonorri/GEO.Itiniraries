@@ -31,6 +31,8 @@
                     // TODO: KRAPP STOP WITH THE MANUAL APPROACH
                     var venues = ManuallyGetVenuesMAJORHACK(content2.Results);
                     var venueShowTimes = ManualGetShowtimesMAJORHACK(venues, content2.Results);
+                    
+                    // TODO: KRAPP REMOVE AND LOG OUT ALL MISSING VENUES
 
                     updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
                 }

@@ -1,19 +1,23 @@
 ﻿namespace Geo.Itineraries.Web.Storage
 {
-    using Geo.Itineraries.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Device.Location;
+    using System.Threading.Tasks;
     using Geo.Itineraries.Web.Helpers;
     using Geo.Itineraries.Web.Models;
     using ServiceStack.Redis;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Device.Location;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class RedisStorage : IItineraryStorage
     {
+        /// <summary>
+        /// This method gets events from Redis and filters out based on parameters
+        /// </summary>
+        /// <param name="position">GEO coordination</param>
+        /// <param name="hourRange">Hour range</param>
+        /// <param name="radiusRange">Radius range</param>
+        /// <param name="categories">Event categories</param>
+        /// <returns>An event list model</returns>
         public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, RadiusRanges radiusRange, IList<EventTypes> categories)
         {
             var redisClient = new RedisClient("localhost");
@@ -80,10 +84,13 @@
             }
         }
 
+        /// <summary>
+        /// Updates Redis with the event list model
+        /// </summary>
+        /// <param name="eventModels">Event list model to update Redis with</param>
         private void UpdateRedis(EventListModel eventModels)
         {
             // TODO: KRAPP THIS SHOULD BE AN UPDATE NOT A BLIND STORE
-
             try
             {
                 var redisClient = new RedisClient("localhost");
@@ -93,7 +100,7 @@
             }
             catch (Exception)
             {
-                // TODO: KRAPP SWALLOW ALL EXCEPTIONS
+                // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }
 
         }

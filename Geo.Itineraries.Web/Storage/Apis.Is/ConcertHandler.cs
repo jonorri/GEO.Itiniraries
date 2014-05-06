@@ -1,18 +1,17 @@
-﻿using Geo.Itineraries.Models.ApisIs;
-using Geo.Itineraries.Web.Helpers;
-using Geo.Itineraries.Web.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace Geo.Itineraries.Web.Storage.ApisIs
+﻿namespace Geo.Itineraries.Web.Storage.ApisIs
 {
+    using System;
+    using System.Net.Http;
+    using Geo.Itineraries.Models.ApisIs;
+    using Geo.Itineraries.Web.Models;
+    using Newtonsoft.Json;
+
     public class ConcertHandler : IEventHandler
     {
+        /// <summary>
+        /// Gets concert events from APIS.is
+        /// </summary>
+        /// <param name="updateStorage">Update storage action to run with the fetched events</param>
         public override async void GetEvents(Action<EventListModel> updateStorage)
         {
             using (HttpClient client = new HttpClient())
@@ -24,7 +23,7 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
                 {
                     // TODO: KRAPP DO SOMETHING ELSE WHEN I DON'T GET NEW INFORMATION.
                     var content = await result.Content.ReadAsStringAsync();
-                    var content2 = JsonConvert.DeserializeObject<ConcertListModel>(content);    
+                    var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content)
                 }
             }
         }
