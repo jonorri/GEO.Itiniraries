@@ -19,7 +19,7 @@ namespace Geo.Itineraries.Web.Storage
 
                 eventClient.Store(eventModels);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }

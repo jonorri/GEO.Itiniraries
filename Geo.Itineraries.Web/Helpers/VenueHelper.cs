@@ -15,7 +15,7 @@ namespace Geo.Itineraries.Web.Helpers
             // THIS SHOULD BE STORED SOMEWHERE FOR EASY UPDATE/ACCESS
             venues.Add("BORGARBÍÓ", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
             venues.Add("BORGARBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
-            // todo: KRAPP THIS IS NOT AT THE CORRECT PLACE
+            // TODO: KRAPP THIS IS NOT AT THE CORRECT PLACE
             venues.Add("SAMBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
             venues.Add("SAMBÍÓIN_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
             venues.Add("KEX", new VenueModel { VenueId = 1, VenueName = "KEX Hostel", Latitude = 64.145537, Longitude = -21.919487, Location = "Reykjavík" });
@@ -41,6 +41,11 @@ namespace Geo.Itineraries.Web.Helpers
             venues.Add("HARPA", new VenueModel { VenueId = 2, VenueName = "Harpan", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
         }
 
+        /// <summary>
+        /// Gets venue model for a certain venue name string
+        /// </summary>
+        /// <param name="venue">Venue to get the model for</param>
+        /// <returns>Venue model</returns>
         public static VenueModel GetVenueModel(string venue)
         {
             if (venues.Keys.Any(x => x == venue.ToUpper().Replace(' ', '_')))
@@ -48,7 +53,7 @@ namespace Geo.Itineraries.Web.Helpers
                 return venues[venue.ToUpper().Replace(' ', '_')];
             }
             
-            // TODO: KRAPP NOTIFY OF A MISSING VENUE
+            // TODO: KRAPP NOTIFY OF A MISSING VENUE LOG TO REDIS
             return null;
         }
     }

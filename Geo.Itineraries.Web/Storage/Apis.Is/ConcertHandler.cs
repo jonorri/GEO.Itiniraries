@@ -23,7 +23,7 @@
                 {
                     // TODO: KRAPP DO SOMETHING ELSE WHEN I DON'T GET NEW INFORMATION.
                     var content = await result.Content.ReadAsStringAsync();
-                    var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content)
+                    var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
                 }
             }
         }

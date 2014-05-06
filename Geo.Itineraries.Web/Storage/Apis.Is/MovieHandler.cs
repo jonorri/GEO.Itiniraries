@@ -28,9 +28,8 @@
                     var content = result.Content.ReadAsStringAsync().Result;
                     var content2 = JsonConvert.DeserializeObject<MovieListModel>(content);
 
-                    // TODO: KRAPP STOP WITH THE MANUAL APPROACH
-                    var venues = ManuallyGetVenuesMAJORHACK(content2.Results);
-                    var venueShowTimes = ManualGetShowtimesMAJORHACK(venues, content2.Results);
+                    var venues = ManuallyGetVenues(content2.Results);
+                    var venueShowTimes = ManualGetShowtimes(venues, content2.Results);
                     
                     // TODO: KRAPP REMOVE AND LOG OUT ALL MISSING VENUES
 
@@ -39,7 +38,14 @@
             }
         }
 
-        private IList<VenueShowTime> ManualGetShowtimesMAJORHACK(HashSet<string> venues, ICollection<MovieModel> movieModels)
+        /// <summary>
+        /// Manually gets show times from the response from the apis.is web service
+        /// This is a bit of a hack. Will refactor later if needed
+        /// </summary>
+        /// <param name="venues">Venues to find showtimes for</param>
+        /// <param name="movieModels">Movie models</param>
+        /// <returns>List of venue show times</returns>
+        private IList<VenueShowTime> ManualGetShowtimes(HashSet<string> venues, ICollection<MovieModel> movieModels)
         {
             var list = new List<VenueShowTime>();
             
@@ -69,7 +75,13 @@
             return list;
         }
 
-        private HashSet<string> ManuallyGetVenuesMAJORHACK(ICollection<MovieModel> collection)
+        /// <summary>
+        /// This manually gets venues from the response from the apis.is web service.
+        /// This is a bit of a manual approach. Will refactor later if needed
+        /// </summary>
+        /// <param name="collection">Collection to find venues from</param>
+        /// <returns>A hash set of venues</returns>
+        private HashSet<string> ManuallyGetVenues(ICollection<MovieModel> collection)
         {
             HashSet<string> hash = new HashSet<string>();
             foreach(var movie in collection)

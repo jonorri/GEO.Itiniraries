@@ -90,7 +90,6 @@
         /// <param name="eventModels">Event list model to update Redis with</param>
         private void UpdateRedis(EventListModel eventModels)
         {
-            // TODO: KRAPP THIS SHOULD BE AN UPDATE NOT A BLIND STORE
             try
             {
                 var redisClient = new RedisClient("localhost");
