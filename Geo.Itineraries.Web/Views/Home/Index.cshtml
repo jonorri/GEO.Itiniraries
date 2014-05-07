@@ -180,8 +180,9 @@
                 });
         };
     };
+
     $(document).ready(function () {
         $("#btnSearch").click(updateMap);
-        $('#radiusSlider').slider().on('slideStop', function () { updateMap() });
+        $('#radiusSlider').slider().on('slideStop', updateMap);
     });
 </script>
