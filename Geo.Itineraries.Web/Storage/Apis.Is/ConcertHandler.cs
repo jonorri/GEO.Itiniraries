@@ -26,12 +26,13 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
                 client.DefaultRequestHeaders.Add("Accept-Version", "1");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 var result = await client.GetAsync("http://apis.is/concerts");
-                if (result.IsSuccessStatusCode)
+                if (!result.IsSuccessStatusCode)
                 {
-                    // TODO: KRAPP DO SOMETHING ELSE WHEN I DON'T GET NEW INFORMATION.
-                    var content = await result.Content.ReadAsStringAsync();
-                    var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
+                    return;
                 }
+
+                var content = await result.Content.ReadAsStringAsync();
+                var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
             }
         }
     }

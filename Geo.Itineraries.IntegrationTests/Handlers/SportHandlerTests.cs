@@ -17,6 +17,9 @@ namespace Geo.Itineraries.IntegrationTests.Handlers
         [TestMethod]
         public void UpdatesRedisWithData()
         {
+            bool updateStorageWasInvoked = false;
+            Action<EventListModel> action = x => updateStorageWasInvoked = true;
+
             SportHandler handler = new SportHandler();
             handler.GetEvents(null);
 
@@ -25,6 +28,7 @@ namespace Geo.Itineraries.IntegrationTests.Handlers
 
             var all = eventClient.GetAll();
             Assert.IsTrue(all.Where(x => x.Id == (int)EventTypes.Sports).Any());
+            Assert.IsTrue(updateStorageWasInvoked);
         }
     }
 }

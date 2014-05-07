@@ -154,7 +154,6 @@
     $("#btnSearch").click(function () {
         jQuery.support.cors = true;
 
-        var position;
         navigator.geolocation.getCurrentPosition(getEvents);
 
         function getEvents(position) {
@@ -172,7 +171,7 @@
             dict["Sports"] = $("#chkSports").is(':checked');
 
             dataSet.categories = dict;
-            // TODO: KRAPP TEST THIS THOROUGHLY
+
             $.ajax(
                 {
                     type: "GET",
@@ -181,17 +180,11 @@
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
-                        // TODO: KRAPP THE HOME POSITION ISNT DISPLAYING PROPERLY
-                        myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        mapOptions = {
-                            zoom: 15,
-                            center: myLatlng
-                        }
+                        homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15, center: homePosition });
 
-                        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                        homeMarker = new google.maps.Marker({
-                            position: myLatlng,
+                        var homeMarker = new google.maps.Marker({
+                            position: homePosition,
                             map: map,
                             title: "You are here"
                         });
@@ -212,6 +205,18 @@
                             });
 
                         });
+
+                        var circ = new google.maps.Circle({
+                            map: map,
+                            radius: dataSet.radiusRange,
+                            fillColor: '#008000'
+                        });
+                        circ.setCenter(homePosition);
+                        
+                        map.fitBounds(circ.getBounds());
+
+                        // updates markers
+                        //google.maps.event.trigger(map, 'dragend');
                     },
                     error: function (msg, url, line) {
                         alert('error trapped in error: function(msg, url, line)');

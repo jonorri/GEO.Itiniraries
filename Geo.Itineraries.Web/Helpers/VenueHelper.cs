@@ -27,8 +27,7 @@ namespace Geo.Itineraries.Web.Helpers
             venues.Add("BORGARBÍÓ", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
             venues.Add("BORGARBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Borgarbíó", Latitude = 61.323728, Longitude = 135.263672, Location = "Akureyri" });
 
-            // TODO: KRAPP THIS IS NOT AT THE CORRECT PLACE
-            venues.Add("SAMBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
+            venues.Add("SAMBÍÓ_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.682879, Longitude = -18.090517, Location = "Akureyri" });
             venues.Add("SAMBÍÓIN_AKUREYRI", new VenueModel { VenueId = 2, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
             venues.Add("KEX", new VenueModel { VenueId = 1, VenueName = "KEX Hostel", Latitude = 64.145537, Longitude = -21.919487, Location = "Reykjavík" });
             venues.Add("GAMLI_GAUKUR", new VenueModel { VenueId = 2, VenueName = "Gamli Gaukurinn", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });

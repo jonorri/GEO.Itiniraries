@@ -12,6 +12,7 @@ namespace Geo.Itineraries.Web.Controllers
     using Geo.Itineraries.Web.Models;
     using Geo.Itineraries.Web.Storage;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// The events controller
@@ -36,13 +37,12 @@ namespace Geo.Itineraries.Web.Controllers
         /// </summary>
         /// <param name="model">Get event model filters out all unnecessary events</param>
         /// <returns>A JSON string</returns>
-        public string Get(GetEventModel model)
+        public JObject Get(GetEventModel model)
         {
-            // TODO: KRAPP THIS SHOULD BY ALL MEANS NOT JUST RETURN A JSON STRING
             // TODO: KRAPP FIND OUT HOW TO CONTROL THE MAPS ZOOM CONCERNING THE METERS
             if (!ModelState.IsValid || model == null)
             {
-                return string.Empty; // TODO: KRAPP THIS IS NOT RIGHT. THIS SHOULD RETURN AN ERROR INSTEAD
+                return new JObject();
             }
 
             var latitudePosition = double.Parse(model.Position.Split(':')[0], CultureInfo.InvariantCulture);
@@ -69,7 +69,7 @@ namespace Geo.Itineraries.Web.Controllers
                 eventTypes.Add(EventTypes.Sports);
             }
 
-            return JsonConvert.SerializeObject(this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.HourRange, model.RadiusRange, eventTypes));
+            return JObject.FromObject(this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.HourRange, model.RadiusRange, eventTypes));
         }
     }
 }

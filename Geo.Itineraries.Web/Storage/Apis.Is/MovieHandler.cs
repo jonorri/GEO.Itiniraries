@@ -30,17 +30,19 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
                 client.DefaultRequestHeaders.Add("Accept-Version", "1");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 var result = client.GetAsync("http://apis.is/cinema").Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    // TODO: KRAPP REVERSE THIS THROW SOME SORT OF INFORMATION OUT IF THE HTTP REQUEST FAILS
-                    var content = result.Content.ReadAsStringAsync().Result;
-                    var content2 = JsonConvert.DeserializeObject<MovieListModel>(content);
 
-                    var venues = this.ManuallyGetVenues(content2.Results);
-                    var venueShowTimes = this.ManualGetShowtimes(venues, content2.Results);
-                    
-                    updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
+                if (!result.IsSuccessStatusCode)
+                {
+                    return;
                 }
+
+                var content = result.Content.ReadAsStringAsync().Result;
+                var content2 = JsonConvert.DeserializeObject<MovieListModel>(content);
+
+                var venues = this.ManuallyGetVenues(content2.Results);
+                var venueShowTimes = this.ManualGetShowtimes(venues, content2.Results);
+
+                updateStorage(new EventListModel { EventModels = venueShowTimes.Select(x => new EventModel { EventName = x.Venue, EventDescription = x.VenueDescription, Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = x.ShowTimes.Min() }).ToList(), Id = (int)EventTypes.Movies });
             }
         }
 

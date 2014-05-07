@@ -17,14 +17,18 @@ namespace Geo.Itineraries.IntegrationTests.Handlers
         [TestMethod]
         public void UpdatesRedisWithData()
         {
+            bool updateStorageWasInvoked = false;
+            Action<EventListModel> action = x => updateStorageWasInvoked = true;
+
             SportHandler handler = new SportHandler();
-            handler.GetEvents(null);
+            handler.GetEvents(action);
 
             var redisClient = new RedisClient("localhost");
             var eventClient = redisClient.As<EventListModel>();
 
             var all = eventClient.GetAll();
             Assert.IsTrue(all.Where(x => x.Id == (int)EventTypes.Concert).Any());
+            Assert.IsTrue(updateStorageWasInvoked);
         }
     }
 }

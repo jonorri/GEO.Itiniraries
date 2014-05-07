@@ -38,7 +38,6 @@ namespace Geo.Itineraries.Web.Storage
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
 
-            // TODO: KRAPP SEPERATE THE STORAGE AND THE HANDLERS
             list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
 
             list.EventModels.RemoveAll(x => x.Venue == null);

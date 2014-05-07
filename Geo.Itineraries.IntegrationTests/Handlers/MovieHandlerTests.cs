@@ -17,15 +17,18 @@ namespace Geo.Itineraries.IntegrationTests.Handlers
         [TestMethod]
         public void UpdatesRedisWithData()
         {
+            bool updateStorageWasInvoked = false;
+            Action<EventListModel> action = x => updateStorageWasInvoked = true;
+
             MovieHandler handler = new MovieHandler();
-            // TODO: KRAPP IN ALL TESTS THIS SHOULDN'T BE NULL BUT A VERIFIABLE METHOD
-            handler.GetEvents(null);
+            handler.GetEvents(action);
 
             var redisClient = new RedisClient("localhost");
             var eventClient = redisClient.As<EventListModel>();
 
             var all = eventClient.GetAll();
             Assert.IsTrue(all.Where(x => x.Id == (int)EventTypes.Movies).Any());
+            Assert.IsTrue(updateStorageWasInvoked);
         }
     }
 }
