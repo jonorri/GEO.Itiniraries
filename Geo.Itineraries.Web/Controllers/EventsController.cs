@@ -39,7 +39,6 @@ namespace Geo.Itineraries.Web.Controllers
         /// <returns>A JSON string</returns>
         public JObject Get(GetEventModel model)
         {
-            // TODO: KRAPP FIND OUT HOW TO CONTROL THE MAPS ZOOM CONCERNING THE METERS
             if (!ModelState.IsValid || model == null)
             {
                 return new JObject();
