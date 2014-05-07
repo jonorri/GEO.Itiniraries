@@ -4,3 +4,5 @@
     checkedClass: 'icon-check',
     uncheckedClass: 'icon-check-empty'
 });
+
+$('#radiusSlider').slider();

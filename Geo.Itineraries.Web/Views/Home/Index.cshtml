@@ -12,11 +12,6 @@
     <h1>GEO Stuff</h1>
 </div>
 
-<div id="log">
-
-</div>
-
-<h3>Movies</h3>
 <!--TODO: KRAPP AM TRYING TO STYLE FROM HERE: http://montrezorro.github.io/bootstrap-checkbox/ -->
 <label class="checkbox-inline">
     <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
@@ -31,7 +26,8 @@
     <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
 </label>
 <br />
-<label for=radiusSlider>Time:</label>
+
+<label for=timeSlider>Time:</label>
 <input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
 <datalist id=timeTickmarks>
     <option>1</option>
@@ -45,22 +41,14 @@
 </datalist>
 <output for=timeSlider id=time>Now</output>
 
-<br />
+<hr />
 
-<label for=radiusSlider>Radius:</label>
-<input type=range id=radiusSlider min=1 max=8 value=1 step=1 list=radiusTickmarks onchange="updateRadiusOutput(value)">
-<datalist id=radiusTickmarks>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-</datalist>
-<output for=radiusSlider id=radius>100m</output>
-
+<!--
+    TODO: KRAPP GET THIS SLIDER INSTEAD
+    http://www.eyecon.ro/bootstrap-slider/
+-->
+<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
+<hr />
 <input type="button" id="btnSearch" value="Search" />
 <hr />
 
@@ -101,14 +89,6 @@
         document.querySelector('#time').value = stringValue;
     }
 
-    function updateRadiusOutput(value) {
-        document.querySelector('#radius').value = getMeters(value) + 'm';
-    }
-
-    function log(value) {
-        $('#log').append(value);
-    }
-
     function getHours(value) {
         switch (value) {
             case 1:
@@ -129,29 +109,8 @@
                 return 999999;
         }
     };
-
-    function getMeters(value) {
-        switch (value) {
-            case '1':
-                return 100;
-            case '2':
-                return 250;
-            case '3':
-                return 500;
-            case '4':
-                return 1000;
-            case '5':
-                return 5000;
-            case '6':
-                return 10000;
-            case '7':
-                return 15000;
-            default:
-                return 999999;
-        }
-    }
-
-    $("#btnSearch").click(function () {
+    
+    var updateMap = function () {
         jQuery.support.cors = true;
 
         navigator.geolocation.getCurrentPosition(getEvents);
@@ -161,7 +120,7 @@
             var dataSet = {};
 
             dataSet.position = position.coords.latitude + ":" + position.coords.longitude;
-            dataSet.radiusRange = getMeters(document.getElementById("radiusSlider").value);
+            dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
             dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
 
             var dict = new Object();
@@ -224,5 +183,7 @@
                     }
                 });
         };
-    });
+    };
+
+    $("#btnSearch").click(updateMap);
 </script>

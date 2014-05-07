@@ -33,11 +33,13 @@ namespace Geo.Itineraries.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-checkbox.js",
+                      "~/Scripts/bootstrap-slider.js",
                       "~/Scripts/geo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-checkbox.css",
+                      "~/Content/bootstrap-slider.css",
                       "~/Content/site.css"));
         }
     }
