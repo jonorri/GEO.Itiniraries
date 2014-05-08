@@ -203,6 +203,7 @@
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\EventTypes.cs" />
     <Compile Include="Models\GetEventModel.cs" />
+    <Compile Include="Models\MissingVenueModel.cs" />
     <Compile Include="Models\RadiusRanges.cs" />
     <Compile Include="Models\TimeRanges.cs" />
     <Compile Include="Models\VenueModel.cs" />

@@ -27,9 +27,6 @@ namespace Geo.Itineraries.Web.Storage
         /// <returns>An event list model</returns>
         public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, RadiusRanges radiusRange, IList<EventTypes> categories)
         {
-            var redisClient = new RedisClient("localhost");
-            var eventClient = redisClient.As<EventListModel>();
-
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
@@ -41,9 +38,19 @@ namespace Geo.Itineraries.Web.Storage
             list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
 
             list.EventModels.RemoveAll(x => x.Venue == null);
-            list.EventModels.RemoveAll(x => !this.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
+            list.EventModels.RemoveAll(x => !VenueHelper.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
 
             return list;
+        }
+
+        public void StoreMissingVenue(string venueName)
+        {
+            var redisClient = new RedisClient("localhost");
+            var eventClient = redisClient.As<MissingVenueModel>();
+
+            MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
+
+            eventClient.Store(missingVenue);
         }
 
         /// <summary>
@@ -55,20 +62,6 @@ namespace Geo.Itineraries.Web.Storage
             Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(this.UpdateRedis));
             Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(this.UpdateRedis));
             Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(this.UpdateRedis));
-        }
-
-        /// <summary>
-        /// Checks whether a certain venue is within some radius
-        /// </summary>
-        /// <param name="venueModel">Venue model to check</param>
-        /// <param name="position">Geo coordinate position</param>
-        /// <param name="metersInRadius">Radius to filter by</param>
-        /// <returns>True / False</returns>
-        private bool IsVenueWithinRadius(VenueModel venueModel, GeoCoordinate position, int metersInRadius)
-        {
-            var distance = GeoHelpers.DistanceBetween(venueModel.Latitude, venueModel.Longitude, position.Latitude, position.Longitude);
-
-            return distance < metersInRadius;
         }
 
         /// <summary>
@@ -99,6 +92,7 @@ namespace Geo.Itineraries.Web.Storage
         {
             try
             {
+                // TODO: KRAPP THE REDIS CLIENT HOST SHOULD BE CONFIGURABLE
                 var redisClient = new RedisClient("localhost");
                 var eventClient = redisClient.As<EventListModel>();
 

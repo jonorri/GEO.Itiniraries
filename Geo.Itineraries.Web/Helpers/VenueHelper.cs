@@ -7,6 +7,8 @@ namespace Geo.Itineraries.Web.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using Geo.Itineraries.Web.Models;
+    using Geo.Itineraries.Web.Storage;
+    using System.Device.Location;
     
     /// <summary>
     /// The venue helper provides helper methods for venues
@@ -63,9 +65,24 @@ namespace Geo.Itineraries.Web.Helpers
             {
                 return venues[venue.ToUpper().Replace(' ', '_')];
             }
-            
-            // TODO: KRAPP NOTIFY OF A MISSING VENUE LOG TO REDIS
+
+            RedisStorage redisStorage = new RedisStorage();
+            redisStorage.StoreMissingVenue(venue);
             return null;
+        }
+
+        /// <summary>
+        /// Checks whether a certain venue is within some radius
+        /// </summary>
+        /// <param name="venueModel">Venue model to check</param>
+        /// <param name="position">Geo coordinate position</param>
+        /// <param name="metersInRadius">Radius to filter by</param>
+        /// <returns>True / False</returns>
+        public static bool IsVenueWithinRadius(VenueModel venueModel, GeoCoordinate position, int metersInRadius)
+        {
+            var distance = GeoHelpers.DistanceBetween(venueModel.Latitude, venueModel.Longitude, position.Latitude, position.Longitude);
+
+            return distance < metersInRadius;
         }
     }
 }
