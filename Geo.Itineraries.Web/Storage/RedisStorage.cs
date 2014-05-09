@@ -43,6 +43,10 @@ namespace Geo.Itineraries.Web.Storage
             return list;
         }
 
+        /// <summary>
+        /// Stores a missing venue in REDIS
+        /// </summary>
+        /// <param name="venueName">Venue that is missing</param>
         public void StoreMissingVenue(string venueName)
         {
             var redisClient = new RedisClient("localhost");

@@ -53,6 +53,11 @@
 </div>
 
 <script>
+    var circ = null;
+    var homePosition = null;
+    var homeMarker = null;
+    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
+
     function updateTimeOutput(value) {
         var stringValue;
         switch (value) {
@@ -105,84 +110,95 @@
                 return 999999;
         }
     };
-    
+
+    var resetPosition = function () {
+        navigator.geolocation.getCurrentPosition(setHomeMarker);
+
+        function setHomeMarker(position) {
+            homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(homePosition);
+
+            homeMarker = new google.maps.Marker({
+                position: homePosition,
+                map: map,
+                title: "You are here",
+                draggable: true
+            });
+
+            google.maps.event.addListener(
+                homeMarker,
+                'dragend',
+                function () {
+                    homePosition = homeMarker;
+                    updateMap();
+                }
+            );
+        }
+    };
+
     var updateMap = function () {
         jQuery.support.cors = true;
+        var dataSet = {};
 
-        navigator.geolocation.getCurrentPosition(getEvents);
+        dataSet.position = homePosition.A + ":" + homePosition.k;
+        dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
+        dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
 
-        function getEvents(position) {
+        var dict = new Object();
+        dict["Concerts"] = $("#chkConcerts").is(':checked');
+        dict["Movies"] = $("#chkMovies").is(':checked');
+        dict["Theater"] = $("#chkTheater").is(':checked');
+        dict["Sports"] = $("#chkSports").is(':checked');
 
-            var dataSet = {};
+        dataSet.categories = dict;
 
-            dataSet.position = position.coords.latitude + ":" + position.coords.longitude;
-            dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
-            dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
+        if (circ != null) {
+            circ.setMap(null);
+        }
 
-            var dict = new Object();
-            dict["Concerts"] = $("#chkConcerts").is(':checked');
-            dict["Movies"] = $("#chkMovies").is(':checked');
-            dict["Theater"] = $("#chkTheater").is(':checked');
-            dict["Sports"] = $("#chkSports").is(':checked');
+        circ = new google.maps.Circle({
+            map: map,
+            radius: dataSet.radiusRange,
+            fillColor: '#008000'
+        });
+        circ.setCenter(homePosition);
 
-            dataSet.categories = dict;
+        map.fitBounds(circ.getBounds());
 
-            $.ajax(
-                {
-                    type: "GET",
-                    url: 'http://localhost:57022/events/get',
-                    data: dataSet,
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (data) {
-                        homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15, center: homePosition });
-
-                        var homeMarker = new google.maps.Marker({
-                            position: homePosition,
-                            map: map,
-                            title: "You are here"
+        $.ajax(
+            {
+                type: "GET",
+                url: 'http://localhost:57022/events/get',
+                data: dataSet,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data["EventModels"], function (i, theItem) {
+                        var infowindow = new google.maps.InfoWindow({
+                            content: theItem["EventDescription"]
                         });
 
-                        $.each(data["EventModels"], function (i, theItem) {
-                            var infowindow = new google.maps.InfoWindow({
-                                content: theItem["EventDescription"]
-                            });
-
-                            var marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
-                                map: map,
-                                title: theItem["EventName"]
-                            });
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
+                            map: map,
+                            title: theItem["EventName"]
+                        });
                             
-                            google.maps.event.addListener(marker, 'click', function () {
-                                infowindow.open(map, marker);
-                            });
-
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.open(map, marker);
                         });
 
-                        var circ = new google.maps.Circle({
-                            map: map,
-                            radius: dataSet.radiusRange,
-                            fillColor: '#008000'
-                        });
-                        circ.setCenter(homePosition);
-                        
-                        map.fitBounds(circ.getBounds());
-
-                        // updates markers
-                        //google.maps.event.trigger(map, 'dragend');
-                    },
-                    error: function (msg, url, line) {
-                        alert('error trapped in error: function(msg, url, line)');
-                        alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
-                    }
-                });
-        };
+                    });
+                },
+                error: function (msg, url, line) {
+                    alert('error trapped in error: function(msg, url, line)');
+                    alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+                }
+            });
     };
 
     $(document).ready(function () {
-        $("#btnSearch").click(updateMap);
+        $("#btnSearch").click(resetPosition());
         $('#radiusSlider').slider().on('slideStop', updateMap);
     });
 </script>
