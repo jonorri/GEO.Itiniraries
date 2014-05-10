@@ -8,10 +8,6 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
-<div class="jumbotron">
-    <h1>GEO Stuff</h1>
-</div>
-
 <!--TODO: KRAPP AM TRYING TO STYLE FROM HERE: http://montrezorro.github.io/bootstrap-checkbox/ -->
 <label class="checkbox-inline">
     <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
@@ -45,7 +41,7 @@
 
 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
 <hr />
-<input type="button" id="btnSearch" value="Search" />
+<input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
 <hr />
 
 <div class="row">
@@ -54,9 +50,23 @@
 
 <script>
     var circ = null;
-    var homePosition = null;
-    var homeMarker = null;
-    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
+    var homePosition = new google.maps.LatLng(64.149168, -21.941145);
+    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15, center: homePosition });
+    var homeMarker = new google.maps.Marker({
+        position: homePosition,
+        map: map,
+        title: "You are here",
+        draggable: true
+    });
+
+    google.maps.event.addListener(
+        homeMarker,
+        'dragend',
+        function () {
+            homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
+            updateMap();
+        }
+    );;
 
     function updateTimeOutput(value) {
         var stringValue;
@@ -111,13 +121,14 @@
         }
     };
 
-    var resetPosition = function () {
+    function resetPosition() {
         navigator.geolocation.getCurrentPosition(setHomeMarker);
 
         function setHomeMarker(position) {
+            console.debug(position);
             homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(homePosition);
-
+            homeMarker.setMap(null);
             homeMarker = new google.maps.Marker({
                 position: homePosition,
                 map: map,
@@ -129,14 +140,14 @@
                 homeMarker,
                 'dragend',
                 function () {
-                    homePosition = homeMarker;
+                    homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
                     updateMap();
                 }
             );
         }
     };
 
-    var updateMap = function () {
+    function updateMap () {
         jQuery.support.cors = true;
         var dataSet = {};
 
@@ -177,7 +188,7 @@
                         var infowindow = new google.maps.InfoWindow({
                             content: theItem["EventDescription"]
                         });
-
+                        console.log(theItem);
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
                             map: map,
@@ -198,7 +209,6 @@
     };
 
     $(document).ready(function () {
-        $("#btnSearch").click(resetPosition());
-        $('#radiusSlider').slider().on('slideStop', updateMap);
+        //$('#radiusSlider').slider().on('slideStop', updateMap);
     });
 </script>
