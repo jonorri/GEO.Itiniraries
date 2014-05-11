@@ -7,201 +7,210 @@
     -->
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
 <!--TODO: KRAPP AM TRYING TO STYLE FROM HERE: http://montrezorro.github.io/bootstrap-checkbox/ -->
-<label class="checkbox-inline">
-    <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
-</label>
-<label class="checkbox-inline">
-    <input type="checkbox" id="chkTheater" class="style3" value="option2"> Theater
-</label>
-<label class="checkbox-inline">
-    <input type="checkbox" id="chkConcerts" class="style3" value="option3"> Concerts
-</label>
-<label class="checkbox-inline">
-    <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
-</label>
-<br />
-
-<label for=timeSlider>Time:</label>
-<input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
-<datalist id=timeTickmarks>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-</datalist>
-<output for=timeSlider id=time>Now</output>
-
-<hr />
-
-<input type="text" class="span2" value="1000" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
-<hr />
-<input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
-<hr />
-
-<div class="row">
-    <div id="map-canvas"></div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
+            </label>
+        </div>
+        <div class="span3">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="chkTheater" class="style3" value="option2"> Theater
+            </label>
+        </div>
+        <div class="span3">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="chkConcerts" class="style3" value="option3"> Concerts
+            </label>
+        </div>
+        <div class="span3">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
+            </label>
+        </div>
+    </div>
 </div>
+    <div class="span9">
+        <label for=timeSlider>Time:</label>
+        <input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
+        <datalist id=timeTickmarks>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+        </datalist>
+        <output for=timeSlider id=time>Now</output>
+    </div>
 
-<script>
-    var circ = null;
-    var homePosition = new google.maps.LatLng(64.149168, -21.941145);
-    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
-    var homeMarker = new google.maps.Marker({
-        position: homePosition,
-        map: map
-    });
+    <div class="span9">
+        <input type="text" class="span2" value="1000" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
+    </div>
+    <div class="span1">
+        <input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
+    </div>
 
-    setHomeMarkerAndCircle();
+    <div id="map-canvas" class="span9"></div>
 
-    function setHomeMarkerAndCircle() {
-        map.setCenter(homePosition);
-        homeMarker.setMap(null);
-        homeMarker = new google.maps.Marker({
+    <script>
+        var circ = null;
+        var homePosition = new google.maps.LatLng(64.149168, -21.941145);
+        var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
+        var homeMarker = new google.maps.Marker({
             position: homePosition,
-            map: map,
-            title: "You are here",
-            draggable: true
+            map: map
         });
 
-        google.maps.event.addListener(
-            homeMarker,
-            'dragend',
-            function () {
-                homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
+        setHomeMarkerAndCircle();
+
+        function setHomeMarkerAndCircle() {
+            map.setCenter(homePosition);
+            homeMarker.setMap(null);
+            homeMarker = new google.maps.Marker({
+                position: homePosition,
+                map: map,
+                title: "You are here",
+                draggable: true
+            });
+
+            google.maps.event.addListener(
+                homeMarker,
+                'dragend',
+                function () {
+                    homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
+                    setHomeMarkerAndCircle();
+                    updateMap();
+                }
+            );
+            if (circ != null) {
+                circ.setMap(null);
+            }
+
+            circ = new google.maps.Circle({
+                map: map,
+                radius: parseInt(document.getElementById("radiusSlider").value),
+                fillColor: '#008000'
+            });
+            circ.setCenter(homePosition);
+
+            map.fitBounds(circ.getBounds());
+        }
+
+        function updateTimeOutput(value) {
+            var stringValue;
+            switch (value) {
+                case "1":
+                    stringValue = "Now";
+                    break;
+                case "2":
+                    stringValue = "Next 3 Hours";
+                    break;
+                case "3":
+                    stringValue = "Next 6 Hours";
+                    break;
+                case "4":
+                    stringValue = "Next 12 Hours";
+                    break;
+                case "5":
+                    stringValue = "Next Day";
+                    break;
+                case "6":
+                    stringValue = "Next 3 Days";
+                    break;
+                case "7":
+                    stringValue = "Next Week";
+                    break;
+                default:
+                    stringValue = "All";
+                    break;
+            }
+
+            document.querySelector('#time').value = stringValue;
+        }
+
+        function getHours(value) {
+            switch (value) {
+                case 1:
+                    return 1;
+                case 2:
+                    return 3;
+                case 3:
+                    return 6;
+                case 4:
+                    return 12;
+                case 5:
+                    return 24;
+                case 6:
+                    return 72;
+                case 7:
+                    return 168;
+                default:
+                    return 999999;
+            }
+        };
+
+        function resetPosition() {
+            navigator.geolocation.getCurrentPosition(setHomeMarker);
+
+            function setHomeMarker(position) {
+                homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
                 setHomeMarkerAndCircle();
+
                 updateMap();
             }
-        );
-        if (circ != null) {
-            circ.setMap(null);
-        }
+        };
 
-        circ = new google.maps.Circle({
-            map: map,
-            radius: parseInt(document.getElementById("radiusSlider").value),
-            fillColor: '#008000'
-        });
-        circ.setCenter(homePosition);
+        function updateMap() {
+            jQuery.support.cors = true;
+            var dataSet = {};
 
-        map.fitBounds(circ.getBounds());
-    }
+            dataSet.position = homeMarker.position.k + ":" + homeMarker.position.A;
+            dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
+            dataSet.hourRange = getHours(document.getElementById("timeSlider").value);
 
-    function updateTimeOutput(value) {
-        var stringValue;
-        switch (value) {
-            case "1":
-                stringValue = "Now";
-                break;
-            case "2":
-                stringValue = "Next 3 Hours";
-                break;
-            case "3":
-                stringValue = "Next 6 Hours";
-                break;
-            case "4":
-                stringValue = "Next 12 Hours";
-                break;
-            case "5":
-                stringValue = "Next Day";
-                break;
-            case "6":
-                stringValue = "Next 3 Days";
-                break;
-            case "7":
-                stringValue = "Next Week";
-                break;
-            default:
-                stringValue = "All";
-                break;
-        }
+            var dict = new Object();
+            dict["Concerts"] = $("#chkConcerts").is(':checked');
+            dict["Movies"] = $("#chkMovies").is(':checked');
+            dict["Theater"] = $("#chkTheater").is(':checked');
+            dict["Sports"] = $("#chkSports").is(':checked');
 
-        document.querySelector('#time').value = stringValue;
-    }
+            dataSet.categories = dict;
 
-    function getHours(value) {
-        switch (value) {
-            case 1:
-                return 1;
-            case 2:
-                return 3;
-            case 3:
-                return 6;
-            case 4:
-                return 12;
-            case 5:
-                return 24;
-            case 6:
-                return 72;
-            case 7:
-                return 168;
-            default:
-                return 999999;
-        }
-    };
+            $.ajax(
+                {
+                    type: "GET",
+                    url: 'http://localhost:57022/events/get',
+                    data: dataSet,
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data["EventModels"], function (i, theItem) {
+                            var infowindow = new google.maps.InfoWindow({
+                                content: theItem["EventDescription"]
+                            });
+                            console.log(theItem);
+                            var marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
+                                map: map,
+                                title: theItem["EventName"]
+                            });
 
-    function resetPosition() {
-        navigator.geolocation.getCurrentPosition(setHomeMarker);
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
 
-        function setHomeMarker(position) {
-            homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            
-            setHomeMarkerAndCircle();
-
-            updateMap();
-        }
-    };
-
-    function updateMap () {
-        jQuery.support.cors = true;
-        var dataSet = {};
-
-        dataSet.position = homeMarker.position.k + ":" + homeMarker.position.A;
-        dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
-        dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
-
-        var dict = new Object();
-        dict["Concerts"] = $("#chkConcerts").is(':checked');
-        dict["Movies"] = $("#chkMovies").is(':checked');
-        dict["Theater"] = $("#chkTheater").is(':checked');
-        dict["Sports"] = $("#chkSports").is(':checked');
-
-        dataSet.categories = dict;
-
-        $.ajax(
-            {
-                type: "GET",
-                url: 'http://localhost:57022/events/get',
-                data: dataSet,
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    $.each(data["EventModels"], function (i, theItem) {
-                        var infowindow = new google.maps.InfoWindow({
-                            content: theItem["EventDescription"]
                         });
-                        console.log(theItem);
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
-                            map: map,
-                            title: theItem["EventName"]
-                        });
-                            
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.open(map, marker);
-                        });
-
-                    });
-                },
-                error: function (msg, url, line) {
-                    alert('error trapped in error: function(msg, url, line)');
-                    alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
-                }
-            });
-    };
-</script>
+                    },
+                    error: function (msg, url, line) {
+                        alert('error trapped in error: function(msg, url, line)');
+                        alert('msg = ' + msg + ', url = ' + url + ', line = ' + line);
+                    }
+                });
+        };
+    </script>
