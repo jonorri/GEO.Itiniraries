@@ -52,6 +52,7 @@
     var circ = null;
     var homePosition = new google.maps.LatLng(64.149168, -21.941145);
     var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15, center: homePosition });
+    // TODO: KRAPP DRY THIS OUT WITH THE RESET POSITION STUFF
     var homeMarker = new google.maps.Marker({
         position: homePosition,
         map: map,
@@ -66,7 +67,16 @@
             homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
             updateMap();
         }
-    );;
+    );
+
+    circ = new google.maps.Circle({
+        map: map,
+        radius: dataSet.radiusRange,
+        fillColor: '#008000'
+    });
+    circ.setCenter(homePosition);
+
+    map.fitBounds(circ.getBounds());
 
     function updateTimeOutput(value) {
         var stringValue;
@@ -144,6 +154,17 @@
                     updateMap();
                 }
             );
+
+            circ = new google.maps.Circle({
+                map: map,
+                radius: dataSet.radiusRange,
+                fillColor: '#008000'
+            });
+            circ.setCenter(homePosition);
+
+            map.fitBounds(circ.getBounds());
+
+            updateMap();
         }
     };
 
@@ -151,7 +172,7 @@
         jQuery.support.cors = true;
         var dataSet = {};
 
-        dataSet.position = homePosition.A + ":" + homePosition.k;
+        dataSet.position = homeMarker.position.k + ":" + homeMarker.position.A;
         dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
         dataSet.hourRange = getHours(document.getElementById("timeSlider").value); 
 
@@ -166,15 +187,6 @@
         if (circ != null) {
             circ.setMap(null);
         }
-
-        circ = new google.maps.Circle({
-            map: map,
-            radius: dataSet.radiusRange,
-            fillColor: '#008000'
-        });
-        circ.setCenter(homePosition);
-
-        map.fitBounds(circ.getBounds());
 
         $.ajax(
             {
@@ -207,8 +219,4 @@
                 }
             });
     };
-
-    $(document).ready(function () {
-        //$('#radiusSlider').slider().on('slideStop', updateMap);
-    });
 </script>
