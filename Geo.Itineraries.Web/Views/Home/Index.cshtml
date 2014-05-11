@@ -39,7 +39,7 @@
 
 <hr />
 
-<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
+<input type="text" class="span2" value="1000" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
 <hr />
 <input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
 <hr />
@@ -51,32 +51,46 @@
 <script>
     var circ = null;
     var homePosition = new google.maps.LatLng(64.149168, -21.941145);
-    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15, center: homePosition });
-    // TODO: KRAPP DRY THIS OUT WITH THE RESET POSITION STUFF
+    var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
     var homeMarker = new google.maps.Marker({
         position: homePosition,
-        map: map,
-        title: "You are here",
-        draggable: true
+        map: map
     });
 
-    google.maps.event.addListener(
-        homeMarker,
-        'dragend',
-        function () {
-            homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
-            updateMap();
+    setHomeMarkerAndCircle();
+
+    function setHomeMarkerAndCircle() {
+        map.setCenter(homePosition);
+        homeMarker.setMap(null);
+        homeMarker = new google.maps.Marker({
+            position: homePosition,
+            map: map,
+            title: "You are here",
+            draggable: true
+        });
+
+        google.maps.event.addListener(
+            homeMarker,
+            'dragend',
+            function () {
+                homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
+                setHomeMarkerAndCircle();
+                updateMap();
+            }
+        );
+        if (circ != null) {
+            circ.setMap(null);
         }
-    );
 
-    circ = new google.maps.Circle({
-        map: map,
-        radius: dataSet.radiusRange,
-        fillColor: '#008000'
-    });
-    circ.setCenter(homePosition);
+        circ = new google.maps.Circle({
+            map: map,
+            radius: parseInt(document.getElementById("radiusSlider").value),
+            fillColor: '#008000'
+        });
+        circ.setCenter(homePosition);
 
-    map.fitBounds(circ.getBounds());
+        map.fitBounds(circ.getBounds());
+    }
 
     function updateTimeOutput(value) {
         var stringValue;
@@ -135,34 +149,9 @@
         navigator.geolocation.getCurrentPosition(setHomeMarker);
 
         function setHomeMarker(position) {
-            console.debug(position);
             homePosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(homePosition);
-            homeMarker.setMap(null);
-            homeMarker = new google.maps.Marker({
-                position: homePosition,
-                map: map,
-                title: "You are here",
-                draggable: true
-            });
-
-            google.maps.event.addListener(
-                homeMarker,
-                'dragend',
-                function () {
-                    homePosition = new google.maps.LatLng(homeMarker.position.k, homeMarker.position.A);
-                    updateMap();
-                }
-            );
-
-            circ = new google.maps.Circle({
-                map: map,
-                radius: dataSet.radiusRange,
-                fillColor: '#008000'
-            });
-            circ.setCenter(homePosition);
-
-            map.fitBounds(circ.getBounds());
+            
+            setHomeMarkerAndCircle();
 
             updateMap();
         }
@@ -183,10 +172,6 @@
         dict["Sports"] = $("#chkSports").is(':checked');
 
         dataSet.categories = dict;
-
-        if (circ != null) {
-            circ.setMap(null);
-        }
 
         $.ajax(
             {
