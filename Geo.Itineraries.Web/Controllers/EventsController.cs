@@ -68,7 +68,8 @@ namespace Geo.Itineraries.Web.Controllers
                 eventTypes.Add(EventTypes.Sports);
             }
 
-            return JObject.FromObject(this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.HourRange, model.RadiusRange, eventTypes));
+            var events = this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.HourRange, model.RadiusRange, eventTypes);
+            return JObject.FromObject(events);
         }
     }
 }

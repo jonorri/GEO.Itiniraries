@@ -25,7 +25,7 @@ namespace Geo.Itineraries.Web.Storage
         /// <param name="radiusRange">Radius range</param>
         /// <param name="categories">Event categories</param>
         /// <returns>An event list model</returns>
-        public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, RadiusRanges radiusRange, IList<EventTypes> categories)
+        public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, int radiusRange, IList<EventTypes> categories)
         {
             EventListModel list = new EventListModel();
             foreach (var category in categories)
@@ -49,7 +49,7 @@ namespace Geo.Itineraries.Web.Storage
         /// <param name="venueName">Venue that is missing</param>
         public void StoreMissingVenue(string venueName)
         {
-            var redisClient = new RedisClient("localhost");
+            var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
             var eventClient = redisClient.As<MissingVenueModel>();
 
             MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
@@ -77,7 +77,7 @@ namespace Geo.Itineraries.Web.Storage
         {
             try
             {
-                var redisClient = new RedisClient("localhost");
+                var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
                 var eventClient = redisClient.As<EventListModel>();
 
                 return eventClient.GetById((int)eventType);
@@ -96,8 +96,7 @@ namespace Geo.Itineraries.Web.Storage
         {
             try
             {
-                // TODO: KRAPP THE REDIS CLIENT HOST SHOULD BE CONFIGURABLE
-                var redisClient = new RedisClient("localhost");
+                var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
                 var eventClient = redisClient.As<EventListModel>();
 
                 eventClient.Store(eventModels);

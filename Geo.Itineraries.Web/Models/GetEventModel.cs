@@ -19,7 +19,9 @@ namespace Geo.Itineraries.Web.Models
         /// <summary>
         /// Gets or sets the radius range to get by
         /// </summary>
-        public RadiusRanges RadiusRange { get; set; }
+        public int RadiusRange { get; set; }
+
+        // TODO: KRAPP THE HOUR RANGE SHOULD BE A START END DATETIME
 
         /// <summary>
         /// Gets or sets the hour range to get by

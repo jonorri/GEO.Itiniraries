@@ -5,10 +5,10 @@
 namespace Geo.Itineraries.Web.Helpers
 {
     using System.Collections.Generic;
+    using System.Device.Location;
     using System.Linq;
     using Geo.Itineraries.Web.Models;
     using Geo.Itineraries.Web.Storage;
-    using System.Device.Location;
     
     /// <summary>
     /// The venue helper provides helper methods for venues

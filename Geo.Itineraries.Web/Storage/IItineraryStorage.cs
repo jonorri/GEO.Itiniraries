@@ -21,7 +21,7 @@ namespace Geo.Itineraries.Web.Storage
         /// <param name="radiusRange">Radius range</param>
         /// <param name="categories">Categories to get by</param>
         /// <returns>An event list model</returns>
-        EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, RadiusRanges radiusRange, IList<EventTypes> categories);
+        EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, int radiusRange, IList<EventTypes> categories);
 
         /// <summary>
         /// Primes the REDIS cache

@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Helpers\GeoHelpers.cs" />
     <Compile Include="Helpers\VenueHelper.cs" />
     <Compile Include="Models\Apis.Is\ConcertDateModel.cs" />
@@ -204,7 +205,6 @@
     <Compile Include="Models\EventTypes.cs" />
     <Compile Include="Models\GetEventModel.cs" />
     <Compile Include="Models\MissingVenueModel.cs" />
-    <Compile Include="Models\RadiusRanges.cs" />
     <Compile Include="Models\TimeRanges.cs" />
     <Compile Include="Models\VenueModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -253,7 +253,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

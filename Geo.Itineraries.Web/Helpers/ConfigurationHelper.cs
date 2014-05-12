@@ -1,0 +1,25 @@
+﻿// <copyright file="ConfigurationHelper.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
+
+namespace Geo.Itineraries.Web.Helpers
+{
+    using System.Configuration;
+
+    /// <summary>
+    /// Provides helper methods for accessing the configuration files.
+    /// </summary>
+    public static class ConfigurationHelper
+    {
+        /// <summary>
+        /// Gets the location of the REDIS database
+        /// </summary>
+        public static string RedisLocation 
+        { 
+            get 
+            { 
+                return ConfigurationManager.AppSettings["RedisLocation"]; 
+            } 
+        }
+    }
+}
