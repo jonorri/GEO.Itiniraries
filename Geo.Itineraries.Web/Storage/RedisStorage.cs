@@ -36,8 +36,8 @@ namespace Geo.Itineraries.Web.Storage
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
 
-            list.EventModels.RemoveAll(x => startDate > x.EventDate && endDate < x.EventDate);
-
+            list.EventModels.RemoveAll(x => endDate < x.EventDate || startDate > x.EventDate);
+            
             list.EventModels.RemoveAll(x => x.Venue == null);
             list.EventModels.RemoveAll(x => !VenueHelper.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
 

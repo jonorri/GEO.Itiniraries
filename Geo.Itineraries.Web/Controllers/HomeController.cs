@@ -26,8 +26,6 @@ namespace Geo.Itineraries.Web.Controllers
         /// <returns>The about view</returns>
         public ActionResult About()
         {
-            this.ViewBag.Message = "Your application description page.";
-
             return this.View();
         }
 
@@ -37,8 +35,6 @@ namespace Geo.Itineraries.Web.Controllers
         /// <returns>The contact view</returns>
         public ActionResult Contact()
         {
-            this.ViewBag.Message = "Your contact page.";
-
             return this.View();
         }
     }

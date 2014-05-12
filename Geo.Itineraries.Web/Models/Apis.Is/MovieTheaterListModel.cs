@@ -1,4 +1,4 @@
-﻿// <copyright file="MovieListModel.cs" company="CCP hf.">
+﻿// <copyright file="MovieTheaterListModel.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
@@ -7,17 +7,18 @@ namespace Geo.Itineraries.Models.ApisIs
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Geo.Itineraries.Web.Models.Apis.Is;
 
     /// <summary>
-    /// The movie list model
+    /// The movie theater list model
     /// </summary>
     [Serializable]
-    public class MovieListModel
+    public class MovieTheaterListModel
     {
         /// <summary>
         /// Gets or sets the results
         /// </summary>
         [DataMember(Name = "results")]
-        public ICollection<MovieModel> Results { get; set; }
+        public ICollection<MovieTheaterModel> Results { get; set; }
     }
 }

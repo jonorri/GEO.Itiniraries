@@ -9,6 +9,8 @@ $('#radiusSlider').slider();
 
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+$('#startDate').datepicker('setValue', nowTemp);
+$('#endDate').datepicker('setValue', nowTemp.setHours(nowTemp.getHours() + 48));
 
 var checkin = $('#startDate').datepicker({
     onRender: function (date) {
@@ -21,7 +23,7 @@ var checkin = $('#startDate').datepicker({
         checkout.setValue(newDate);
     }
     checkin.hide();
-    $('#endDAte')[0].focus();
+    $('#endDate')[0].focus();
 }).data('datepicker');
 var checkout = $('#endDate').datepicker({
     onRender: function (date) {
@@ -30,3 +32,4 @@ var checkout = $('#endDate').datepicker({
 }).on('changeDate', function (ev) {
     checkout.hide();
 }).data('datepicker');
+

@@ -196,8 +196,9 @@
     <Compile Include="Models\Apis.Is\ConcertDateModel.cs" />
     <Compile Include="Models\Apis.Is\ConcertListModel.cs" />
     <Compile Include="Models\Apis.Is\ConcertModel.cs" />
-    <Compile Include="Models\Apis.Is\MovieListModel.cs" />
     <Compile Include="Models\Apis.Is\MovieModel.cs" />
+    <Compile Include="Models\Apis.Is\MovieTheaterListModel.cs" />
+    <Compile Include="Models\Apis.Is\MovieTheaterModel.cs" />
     <Compile Include="Models\Apis.Is\ShowTimeModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\EventListModel.cs" />
