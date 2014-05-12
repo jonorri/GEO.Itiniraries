@@ -34,12 +34,14 @@ namespace Geo.Itineraries.Web
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-checkbox.js",
                       "~/Scripts/bootstrap-slider.js",
+                      "~/Scripts/bootstrap-datepicker.js",
                       "~/Scripts/geo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-checkbox.css",
                       "~/Content/bootstrap-slider.css",
+                      "~/Content/bootstrap-datepicker.css",
                       "~/Content/site.css"));
         }
     }

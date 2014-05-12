@@ -4,6 +4,7 @@
 
 namespace Geo.Itineraries.Web.Models
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -21,12 +22,9 @@ namespace Geo.Itineraries.Web.Models
         /// </summary>
         public int RadiusRange { get; set; }
 
-        // TODO: KRAPP THE HOUR RANGE SHOULD BE A START END DATETIME
+        public DateTime StartDate { get; set; }
 
-        /// <summary>
-        /// Gets or sets the hour range to get by
-        /// </summary>
-        public TimeRanges HourRange { get; set; }
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the categories to get by

@@ -31,20 +31,15 @@
         </label>
     </div>
 
-    <div class="span9">
-        <label for=timeSlider>Time:</label>
-        <input type=range id=timeSlider min=1 max=8 value=8 step=1 list=timeTickmarks onchange="updateTimeOutput(value)">
-        <datalist id=timeTickmarks>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-        </datalist>
-        <output for=timeSlider id=time>Now</output>
+    <div class="well">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Start date: <input type="text" class="span2" value="" id="startDate"></th>
+                    <th>End date: <input type="text" class="span2" value="" id="endDate"></th>
+                </tr>
+            </thead>
+        </table>
     </div>
 
     <div class="span9">
@@ -104,59 +99,6 @@
         map.fitBounds(circ.getBounds());
     }
 
-    function updateTimeOutput(value) {
-        var stringValue;
-        switch (value) {
-            case "1":
-                stringValue = "Now";
-                break;
-            case "2":
-                stringValue = "Next 3 Hours";
-                break;
-            case "3":
-                stringValue = "Next 6 Hours";
-                break;
-            case "4":
-                stringValue = "Next 12 Hours";
-                break;
-            case "5":
-                stringValue = "Next Day";
-                break;
-            case "6":
-                stringValue = "Next 3 Days";
-                break;
-            case "7":
-                stringValue = "Next Week";
-                break;
-            default:
-                stringValue = "All";
-                break;
-        }
-
-        document.querySelector('#time').value = stringValue;
-    }
-
-    function getHours(value) {
-        switch (value) {
-            case 1:
-                return 1;
-            case 2:
-                return 3;
-            case 3:
-                return 6;
-            case 4:
-                return 12;
-            case 5:
-                return 24;
-            case 6:
-                return 72;
-            case 7:
-                return 168;
-            default:
-                return 999999;
-        }
-    };
-
     function resetPosition() {
         navigator.geolocation.getCurrentPosition(setHomeMarker);
 
@@ -175,7 +117,8 @@
 
         dataSet.position = homeMarker.position.k + ":" + homeMarker.position.A;
         dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
-        dataSet.hourRange = getHours(document.getElementById("timeSlider").value);
+        dataSet.startDate = document.getElementById("startDate").value;
+        dataSet.endDate = document.getElementById("endDate").value;
 
         var dict = new Object();
         dict["Concerts"] = $("#chkConcerts").is(':checked');

@@ -4,6 +4,7 @@
 
 namespace Geo.Itineraries.Web.Storage
 {
+    using System;
     using System.Collections.Generic;
     using System.Device.Location;
     using Geo.Itineraries.Web.Models;
@@ -17,11 +18,12 @@ namespace Geo.Itineraries.Web.Storage
         /// Gets all events from the itinerary storage
         /// </summary>
         /// <param name="position">GEO coordinate position</param>
-        /// <param name="hourRange">Hour range to get by</param>
-        /// <param name="radiusRange">Radius range</param>
+        /// <param name="startDate">The start date to look for events</param>
+        /// <param name="endDate">The end date to look for events</param>
+        /// <param name="radiusRange">The radius in meters to search for events by</param>
         /// <param name="categories">Categories to get by</param>
         /// <returns>An event list model</returns>
-        EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, int radiusRange, IList<EventTypes> categories);
+        EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories);
 
         /// <summary>
         /// Primes the REDIS cache

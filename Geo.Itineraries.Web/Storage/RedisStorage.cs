@@ -21,11 +21,12 @@ namespace Geo.Itineraries.Web.Storage
         /// This method gets events from REDIS and filters out based on parameters
         /// </summary>
         /// <param name="position">GEO coordination</param>
-        /// <param name="hourRange">Hour range</param>
-        /// <param name="radiusRange">Radius range</param>
+        /// <param name="startDate">Start date</param>
+        /// <param name="endDate">End date</param>
+        /// <param name="radiusRange">Radius range in meters</param>
         /// <param name="categories">Event categories</param>
         /// <returns>An event list model</returns>
-        public EventListModel GetEvents(GeoCoordinate position, TimeRanges hourRange, int radiusRange, IList<EventTypes> categories)
+        public EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories)
         {
             EventListModel list = new EventListModel();
             foreach (var category in categories)
@@ -35,7 +36,7 @@ namespace Geo.Itineraries.Web.Storage
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
 
-            list.EventModels.RemoveAll(x => DateTime.UtcNow.AddHours((double)hourRange) < x.EventDate);
+            list.EventModels.RemoveAll(x => startDate > x.EventDate && endDate < x.EventDate);
 
             list.EventModels.RemoveAll(x => x.Venue == null);
             list.EventModels.RemoveAll(x => !VenueHelper.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
