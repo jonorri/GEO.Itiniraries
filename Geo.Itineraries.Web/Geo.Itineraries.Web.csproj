@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-checkbox.css" />
+    <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap-slider.css" />
@@ -223,10 +224,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\icons.png" />
     <Content Include="Scripts\bootstrap-checkbox.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-slider.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\slider.less" />
+    <Content Include="Content\datepicker.less" />
     <None Include="Properties\PublishProfiles\jokgeotest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\jokgeotest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
