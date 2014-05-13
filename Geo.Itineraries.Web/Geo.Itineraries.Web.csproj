@@ -222,6 +222,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap-slider.css" />
+    <Content Include="Content\movie.png" />
+    <Content Include="Content\music.png" />
+    <Content Include="Content\sport.png" />
+    <Content Include="Content\theater.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

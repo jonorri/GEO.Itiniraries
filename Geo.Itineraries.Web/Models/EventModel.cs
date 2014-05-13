@@ -56,6 +56,12 @@ namespace Geo.Itineraries.Web.Models
         public VenueModel Venue { get; set; }
 
         /// <summary>
+        /// Gets or sets the image url for the google maps marker
+        /// </summary>
+        [DataMember]
+        public string ImageUrl { get; set; }
+
+        /// <summary>
         /// Overrides the ToString() method for EventModels for logging
         /// </summary>
         /// <returns>The string representation of the event model</returns>

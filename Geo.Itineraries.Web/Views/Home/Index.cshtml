@@ -78,7 +78,7 @@
 <!-- TODO: KRAPP REFACTOR ALL THESE SCRIPTS OUT TO A SINGLE SCRIPT FILE -->
 <script>
     var circ = null;
-    var homePosition = new google.maps.LatLng(64.149168, -21.941145);
+    var homePosition = new google.maps.LatLng(64.149168, -21.941145); // This is the Kolaport the center of Icelandic events
     var map = new google.maps.Map(document.getElementById('map-canvas'), { zoom: 15 });
     var homeMarker = new google.maps.Marker({
         position: homePosition,
@@ -161,11 +161,20 @@
                         var infowindow = new google.maps.InfoWindow({
                             content: theItem["EventDescription"]
                         });
-                        console.log(theItem);
+
+                        var image = {
+                            url: theItem["ImageUrl"],
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(25, 25)
+                        };
+
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
                             map: map,
-                            title: theItem["EventName"]
+                            title: theItem["EventName"],
+                            icon: image
                         });
 
                         google.maps.event.addListener(marker, 'click', function () {

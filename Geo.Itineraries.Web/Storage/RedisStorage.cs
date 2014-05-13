@@ -11,6 +11,7 @@ namespace Geo.Itineraries.Web.Storage
     using Geo.Itineraries.Web.Helpers;
     using Geo.Itineraries.Web.Models;
     using ServiceStack.Redis;
+    using System.Text;
 
     /// <summary>
     /// REDIS storage
@@ -53,7 +54,7 @@ namespace Geo.Itineraries.Web.Storage
             var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
             var eventClient = redisClient.As<MissingVenueModel>();
 
-            MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
+            MissingVenueModel missingVenue = new MissingVenueModel { Id = BitConverter.ToInt32(Encoding.ASCII.GetBytes(venueName), 0), VenueName = venueName, DateMissing = DateTime.UtcNow };
 
             eventClient.Store(missingVenue);
         }
