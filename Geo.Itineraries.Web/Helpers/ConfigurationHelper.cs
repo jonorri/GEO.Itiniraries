@@ -21,5 +21,21 @@ namespace Geo.Itineraries.Web.Helpers
                 return ConfigurationManager.AppSettings["RedisLocation"]; 
             } 
         }
+
+        public static string RedisPassword
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RedisPrimaryKey"];
+            }
+        }
+
+        public static int RedisPort
+        {
+            get
+            {
+                return int.Parse(ConfigurationManager.AppSettings["RedisPort"]);
+            }
+        }
     }
 }

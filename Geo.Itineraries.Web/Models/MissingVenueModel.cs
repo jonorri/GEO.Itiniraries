@@ -12,11 +12,6 @@ namespace Geo.Itineraries.Web.Models
     public class MissingVenueModel
     {
         /// <summary>
-        /// Gets or sets the id of the missing venue model
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
         /// Gets or sets the venue name
         /// </summary>
         public string VenueName { get; set; }

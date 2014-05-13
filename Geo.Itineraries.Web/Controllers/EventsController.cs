@@ -20,19 +20,6 @@ namespace Geo.Itineraries.Web.Controllers
     public class EventsController : Controller
     {
         /// <summary>
-        /// The IItineraryStorage implementation to use
-        /// </summary>
-        private readonly IItineraryStorage itineraryStorage;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventsController"/> class.
-        /// </summary>
-        public EventsController()
-        {
-            this.itineraryStorage = new RedisStorage();
-        }
-
-        /// <summary>
         /// The get model returns a filtered list of all events that are happening
         /// </summary>
         /// <param name="model">Get event model filters out all unnecessary events</param>
@@ -68,7 +55,7 @@ namespace Geo.Itineraries.Web.Controllers
                 eventTypes.Add(EventTypes.Sports);
             }
 
-            var events = this.itineraryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, eventTypes);
+            var events = RedisStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, eventTypes);
             return JObject.FromObject(events);
         }
     }

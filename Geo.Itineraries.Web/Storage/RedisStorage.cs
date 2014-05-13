@@ -10,14 +10,29 @@ namespace Geo.Itineraries.Web.Storage
     using System.Threading.Tasks;
     using Geo.Itineraries.Web.Helpers;
     using Geo.Itineraries.Web.Models;
-    using ServiceStack.Redis;
+    using StackExchange.Redis;
     using System.Text;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// REDIS storage
     /// </summary>
-    public class RedisStorage : IItineraryStorage
+    public static class RedisStorage
     {
+        static ConnectionMultiplexer redisConnection;
+        static IDatabase cache;
+        static RedisStorage()
+        {
+            ConfigurationOptions config = new ConfigurationOptions();
+            config.Ssl = true;
+            config.SslHost = "*.redis.cache.windows.net";
+            config.EndPoints.Add(ConfigurationHelper.RedisLocation, ConfigurationHelper.RedisPort);
+            config.Password = ConfigurationHelper.RedisPassword;
+
+            redisConnection = ConnectionMultiplexer.Connect(config);
+            cache = redisConnection.GetDatabase();
+        }
+
         /// <summary>
         /// This method gets events from REDIS and filters out based on parameters
         /// </summary>
@@ -27,12 +42,12 @@ namespace Geo.Itineraries.Web.Storage
         /// <param name="radiusRange">Radius range in meters</param>
         /// <param name="categories">Event categories</param>
         /// <returns>An event list model</returns>
-        public EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories)
+        public static EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories)
         {
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
-                var eventListModels = this.FetchFromRedis(category) ?? new EventListModel();
+                var eventListModels = FetchFromRedis(category) ?? new EventListModel();
                 
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
@@ -49,25 +64,22 @@ namespace Geo.Itineraries.Web.Storage
         /// Stores a missing venue in REDIS
         /// </summary>
         /// <param name="venueName">Venue that is missing</param>
-        public void StoreMissingVenue(string venueName)
+        public static void StoreMissingVenue(string venueName)
         {
-            var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
-            var eventClient = redisClient.As<MissingVenueModel>();
+            MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
 
-            MissingVenueModel missingVenue = new MissingVenueModel { Id = BitConverter.ToInt32(Encoding.ASCII.GetBytes(venueName), 0), VenueName = venueName, DateMissing = DateTime.UtcNow };
-
-            eventClient.Store(missingVenue);
+            cache.StringSet("MissingVenue:" + venueName, JsonConvert.SerializeObject(missingVenue));
         }
 
         /// <summary>
         /// Primes the REDIS storage layer with data from APIS.is
         /// </summary>
-        public void PrimeCache()
+        public static void PrimeCache()
         {
-            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(this.UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(this.UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(this.UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(this.UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateRedis));
         }
 
         /// <summary>
@@ -75,14 +87,12 @@ namespace Geo.Itineraries.Web.Storage
         /// </summary>
         /// <param name="eventType">Event type to get by</param>
         /// <returns>An event list model</returns>
-        private EventListModel FetchFromRedis(EventTypes eventType)
+        private static EventListModel FetchFromRedis(EventTypes eventType)
         {
             try
             {
-                var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
-                var eventClient = redisClient.As<EventListModel>();
-
-                return eventClient.GetById((int)eventType);
+                // TODO: KRAPP eventType should be renamed everywhere to categoryId and that should be a string
+                return JsonConvert.DeserializeObject<EventListModel>(cache.StringGet(((int)eventType).ToString()));
             }
             catch (Exception)
             {
@@ -94,14 +104,11 @@ namespace Geo.Itineraries.Web.Storage
         /// Updates REDIS with the event list model
         /// </summary>
         /// <param name="eventModels">Event list model to update REDIS with</param>
-        private void UpdateRedis(EventListModel eventModels)
+        private static void UpdateRedis(EventListModel eventModels)
         {
             try
             {
-                var redisClient = new RedisClient(ConfigurationHelper.RedisLocation);
-                var eventClient = redisClient.As<EventListModel>();
-
-                eventClient.Store(eventModels);
+                cache.StringSet(eventModels.Id.ToString(), JsonConvert.SerializeObject(eventModels));
             }
             catch (Exception)
             {

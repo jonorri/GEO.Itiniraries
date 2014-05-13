@@ -73,8 +73,7 @@ namespace Geo.Itineraries.Web.Helpers
                 return venues[venue.ToUpper().Replace(' ', '_')];
             }
 
-            RedisStorage redisStorage = new RedisStorage();
-            redisStorage.StoreMissingVenue(venue);
+            RedisStorage.StoreMissingVenue(venue);
             return null;
         }
 

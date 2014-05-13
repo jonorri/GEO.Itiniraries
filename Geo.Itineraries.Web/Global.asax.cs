@@ -40,8 +40,7 @@ namespace Geo.Itineraries.Web
         /// <param name="e">The elapsed event argument</param>
         private void PrimeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            RedisStorage storage = new RedisStorage();
-            storage.PrimeCache();
+            RedisStorage.PrimeCache();
         }
     }
 }
