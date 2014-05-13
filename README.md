@@ -1,4 +1,4 @@
-#H1 GEO.Itiniraries
+GEO.Itiniraries
 ===============
 The GEO.Itiniraries system is made to show events happening nearby your geographical location. The location is fetched by using the HTML5 geolocation system.
 
