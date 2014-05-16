@@ -37,5 +37,21 @@ namespace Geo.Itineraries.Web.Helpers
                 return int.Parse(ConfigurationManager.AppSettings["RedisPort"]);
             }
         }
+
+        public static bool RedisSSL 
+        {
+            get 
+            {
+                return bool.Parse(ConfigurationManager.AppSettings["RedisSSL"]);
+            }
+        }
+
+        public static string RedisSSLHost 
+        {
+            get 
+            {
+                return ConfigurationManager.AppSettings["RedisSSLHost"];
+            }
+        }
     }
 }

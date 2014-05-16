@@ -24,8 +24,8 @@ namespace Geo.Itineraries.Web.Storage
         static RedisStorage()
         {
             ConfigurationOptions config = new ConfigurationOptions();
-            config.Ssl = true;
-            config.SslHost = "*.redis.cache.windows.net";
+            config.Ssl = ConfigurationHelper.RedisSSL;
+            config.SslHost = ConfigurationHelper.RedisSSLHost;
             config.EndPoints.Add(ConfigurationHelper.RedisLocation, ConfigurationHelper.RedisPort);
             config.Password = ConfigurationHelper.RedisPassword;
 
