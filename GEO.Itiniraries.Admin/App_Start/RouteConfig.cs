@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿// <copyright file="RouteConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace GEO.Itiniraries.Admin
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    /// <summary>
+    /// Route config
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Registers routes
+        /// </summary>
+        /// <param name="routes">Routes to register</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

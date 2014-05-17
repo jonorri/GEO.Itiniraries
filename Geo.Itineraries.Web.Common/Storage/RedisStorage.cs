@@ -57,7 +57,7 @@ namespace Geo.Itineraries.Web.Common.Storage
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
-                var eventListModels = FetchFromRedis(category) ?? new EventListModel();
+                var eventListModels = GetEventModels(category) ?? new EventListModel();
                 
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
@@ -68,6 +68,21 @@ namespace Geo.Itineraries.Web.Common.Storage
             list.EventModels.RemoveAll(x => !VenueHelper.IsVenueWithinRadius(x.Venue, position, (int)radiusRange));
 
             return list;
+        }
+
+        public static IEnumerable<VenueModel> GetVenues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static IEnumerable<MissingVenueModel> GetMissingVenues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void DeleteMissingVenueModel(int missingVenueModelId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -86,10 +101,10 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// </summary>
         public static void PrimeCache()
         {
-            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateRedis));
-            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateRedis));
+            Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateEventModels));
+            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateEventModels));
+            Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateEventModels));
+            Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateEventModels));
         }
 
         /// <summary>
@@ -97,7 +112,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// </summary>
         /// <param name="eventType">Event type to get by</param>
         /// <returns>An event list model</returns>
-        private static EventListModel FetchFromRedis(EventTypes eventType)
+        private static EventListModel GetEventModels(EventTypes eventType)
         {
             try
             {
@@ -114,7 +129,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// Updates REDIS with the event list model
         /// </summary>
         /// <param name="eventModels">Event list model to update REDIS with</param>
-        private static void UpdateRedis(EventListModel eventModels)
+        private static void UpdateEventModels(EventListModel eventModels)
         {
             try
             {

@@ -1,16 +1,25 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using GEO.Itiniraries.Admin.Models;
+﻿// <copyright file="IdentityConfig.cs" company="CCP hf.">
+//     Copyright 2014, JOK All rights reserved.
+// </copyright>
 
 namespace GEO.Itiniraries.Admin
 {
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
+    using System.Threading.Tasks;
+    using GEO.Itiniraries.Admin.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
 
+    /// <summary>
+    /// The application user manager
+    /// </summary>
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationUserManager"/> class.
+        /// </summary>
+        /// <param name="store">User store to initialize with</param>
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
