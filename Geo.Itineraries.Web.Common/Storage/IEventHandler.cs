@@ -2,10 +2,10 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Storage
+namespace Geo.Itineraries.Web.Common.Storage
 {
     using System;
-    using Geo.Itineraries.Web.Models;
+    using Geo.Itineraries.Web.Common.Models;
 
     /// <summary>
     /// The event handler interface

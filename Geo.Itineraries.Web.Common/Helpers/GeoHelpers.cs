@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Helpers
+namespace Geo.Itineraries.Web.Common.Helpers
 {
     using System.Device.Location;
 

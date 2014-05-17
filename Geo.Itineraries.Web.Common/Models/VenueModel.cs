@@ -2,11 +2,11 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Models
+namespace Geo.Itineraries.Web.Common.Models
 {
+    using System;
+    using System.Runtime.Serialization;
     using Newtonsoft.Json;
-using System;
-using System.Runtime.Serialization;
 
     /// <summary>
     /// The venue model

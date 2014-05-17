@@ -9,8 +9,8 @@ namespace Geo.Itineraries.Web.Controllers
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Geo.Itineraries.Web.Models;
-    using Geo.Itineraries.Web.Storage;
+    using Geo.Itineraries.Web.Common.Models;
+    using Geo.Itineraries.Web.Common.Storage;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 

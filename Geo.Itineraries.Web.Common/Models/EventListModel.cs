@@ -2,12 +2,12 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Models
+namespace Geo.Itineraries.Web.Common.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The event list model

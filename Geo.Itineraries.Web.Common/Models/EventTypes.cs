@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Models
+namespace Geo.Itineraries.Web.Common.Models
 {
     /// <summary>
     /// The event types

@@ -2,8 +2,10 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Models
+namespace Geo.Itineraries.Web.Common.Models
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Category model
     /// </summary>
@@ -12,16 +14,19 @@ namespace Geo.Itineraries.Models
         /// <summary>
         /// Gets or sets the category id
         /// </summary>
+        [JsonProperty(PropertyName = "categoryId")]
         public int CategoryId { get; set; }
 
         /// <summary>
         /// Gets or sets the category name
         /// </summary>
+        [JsonProperty(PropertyName = "categoryName")]
         public string CategoryName { get; set; }
 
         /// <summary>
         /// Gets or sets the category description
         /// </summary>
+        [JsonProperty(PropertyName = "categoryDescription")]
         public string CategoryDescription { get; set; }
     }
 }

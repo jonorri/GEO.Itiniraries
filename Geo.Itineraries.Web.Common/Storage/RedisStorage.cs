@@ -2,25 +2,35 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Storage
+namespace Geo.Itineraries.Web.Common.Storage
 {
     using System;
     using System.Collections.Generic;
     using System.Device.Location;
     using System.Threading.Tasks;
-    using Geo.Itineraries.Web.Helpers;
-    using Geo.Itineraries.Web.Models;
-    using StackExchange.Redis;
-    using System.Text;
+    using Geo.Itineraries.Web.Common.Helpers;
+    using Geo.Itineraries.Web.Common.Models;
     using Newtonsoft.Json;
+    using StackExchange.Redis;
 
     /// <summary>
     /// REDIS storage
     /// </summary>
     public static class RedisStorage
     {
-        static ConnectionMultiplexer redisConnection;
-        static IDatabase cache;
+        /// <summary>
+        /// The REDIS connection to use
+        /// </summary>
+        private static ConnectionMultiplexer redisConnection;
+
+        /// <summary>
+        /// The REDIS database to connect to
+        /// </summary>
+        private static IDatabase cache;
+
+        /// <summary>
+        /// Initializes static members of the <see cref="RedisStorage"/> class.
+        /// </summary>
         static RedisStorage()
         {
             ConfigurationOptions config = new ConfigurationOptions();

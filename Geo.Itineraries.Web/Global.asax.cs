@@ -8,7 +8,7 @@ namespace Geo.Itineraries.Web
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Geo.Itineraries.Web.Storage;
+    using Geo.Itineraries.Web.Common.Storage;
 
     /// <summary>
     /// The MVC application

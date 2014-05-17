@@ -2,12 +2,12 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Models.Apis.Is
+namespace Geo.Itineraries.Web.Common.Models.Apis.Is
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The movie model

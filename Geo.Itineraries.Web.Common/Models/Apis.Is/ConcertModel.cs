@@ -2,11 +2,11 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Models.ApisIs
+namespace Geo.Itineraries.Web.Common.Models.ApisIs
 {
-    using Newtonsoft.Json;
     using System;
     using System.Runtime.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// The concert model

@@ -2,16 +2,14 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Storage.ApisIs
+namespace Geo.Itineraries.Web.Common.Storage.ApisIs
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using System.Text;
-    using Geo.Itineraries.Models.ApisIs;
-    using Geo.Itineraries.Web.Helpers;
-    using Geo.Itineraries.Web.Models;
+    using Geo.Itineraries.Web.Common.Helpers;
+    using Geo.Itineraries.Web.Common.Models;
+    using Geo.Itineraries.Web.Common.Models.ApisIs;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -39,7 +37,7 @@ namespace Geo.Itineraries.Web.Storage.ApisIs
                 var content = result.Content.ReadAsStringAsync().Result;
                 var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
 
-                updateStorage(new EventListModel { Id = (int)EventTypes.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)EventTypes.Movies,EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                updateStorage(new EventListModel { Id = (int)EventTypes.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)EventTypes.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
             }
         }
     }

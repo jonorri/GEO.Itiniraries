@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Helpers
+namespace Geo.Itineraries.Web.Common.Helpers
 {
     using System.Configuration;
 
@@ -22,6 +22,9 @@ namespace Geo.Itineraries.Web.Helpers
             } 
         }
 
+        /// <summary>
+        /// Gets the REDIS password
+        /// </summary>
         public static string RedisPassword
         {
             get
@@ -30,6 +33,9 @@ namespace Geo.Itineraries.Web.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets the REDIS port
+        /// </summary>
         public static int RedisPort
         {
             get
@@ -38,6 +44,9 @@ namespace Geo.Itineraries.Web.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the REDIS is connected to by SSL or not
+        /// </summary>
         public static bool RedisSSL 
         {
             get 
@@ -46,6 +55,9 @@ namespace Geo.Itineraries.Web.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets the REDIS SSL host
+        /// </summary>
         public static string RedisSSLHost 
         {
             get 
