@@ -1,7 +1,17 @@
-﻿
+﻿@model IEnumerable<VenueModel>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+<table>
+
+    @foreach (VenueModel venue in Model)
+    {
+        <tr>
+            <td>@venue.UserId.ToString()</td>
+            <td>@venue.FirstName</td>
+        </tr>
+    }
+</table>

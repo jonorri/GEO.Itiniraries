@@ -17,7 +17,7 @@ namespace Geo.Itineraries.Web.Common.Models
         /// Gets or sets the venue id
         /// </summary>
         [JsonProperty(PropertyName = "venueId")]
-        public int VenueId { get; set; }
+        public string VenueId { get; set; }
 
         /// <summary>
         /// Gets or sets the venue name

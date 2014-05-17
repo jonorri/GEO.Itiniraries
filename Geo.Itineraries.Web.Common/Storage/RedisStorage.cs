@@ -19,6 +19,16 @@ namespace Geo.Itineraries.Web.Common.Storage
     public static class RedisStorage
     {
         /// <summary>
+        /// Venue REDIS prefix
+        /// </summary>
+        private static readonly string VenueRedisPrefix = "VENUE";
+
+        /// <summary>
+        /// Missing venue REDIS prefix
+        /// </summary>
+        private static readonly string MissingVenueRedisPrefix = "MISSING_VENUE";
+
+        /// <summary>
         /// The REDIS connection to use
         /// </summary>
         private static ConnectionMultiplexer redisConnection;
@@ -70,17 +80,59 @@ namespace Geo.Itineraries.Web.Common.Storage
             return list;
         }
 
+        /// <summary>
+        /// Creates a new venue in REDIS
+        /// </summary>
+        /// <param name="venueModel">Venue model to create</param>
+        public static void CreateVenue(VenueModel venueModel)
+        {
+            // TODO: KRAPP SEE IF THE VENUE IS MISSING IN MISSING VENUES IN REDIS THEN DELETE THAT ONE
+            var key = Guid.NewGuid().ToString();
+            venueModel.VenueId = key;
+            cache.StringSet(RedisStorage.VenueRedisPrefix + key, JsonConvert.SerializeObject(venueModel));
+        }
+
+        /// <summary>
+        /// Edits a venue model in REDIS
+        /// </summary>
+        /// <param name="venueModel">Venue model to edit</param>
+        public static void EditVenue(VenueModel venueModel)
+        {
+            cache.StringSet(RedisStorage.VenueRedisPrefix + venueModel.VenueId, JsonConvert.SerializeObject(venueModel));
+        }
+
+        /// <summary>
+        /// Deletes a venue in REDIS
+        /// </summary>
+        /// <param name="venueModel">Venue model to delete</param>
+        public static void DeleteVenue(VenueModel venueModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets all venues in REDIS
+        /// </summary>
+        /// <returns>All venues</returns>
         public static IEnumerable<VenueModel> GetVenues()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets all missing venues in REDIS
+        /// </summary>
+        /// <returns>All missing venues</returns>
         public static IEnumerable<MissingVenueModel> GetMissingVenues()
         {
             throw new NotImplementedException();
         }
 
-        public static void DeleteMissingVenueModel(int missingVenueModelId)
+        /// <summary>
+        /// Deletes a missing venue in REDIS
+        /// </summary>
+        /// <param name="missingVenueModelId">Missing venue model id to delete</param>
+        public static void DeleteMissingVenueModel(string missingVenueModelId)
         {
             throw new NotImplementedException();
         }
@@ -89,11 +141,11 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// Stores a missing venue in REDIS
         /// </summary>
         /// <param name="venueName">Venue that is missing</param>
-        public static void StoreMissingVenue(string venueName)
+        public static void CreateMissingVenue(string venueName)
         {
             MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
 
-            cache.StringSet("MissingVenue:" + venueName, JsonConvert.SerializeObject(missingVenue));
+            cache.StringSet(RedisStorage.MissingVenueRedisPrefix + venueName, JsonConvert.SerializeObject(missingVenue));
         }
 
         /// <summary>
