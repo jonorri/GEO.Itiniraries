@@ -1,4 +1,5 @@
-﻿@model IEnumerable<VenueModel>
+﻿@model Collection<VenueModel>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -10,8 +11,11 @@
     @foreach (VenueModel venue in Model)
     {
         <tr>
-            <td>@venue.UserId.ToString()</td>
-            <td>@venue.FirstName</td>
+            <td>@venue.VenueId</td>
+            <td>@venue.VenueName</td>
+            <td>@venue.Latitude</td>
+            <td>@venue.Longitude</td>
+            <td>@venue.Location</td>
         </tr>
     }
 </table>
