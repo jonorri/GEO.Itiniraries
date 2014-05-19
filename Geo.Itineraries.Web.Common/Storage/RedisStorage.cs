@@ -90,6 +90,7 @@ namespace Geo.Itineraries.Web.Common.Storage
             var key = Guid.NewGuid().ToString();
             venueModel.VenueId = key;
             cache.StringSet(RedisStorage.VenueRedisPrefix + key, JsonConvert.SerializeObject(venueModel));
+            AddVenueId(venueModel.VenueId);
         }
 
         /// <summary>
@@ -102,39 +103,67 @@ namespace Geo.Itineraries.Web.Common.Storage
         }
 
         /// <summary>
-        /// Deletes a venue in REDIS
-        /// </summary>
-        /// <param name="venueModel">Venue model to delete</param>
-        public static void DeleteVenue(VenueModel venueModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Gets all venues in REDIS
         /// </summary>
         /// <returns>All venues</returns>
-        public static IEnumerable<VenueModel> GetVenues()
+        public static IList<VenueModel> GetVenues()
         {
-            throw new NotImplementedException();
+            List<VenueModel> venueList = new List<VenueModel>();
+            var idList = GetStringListByKey("VENUE_ID_LIST");
+            foreach (var id in idList)
+            {
+                venueList.Add(JsonConvert.DeserializeObject<VenueModel>(cache.StringGet(id)));
+            }
+
+            return venueList;
+        }
+
+        /// <summary>
+        /// Maintains a list of all venues stored in REDIS
+        /// </summary>
+        /// <param name="venueId"></param>
+        public static void AddVenueId(string venueId)
+        {
+            cache.StringAppend("VENUE_ID_LIST", ":" + venueId);
         }
 
         /// <summary>
         /// Gets all missing venues in REDIS
         /// </summary>
         /// <returns>All missing venues</returns>
-        public static IEnumerable<MissingVenueModel> GetMissingVenues()
+        public static IList<MissingVenueModel> GetMissingVenues()
         {
-            throw new NotImplementedException();
+            // TODO: KRAPP REFACTOR THIS
+            List<MissingVenueModel> missingVenueList = new List<MissingVenueModel>();
+            var idList = GetStringListByKey("MISSING_VENUE_ID_LIST");
+            foreach (var id in idList)
+            {
+                missingVenueList.Add(JsonConvert.DeserializeObject<MissingVenueModel>(cache.StringGet(id)));
+            }
+
+            return missingVenueList;
         }
 
         /// <summary>
-        /// Deletes a missing venue in REDIS
+        /// Returns a list of string delimited by : from REDIS
         /// </summary>
-        /// <param name="missingVenueModelId">Missing venue model id to delete</param>
-        public static void DeleteMissingVenueModel(string missingVenueModelId)
+        /// <param name="stringKey"></param>
+        /// <returns></returns>
+        private static IList<string> GetStringListByKey(string stringKey)
         {
-            throw new NotImplementedException();
+            List<string> stringList = new List<string>();
+            var list = cache.StringGet(stringKey).ToString();
+            stringList.AddRange(list.Split(':'));
+            return stringList;
+        }
+
+        /// <summary>
+        /// Deletes an entity in REDIS
+        /// </summary>
+        /// <param name="redisKey">Redis key to delete</param>
+        public static void DeleteFromRedis(string redisKey)
+        {
+            cache.KeyDelete(redisKey);
         }
 
         /// <summary>
