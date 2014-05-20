@@ -108,20 +108,13 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <returns>All venues</returns>
         public static IList<VenueModel> GetVenues()
         {
-            List<VenueModel> venueList = new List<VenueModel>();
-            var idList = GetStringListByKey("VENUE_ID_LIST");
-            foreach (var id in idList)
-            {
-                venueList.Add(JsonConvert.DeserializeObject<VenueModel>(cache.StringGet(id)));
-            }
-
-            return venueList;
+            return GetRedisListWithIdListAtKey<VenueModel>("VENUE_ID_LIST");
         }
 
         /// <summary>
         /// Maintains a list of all venues stored in REDIS
         /// </summary>
-        /// <param name="venueId"></param>
+        /// <param name="venueId">Venue id to add to the list</param>
         public static void AddVenueId(string venueId)
         {
             cache.StringAppend("VENUE_ID_LIST", ":" + venueId);
@@ -133,34 +126,32 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <returns>All missing venues</returns>
         public static IList<MissingVenueModel> GetMissingVenues()
         {
-            // TODO: KRAPP REFACTOR THIS
-            List<MissingVenueModel> missingVenueList = new List<MissingVenueModel>();
-            var idList = GetStringListByKey("MISSING_VENUE_ID_LIST");
-            foreach (var id in idList)
-            {
-                missingVenueList.Add(JsonConvert.DeserializeObject<MissingVenueModel>(cache.StringGet(id)));
-            }
-
-            return missingVenueList;
+            return GetRedisListWithIdListAtKey<MissingVenueModel>("MISSING_VENUE_ID_LIST");
         }
 
         /// <summary>
-        /// Returns a list of string delimited by : from REDIS
+        /// Fetches the id list from REDIS by key
+        /// And fetches all cache entries by those keys
         /// </summary>
-        /// <param name="stringKey"></param>
-        /// <returns></returns>
-        private static IList<string> GetStringListByKey(string stringKey)
+        /// <param name="redisKey">REDIS key that the id list is stored at</param>
+        /// <typeparam name="T">Type of list that the method returns</typeparam>
+        /// <returns>List of T</returns>
+        public static List<T> GetRedisListWithIdListAtKey<T>(string redisKey)
         {
-            List<string> stringList = new List<string>();
-            var list = cache.StringGet(stringKey).ToString();
-            stringList.AddRange(list.Split(':'));
-            return stringList;
+            List<T> list = new List<T>();
+            var idList = GetStringListByKey(redisKey);
+            foreach (var id in idList)
+            {
+                list.Add(JsonConvert.DeserializeObject<T>(cache.StringGet(id)));
+            }
+
+            return list;
         }
 
         /// <summary>
         /// Deletes an entity in REDIS
         /// </summary>
-        /// <param name="redisKey">Redis key to delete</param>
+        /// <param name="redisKey">Key to delete</param>
         public static void DeleteFromRedis(string redisKey)
         {
             cache.KeyDelete(redisKey);
@@ -186,6 +177,19 @@ namespace Geo.Itineraries.Web.Common.Storage
             Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateEventModels));
             Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateEventModels));
             Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateEventModels));
+        }
+
+        /// <summary>
+        /// Returns a list of string delimited by : from REDIS
+        /// </summary>
+        /// <param name="stringKey">String key that the list is stored at</param>
+        /// <returns>Returns a list of string keys delimited by :</returns>
+        private static IList<string> GetStringListByKey(string stringKey)
+        {
+            List<string> stringList = new List<string>();
+            var list = cache.StringGet(stringKey).ToString();
+            stringList.AddRange(list.Split(':'));
+            return stringList;
         }
 
         /// <summary>
