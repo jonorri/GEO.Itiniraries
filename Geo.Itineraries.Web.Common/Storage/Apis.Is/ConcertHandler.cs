@@ -21,18 +21,26 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         /// <param name="updateStorage">Update storage action to run with the fetched events</param>
         public override async void GetEvents(Action<EventListModel> updateStorage)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Add("Accept-Version", "1");
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-                var result = await client.GetAsync("http://apis.is/concerts");
-                if (!result.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    return;
-                }
+                    client.DefaultRequestHeaders.Add("Accept-Version", "1");
+                    client.DefaultRequestHeaders.Add("Accept", "application/json");
+                    var result = await client.GetAsync("http://apis.is/concerts");
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return;
+                    }
 
-                var content = await result.Content.ReadAsStringAsync();
-                var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
+                    var content = await result.Content.ReadAsStringAsync();
+                    var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
+                }
+            }
+            catch (Exception)
+            {
+                // TODO: KRAPP LOG AND SWALLOW
+                throw;
             }
         }
     }

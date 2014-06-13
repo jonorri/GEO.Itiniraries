@@ -108,7 +108,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <returns>All venues</returns>
         public static IList<VenueModel> GetVenues()
         {
-            return GetRedisListWithIdListAtKey<VenueModel>("VENUE_ID_LIST");
+            return GetRedisListWithIdListAtKey<VenueModel>("VENUE_ID_LIST", RedisStorage.VenueRedisPrefix);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <returns>All missing venues</returns>
         public static IList<MissingVenueModel> GetMissingVenues()
         {
-            return GetRedisListWithIdListAtKey<MissingVenueModel>("MISSING_VENUE_ID_LIST");
+            return GetRedisListWithIdListAtKey<MissingVenueModel>("MISSING_VENUE_ID_LIST", RedisStorage.MissingVenueRedisPrefix);
         }
 
         /// <summary>
@@ -136,13 +136,18 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <param name="redisKey">REDIS key that the id list is stored at</param>
         /// <typeparam name="T">Type of list that the method returns</typeparam>
         /// <returns>List of T</returns>
-        public static List<T> GetRedisListWithIdListAtKey<T>(string redisKey)
+        public static List<T> GetRedisListWithIdListAtKey<T>(string redisKey, string redisPrefix)
         {
             List<T> list = new List<T>();
             var idList = GetStringListByKey(redisKey);
             foreach (var id in idList)
             {
-                list.Add(JsonConvert.DeserializeObject<T>(cache.StringGet(id)));
+                // TODO: KRAPP THIS IS A SHITMIX BECAUSE THE VENUE LIST IN REDIS IS INCORRECTLY CONFIGURED
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    var cacheObject = cache.StringGet(redisPrefix + id);
+                    list.Add(JsonConvert.DeserializeObject<T>(cacheObject));
+                }
             }
 
             return list;
@@ -224,6 +229,16 @@ namespace Geo.Itineraries.Web.Common.Storage
             {
                 // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }
+        }
+
+        public static VenueModel GetVenue(Guid venueId)
+        {
+            return JsonConvert.DeserializeObject<VenueModel>(cache.StringGet(RedisStorage.VenueRedisPrefix + venueId.ToString()));
+        }
+
+        public static void DeleteVenue(Guid venueId)
+        {
+            cache.KeyDelete(RedisStorage.VenueRedisPrefix + venueId.ToString());
         }
     }
 }

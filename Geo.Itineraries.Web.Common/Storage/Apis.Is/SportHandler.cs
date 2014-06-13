@@ -17,7 +17,15 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         /// </summary>
         /// <param name="updateStorage">The method to call to update the storage</param>
         public override void GetEvents(Action<EventListModel> updateStorage)
-        {  
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+                // TODO: KRAPP LOG AND SWALLOW
+            }
         }
     }
 }
