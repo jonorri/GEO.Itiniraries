@@ -39,7 +39,7 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
                     var content = result.Content.ReadAsStringAsync().Result;
                     var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
 
-                    updateStorage(new EventListModel { Id = (int)EventTypes.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)EventTypes.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                    updateStorage(new EventListModel { Id = (int)Categories.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)Categories.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
                 }
             }
             catch (Exception)

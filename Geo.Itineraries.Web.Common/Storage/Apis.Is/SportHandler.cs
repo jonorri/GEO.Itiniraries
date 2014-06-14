@@ -6,6 +6,8 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
 {
     using System;
     using Geo.Itineraries.Web.Common.Models;
+    using Geo.Itineraries.Web.Common.Models.ApisIs;
+    using System.Net.Http;
 
     /// <summary>
     /// The sport event handler
@@ -20,7 +22,23 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         {
             try
             {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("Accept-Version", "1");
+                    client.DefaultRequestHeaders.Add("Accept", "application/json");
+                    var result = client.GetAsync("http://apis.is/sports/football").Result;
 
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return;
+                    }
+
+                    var content = result.Content.ReadAsStringAsync().Result;
+                    // TODO: KRAPP FINISH THIS
+                    //var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
+
+                    //updateStorage(new EventListModel { Id = (int)EventTypes.Sports, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)EventTypes.Sports, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                }
             }
             catch (Exception)
             {

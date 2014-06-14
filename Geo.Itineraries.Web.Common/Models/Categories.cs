@@ -1,31 +1,31 @@
-﻿// <copyright file="EventTypes.cs" company="CCP hf.">
+﻿// <copyright file="Categories.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
 namespace Geo.Itineraries.Web.Common.Models
 {
     /// <summary>
-    /// The event types
+    /// The categories
     /// </summary>
-    public enum EventTypes
+    public enum Categories
     {
         /// <summary>
-        /// The movie type
+        /// The movie category
         /// </summary>
         Movies = 1,
 
         /// <summary>
-        /// The sport type
+        /// The sport category
         /// </summary>
         Sports = 2,
 
         /// <summary>
-        /// The theater type
+        /// The theater category
         /// </summary>
         Theater = 3,
 
         /// <summary>
-        /// The concert type
+        /// The concert category
         /// </summary>
         Concert = 4
     }

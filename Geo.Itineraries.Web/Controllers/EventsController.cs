@@ -34,28 +34,28 @@ namespace Geo.Itineraries.Web.Controllers
             var latitudePosition = double.Parse(model.Position.Split(':')[0], CultureInfo.InvariantCulture);
             var longitudePosition = double.Parse(model.Position.Split(':')[1], CultureInfo.InvariantCulture);
 
-            IList<EventTypes> eventTypes = new List<EventTypes>();
+            IList<Categories> categories = new List<Categories>();
             if (model.Categories.Keys.Contains("Movies") && (model.Categories["Movies"] as string[]).FirstOrDefault() == "true")
             {
-                eventTypes.Add(EventTypes.Movies);
+                categories.Add(Categories.Movies);
             }
 
             if (model.Categories.Keys.Contains("Theater") && (model.Categories["Theater"] as string[]).FirstOrDefault() == "true")
             {
-                eventTypes.Add(EventTypes.Theater);
+                categories.Add(Categories.Theater);
             }
 
             if (model.Categories.Keys.Contains("Concerts") && (model.Categories["Concerts"] as string[]).FirstOrDefault() == "true")
             {
-                eventTypes.Add(EventTypes.Concert);
+                categories.Add(Categories.Concert);
             }
 
             if (model.Categories.Keys.Contains("Sports") && (model.Categories["Sports"] as string[]).FirstOrDefault() == "true")
             {
-                eventTypes.Add(EventTypes.Sports);
+                categories.Add(Categories.Sports);
             }
 
-            var events = RedisStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, eventTypes);
+            var events = RedisStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, categories);
             return JObject.FromObject(events);
         }
     }

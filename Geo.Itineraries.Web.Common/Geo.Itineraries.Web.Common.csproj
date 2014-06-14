@@ -62,7 +62,7 @@
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\EventListModel.cs" />
     <Compile Include="Models\EventModel.cs" />
-    <Compile Include="Models\EventTypes.cs" />
+    <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\GetEventModel.cs" />
     <Compile Include="Models\MissingVenueModel.cs" />
     <Compile Include="Models\TimeRanges.cs" />

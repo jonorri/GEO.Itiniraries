@@ -23,7 +23,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <param name="radiusRange">The radius in meters to search for events by</param>
         /// <param name="categories">Categories to get by</param>
         /// <returns>An event list model</returns>
-        EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories);
+        EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<Categories> categories);
 
         /// <summary>
         /// Primes the REDIS cache

@@ -62,7 +62,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <param name="radiusRange">Radius range in meters</param>
         /// <param name="categories">Event categories</param>
         /// <returns>An event list model</returns>
-        public static EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<EventTypes> categories)
+        public static EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<Categories> categories)
         {
             EventListModel list = new EventListModel();
             foreach (var category in categories)
@@ -198,16 +198,15 @@ namespace Geo.Itineraries.Web.Common.Storage
         }
 
         /// <summary>
-        /// Gets event list models by event type
+        /// Gets event list models by category
         /// </summary>
-        /// <param name="eventType">Event type to get by</param>
+        /// <param name="category">Category to get by</param>
         /// <returns>An event list model</returns>
-        private static EventListModel GetEventModels(EventTypes eventType)
+        private static EventListModel GetEventModels(Categories category)
         {
             try
             {
-                // TODO: KRAPP eventType should be renamed everywhere to categoryId and that should be a string
-                return JsonConvert.DeserializeObject<EventListModel>(cache.StringGet(((int)eventType).ToString()));
+                return JsonConvert.DeserializeObject<EventListModel>(cache.StringGet(((int)category).ToString()));
             }
             catch (Exception)
             {
