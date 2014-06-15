@@ -59,6 +59,8 @@ namespace Geo.Itineraries.Web.Common.Helpers
             venues.Add(new VenueModel { VenueKey = "BORGARLEIKHÚSIÐ", VenueId = string.Empty, VenueName = "Borgarleikhúsið", Latitude = 64.134951, Longitude = -21.872063, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "ÞJÓÐLEIKHÚSIÐ", VenueId = string.Empty, VenueName = "Þjóðleikhúsið", Latitude = 64.1287, Longitude = -21.896595, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "HARPA", VenueId = string.Empty, VenueName = "Harpan", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
+            venues.Add(new VenueModel { VenueKey = "VODAFONEVÖLLURINN", VenueId = string.Empty, VenueName = "Vodafonevöllurinn", Latitude = 64.133086, Longitude = -21.923564, Location = "Reykjavík" });
+            venues.Add(new VenueModel { VenueKey = "FYLKISVÖLLUR", VenueId = string.Empty, VenueName = "Fylkisvöllur", Latitude = 64.113394, Longitude = -21.792884, Location = "Reykjavík" });
         }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace Geo.Itineraries.Web.Common.Helpers
         public static VenueModel GetVenueModel(string venue)
         {
             var venues = RedisStorage.GetVenues();
-            if (venues.Any(x => x.VenueKey == venue.ToUpper().Replace(' ', '_')))
+            if (venues.Any(x => x.VenueKey.ToUpper() == venue.ToUpper().Replace(' ', '_')))
             {
                 return venues.FirstOrDefault(x => x.VenueKey == venue.ToUpper().Replace(' ', '_'));
             }

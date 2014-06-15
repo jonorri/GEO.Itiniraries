@@ -86,7 +86,6 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <param name="venueModel">Venue model to create</param>
         public static void CreateVenue(VenueModel venueModel)
         {
-            // TODO: KRAPP SEE IF THE VENUE IS MISSING IN MISSING VENUES IN REDIS THEN DELETE THAT ONE
             var key = Guid.NewGuid().ToString();
             venueModel.VenueId = key;
             cache.StringSet(RedisStorage.VenueRedisPrefix + key, JsonConvert.SerializeObject(venueModel));
