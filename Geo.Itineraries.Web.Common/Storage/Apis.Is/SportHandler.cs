@@ -5,10 +5,10 @@
 namespace Geo.Itineraries.Web.Common.Storage.ApisIs
 {
     using System;
+    using System.Net.Http;
     using Geo.Itineraries.Web.Common.Models;
     using Geo.Itineraries.Web.Common.Models.ApisIs;
-    using System.Net.Http;
-
+    
     /// <summary>
     /// The sport event handler
     /// </summary>
@@ -34,10 +34,11 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
                     }
 
                     var content = result.Content.ReadAsStringAsync().Result;
-                    // TODO: KRAPP FINISH THIS
-                    //var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
 
-                    //updateStorage(new EventListModel { Id = (int)EventTypes.Sports, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)EventTypes.Sports, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                    // TODO: KRAPP FINISH THIS
+                    // var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
+
+                    // updateStorage(new EventListModel { Id = (int)EventTypes.Sports, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)EventTypes.Sports, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
                 }
             }
             catch (Exception)

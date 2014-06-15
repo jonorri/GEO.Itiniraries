@@ -20,7 +20,6 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         {
             try
             {
-
             }
             catch (Exception)
             {

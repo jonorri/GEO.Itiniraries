@@ -5,11 +5,11 @@
 namespace Geo.Itineraries.Web.Common.Helpers
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Device.Location;
     using System.Linq;
     using Geo.Itineraries.Web.Common.Models;
     using Geo.Itineraries.Web.Common.Storage;
-    using System.Collections.ObjectModel;
     
     /// <summary>
     /// The venue helper provides helper methods for venues
@@ -61,9 +61,12 @@ namespace Geo.Itineraries.Web.Common.Helpers
             venues.Add(new VenueModel { VenueKey = "HARPA", VenueId = string.Empty, VenueName = "Harpan", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
         }
 
+        /// <summary>
+        /// Primes the REDIS cache with all the venues in the venue helper
+        /// </summary>
         public static void PrimeCacheWithVenues()
         {
-            foreach(var venue in venues)
+            foreach (var venue in venues)
             {
                 RedisStorage.CreateVenue(venue);
             }
@@ -76,6 +79,7 @@ namespace Geo.Itineraries.Web.Common.Helpers
         /// <returns>Venue model</returns>
         public static VenueModel GetVenueModel(string venue)
         {
+            var venues = RedisStorage.GetVenues();
             if (venues.Any(x => x.VenueKey == venue.ToUpper().Replace(' ', '_')))
             {
                 return venues.FirstOrDefault(x => x.VenueKey == venue.ToUpper().Replace(' ', '_'));

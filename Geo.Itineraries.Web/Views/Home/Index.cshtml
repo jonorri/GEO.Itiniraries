@@ -148,23 +148,21 @@
         dict["Sports"] = $("#chkSports").is(':checked');
 
         dataSet.categories = dict;
-
         $.ajax(
             {
                 type: "GET",
-                // TODO: KRAPP THIS SHOULD BE CONFIGURABLE
-                url: 'http://localhost:57022/events/get',
+                url: '@Url.Action("Get", "Events")',
                 data: dataSet,
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    $.each(data["EventModels"], function (i, theItem) {
+                    $.each(data["eventModels"], function (i, theItem) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: theItem["EventDescription"]
+                            content: theItem["eventDescription"]
                         });
-
+                        
                         var image = {
-                            url: theItem["ImageUrl"],
+                            url: theItem["imageUrl"],
                             size: new google.maps.Size(71, 71),
                             origin: new google.maps.Point(0, 0),
                             anchor: new google.maps.Point(17, 34),
@@ -172,12 +170,12 @@
                         };
 
                         var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(theItem["Venue"]["Latitude"], theItem["Venue"]["Longitude"]),
+                            position: new google.maps.LatLng(theItem["venue"]["latitude"], theItem["venue"]["longitude"]),
                             map: map,
-                            title: theItem["EventName"],
+                            title: theItem["eventName"],
                             icon: image
                         });
-
+                        
                         google.maps.event.addListener(marker, 'click', function () {
                             infowindow.open(map, marker);
                         });

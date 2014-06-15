@@ -134,6 +134,7 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// And fetches all cache entries by those keys
         /// </summary>
         /// <param name="redisKey">REDIS key that the id list is stored at</param>
+        /// <param name="redisPrefix">REDIS prefix for entities in REDIS</param>
         /// <typeparam name="T">Type of list that the method returns</typeparam>
         /// <returns>List of T</returns>
         public static List<T> GetRedisListWithIdListAtKey<T>(string redisKey, string redisPrefix)
@@ -185,6 +186,25 @@ namespace Geo.Itineraries.Web.Common.Storage
         }
 
         /// <summary>
+        /// Gets a venue from REDIS based on venue ID supplied
+        /// </summary>
+        /// <param name="venueId">Venue ID to get</param>
+        /// <returns>A venue model</returns>
+        public static VenueModel GetVenue(Guid venueId)
+        {
+            return JsonConvert.DeserializeObject<VenueModel>(cache.StringGet(RedisStorage.VenueRedisPrefix + venueId.ToString()));
+        }
+
+        /// <summary>
+        /// Deletes a venue from REDIS based on venue ID supplied
+        /// </summary>
+        /// <param name="venueId">Venue ID to delete</param>
+        public static void DeleteVenue(Guid venueId)
+        {
+            cache.KeyDelete(RedisStorage.VenueRedisPrefix + venueId.ToString());
+        }
+
+        /// <summary>
         /// Returns a list of string delimited by : from REDIS
         /// </summary>
         /// <param name="stringKey">String key that the list is stored at</param>
@@ -228,16 +248,6 @@ namespace Geo.Itineraries.Web.Common.Storage
             {
                 // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
             }
-        }
-
-        public static VenueModel GetVenue(Guid venueId)
-        {
-            return JsonConvert.DeserializeObject<VenueModel>(cache.StringGet(RedisStorage.VenueRedisPrefix + venueId.ToString()));
-        }
-
-        public static void DeleteVenue(Guid venueId)
-        {
-            cache.KeyDelete(RedisStorage.VenueRedisPrefix + venueId.ToString());
         }
     }
 }
