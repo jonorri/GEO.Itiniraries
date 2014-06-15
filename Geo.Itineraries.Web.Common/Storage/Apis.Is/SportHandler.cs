@@ -5,9 +5,13 @@
 namespace Geo.Itineraries.Web.Common.Storage.ApisIs
 {
     using System;
+    using System.Linq;
     using System.Net.Http;
     using Geo.Itineraries.Web.Common.Models;
     using Geo.Itineraries.Web.Common.Models.ApisIs;
+    using Geo.Itineraries.Web.Common.Models.Apis.Is;
+    using Newtonsoft.Json;
+    using Geo.Itineraries.Web.Common.Helpers;
     
     /// <summary>
     /// The sport event handler
@@ -35,10 +39,10 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
 
                     var content = result.Content.ReadAsStringAsync().Result;
 
-                    // TODO: KRAPP FINISH THIS
-                    // var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
+                    var content2 = JsonConvert.DeserializeObject<SportListModel>(content);
 
-                    // updateStorage(new EventListModel { Id = (int)EventTypes.Sports, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)EventTypes.Sports, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                    // TODO: KRAPP FIX THE DateTime here
+                    updateStorage(new EventListModel { Id = (int)Categories.Sports, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)Categories.Sports, EventName = x.HomeTeam + " vs " + x.AwayTeam, EventDescription = "KRAPP", Venue = VenueHelper.GetVenueModel(x.Location), EventDate = DateTime.UtcNow }).ToList() });
                 }
             }
             catch (Exception)

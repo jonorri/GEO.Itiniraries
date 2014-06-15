@@ -59,6 +59,8 @@
     <Compile Include="Models\Apis.Is\MovieTheaterListModel.cs" />
     <Compile Include="Models\Apis.Is\MovieTheaterModel.cs" />
     <Compile Include="Models\Apis.Is\ShowTimeModel.cs" />
+    <Compile Include="Models\Apis.Is\SportListModel.cs" />
+    <Compile Include="Models\Apis.Is\SportModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\EventListModel.cs" />
     <Compile Include="Models\EventModel.cs" />
