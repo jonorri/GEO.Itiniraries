@@ -1,4 +1,4 @@
-﻿// <copyright file="IdentityConfig.cs" company="CCP hf.">
+﻿// <copyright file="ApplicationUserManager.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 

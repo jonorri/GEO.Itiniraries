@@ -8,9 +8,15 @@ namespace Geo.Itineraries.Web.Common.Models.Apis.Is
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The model to keep a list of football games
+    /// </summary>
     [Serializable]
     public class FootballListModel
     {
+        /// <summary>
+        /// Gets or sets the results
+        /// </summary>
         [JsonProperty(PropertyName = "results")]
         public ICollection<FootballModel> Results { get; set; }
     }

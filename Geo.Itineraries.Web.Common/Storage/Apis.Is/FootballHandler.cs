@@ -1,4 +1,4 @@
-﻿// <copyright file="SportHandler.cs" company="CCP hf.">
+﻿// <copyright file="FootballHandler.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
@@ -7,11 +7,10 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
     using System;
     using System.Linq;
     using System.Net.Http;
+    using Geo.Itineraries.Web.Common.Helpers;
     using Geo.Itineraries.Web.Common.Models;
-    using Geo.Itineraries.Web.Common.Models.ApisIs;
     using Geo.Itineraries.Web.Common.Models.Apis.Is;
     using Newtonsoft.Json;
-    using Geo.Itineraries.Web.Common.Helpers;
     
     /// <summary>
     /// The football event handler
@@ -46,7 +45,15 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
                         Id = (int)Categories.Football,
                         EventModels = content2.Results
                             .Where(x => !x.Tournament.Contains("lið") && !x.Tournament.Contains("flokkur")) // I want to filter out the youth games.
-                            .Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)Categories.Football, EventName = x.HomeTeam + " vs " + x.AwayTeam, EventDescription = BuildEventDescription(x), Venue = VenueHelper.GetVenueModel(x.Location), EventDate = ParseDateTime(x.Date, x.Time) })
+                            .Select(x => new EventModel 
+                            { 
+                                ImageUrl = "Content/sport.png", 
+                                CategoryId = (int)Categories.Football, 
+                                EventName = x.HomeTeam + " vs " + x.AwayTeam, 
+                                EventDescription = this.BuildEventDescription(x), 
+                                Venue = VenueHelper.GetVenueModel(x.Location), 
+                                EventDate = this.ParseDateTime(x.Date, x.Time) 
+                            })
                             .ToList()
                     };
                     updateStorage(eventListModel);
@@ -69,7 +76,7 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         }
 
         /// <summary>
-        /// Parses the datetime from the values given by APIS.IS
+        /// Parses the DateTime from the values given by APIS.IS
         /// </summary>
         /// <param name="date">
         /// String date of the format xxx. XX. xxx. 
@@ -78,7 +85,7 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
         /// The third part is the icelandic shorthand for the month.
         /// </param>
         /// <param name="time">Time date of the 24 hour format delimited by a colon(:)</param>
-        /// <returns></returns>
+        /// <returns>The appropriate date time</returns>
         private DateTime ParseDateTime(string date, string time)
         {
             int minute, hour, month, dayOfMonth;
@@ -92,14 +99,14 @@ namespace Geo.Itineraries.Web.Common.Storage.ApisIs
                 // TODO: KRAPP LOG AND SWALLOW EXCEPTION
             }
 
-            var dateArray = date.Split(new string[] {". "}, StringSplitOptions.None);
+            var dateArray = date.Split(new string[] { ". " }, StringSplitOptions.None);
             
             if (!int.TryParse(dateArray[1].Substring(0, 2), out dayOfMonth))
             {
                 // TODO: KRAPP LOG AND SWALLOW EXCEPTION
             }
 
-            switch(dateArray[2].Substring(0, 3))
+            switch (dateArray[2].Substring(0, 3))
             {
                 case "jan":
                     month = 1;
