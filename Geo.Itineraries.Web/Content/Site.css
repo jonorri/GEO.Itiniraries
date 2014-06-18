@@ -1,6 +1,21 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: url("congruent_outline.png");
+    color: #FFFFFF;
+}
+
+.body-content {
+    padding-top: 10px;
+}
+
+.navbar {
+    background: url("congruent_outline.png");
+}
+
+.well {
+    background: url("congruent_outline.png");
+    color: #FFFFFF;
 }
 
 /* Set padding to keep content from hitting the edges */
