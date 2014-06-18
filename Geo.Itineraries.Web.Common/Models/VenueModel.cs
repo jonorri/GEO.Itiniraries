@@ -48,5 +48,11 @@ namespace Geo.Itineraries.Web.Common.Models
         /// </summary>
         [JsonProperty(PropertyName = "location")]
         public string Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this venue is sponsored or not
+        /// </summary>
+        [JsonProperty(PropertyName = "sponsored")]
+        public bool Sponsored { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Geo.Itineraries.Web.Common.Helpers
             venues.Add(new VenueModel { VenueKey = "SAMBÍÓIN,AKUREYRI", VenueId = string.Empty, VenueName = "Sambíó Akureyri", Latitude = 65.708324, Longitude = -17.517449, Location = "Akureyri" });
             venues.Add(new VenueModel { VenueKey = "SAMBÍÓIN,SELFOSSI", VenueId = string.Empty, VenueName = "Sambíó Akureyri", Latitude = 63.93615, Longitude = -21.008226, Location = "Akureyri" });
             venues.Add(new VenueModel { VenueKey = "SAMBÍÓIN,_SELFOSSI", VenueId = string.Empty, VenueName = "Sambíó Akureyri", Latitude = 63.93615, Longitude = -21.008226, Location = "Akureyri" });
-            venues.Add(new VenueModel { VenueKey = "KEX", VenueId = string.Empty, VenueName = "KEX Hostel", Latitude = 64.145537, Longitude = -21.919487, Location = "Reykjavík" });
+            venues.Add(new VenueModel { VenueKey = "KEX", VenueId = string.Empty, VenueName = "KEX Hostel", Latitude = 64.145537, Longitude = -21.919487, Location = "Reykjavík", Sponsored = true });
             venues.Add(new VenueModel { VenueKey = "GAMLI_GAUKUR", VenueId = string.Empty, VenueName = "Gamli Gaukurinn", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "HARLEM", VenueId = string.Empty, VenueName = "Harlem", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "LUCKY_RECORDS", VenueId = string.Empty, VenueName = "Lucky records", Latitude = 64.142729, Longitude = -21.914077, Location = "Reykjavík" });
