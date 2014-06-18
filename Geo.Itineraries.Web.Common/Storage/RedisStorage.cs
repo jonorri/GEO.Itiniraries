@@ -179,7 +179,8 @@ namespace Geo.Itineraries.Web.Common.Storage
         public static void PrimeCache()
         {
             Task.Factory.StartNew(() => new ApisIs.MovieHandler().GetEvents(UpdateEventModels));
-            Task.Factory.StartNew(() => new ApisIs.SportHandler().GetEvents(UpdateEventModels));
+            Task.Factory.StartNew(() => new ApisIs.FootballHandler().GetEvents(UpdateEventModels));
+            Task.Factory.StartNew(() => new ApisIs.HandballHandler().GetEvents(UpdateEventModels));
             Task.Factory.StartNew(() => new ApisIs.ConcertHandler().GetEvents(UpdateEventModels));
             Task.Factory.StartNew(() => new ApisIs.TheaterHandler().GetEvents(UpdateEventModels));
         }

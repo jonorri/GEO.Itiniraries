@@ -1,4 +1,4 @@
-﻿// <copyright file="SportModel.cs" company="CCP hf.">
+﻿// <copyright file="FootballModel.cs" company="CCP hf.">
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ namespace Geo.Itineraries.Web.Common.Models.Apis.Is
     using Newtonsoft.Json;
 
     [Serializable]
-    public class SportModel
+    public class FootballModel
     {
         [JsonProperty(PropertyName = "counter")]
         public int Counter { get; set; }

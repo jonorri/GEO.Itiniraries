@@ -3,7 +3,7 @@
 }
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
+<!-- TODO: KRAPP EXTRACT THE CHECKBOX FRENZY OUT TO A JQUERY LIBRARY -->
 <div class="well">
     <table class="table">
         <thead>
@@ -34,6 +34,20 @@
                         <label class="checkbox-inline">
                             <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
                         </label>
+                        <table id="sportSubCategories" hidden="hidden">
+                            <tr>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chkFootball" class="style3" value="option3"> Football
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chkHandball" class="style3" value="option3"> Handball
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </th>
             </tr>
@@ -68,10 +82,6 @@
         </thead>
     </table>
 </div>
-<!-- 
-    TODO: KRAPP I SHOULD HAVE SUB-CATEGORIES WITHIN THE SYSTEM AS WELL 
-    Each category/subcategory should have a marker image built in.
--->
 
 <!-- TODO: KRAPP THE circle should move along with the drag of the marker -->
 <div id="map-canvas" class="jumbotron"></div>
@@ -141,13 +151,28 @@
         dataSet.startDate = document.getElementById("startDate").value;
         dataSet.endDate = document.getElementById("endDate").value;
 
-        var dict = new Object();
-        dict["Concerts"] = $("#chkConcerts").is(':checked');
-        dict["Movies"] = $("#chkMovies").is(':checked');
-        dict["Theater"] = $("#chkTheater").is(':checked');
-        dict["Sports"] = $("#chkSports").is(':checked');
+        var categories = new Array();
+        if ($("#chkConcerts").is(':checked')) {
+            categories.push("Concerts");
+        }
+        
+        if ($("#chkMovies").is(':checked')) {
+            categories.push("Movies");
+        }
+        
+        if ($("#chkTheater").is(':checked')) {
+            categories.push("Theater");
+        }
 
-        dataSet.categories = dict;
+        if ($("#chkFootball").is(':checked')) {
+            categories.push("Football");
+        }
+
+        if ($("#chkHandball").is(':checked')) {
+            categories.push("Handball");
+        }
+
+        dataSet.categories = JSON.stringify(categories);
         $.ajax(
             {
                 type: "GET",
@@ -188,4 +213,13 @@
                 }
             });
     };
+
+    $('#chkSports').change(function () {
+        $('#sportSubCategories').toggle();
+        var checked = $('#chkSports').is(':checked');
+        $('#chkFootball').prop('checked', checked);
+        $("#chkFootball").trigger("change");
+        $('#chkHandball').prop('checked', checked);
+        $("#chkHandball").trigger("change");
+    });
 </script>

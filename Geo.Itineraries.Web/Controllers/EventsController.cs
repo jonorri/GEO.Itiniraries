@@ -35,24 +35,29 @@ namespace Geo.Itineraries.Web.Controllers
             var longitudePosition = double.Parse(model.Position.Split(':')[1], CultureInfo.InvariantCulture);
 
             IList<Categories> categories = new List<Categories>();
-            if (model.Categories.Keys.Contains("Movies") && (model.Categories["Movies"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Contains("Movies"))
             {
                 categories.Add(Categories.Movies);
             }
 
-            if (model.Categories.Keys.Contains("Theater") && (model.Categories["Theater"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Contains("Theater"))
             {
                 categories.Add(Categories.Theater);
             }
 
-            if (model.Categories.Keys.Contains("Concerts") && (model.Categories["Concerts"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Contains("Concerts"))
             {
                 categories.Add(Categories.Concert);
             }
 
-            if (model.Categories.Keys.Contains("Sports") && (model.Categories["Sports"] as string[]).FirstOrDefault() == "true")
+            if (model.Categories.Contains("Football"))
             {
-                categories.Add(Categories.Sports);
+                categories.Add(Categories.Football);
+            }
+
+            if (model.Categories.Contains("Handball"))
+            {
+                categories.Add(Categories.Handball);
             }
 
             var events = RedisStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, categories);

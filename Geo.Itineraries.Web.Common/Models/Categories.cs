@@ -15,9 +15,9 @@ namespace Geo.Itineraries.Web.Common.Models
         Movies = 1,
 
         /// <summary>
-        /// The sport category
+        /// The football category
         /// </summary>
-        Sports = 2,
+        Football = 2,
 
         /// <summary>
         /// The theater category
@@ -27,6 +27,11 @@ namespace Geo.Itineraries.Web.Common.Models
         /// <summary>
         /// The concert category
         /// </summary>
-        Concert = 4
+        Concert = 4,
+
+        /// <summary>
+        /// The handball category
+        /// </summary>
+        Handball = 5
     }
 }

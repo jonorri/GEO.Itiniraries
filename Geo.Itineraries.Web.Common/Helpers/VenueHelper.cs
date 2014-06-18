@@ -61,6 +61,7 @@ namespace Geo.Itineraries.Web.Common.Helpers
             venues.Add(new VenueModel { VenueKey = "HARPA", VenueId = string.Empty, VenueName = "Harpan", Latitude = 64.149265, Longitude = -21.941615, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "VODAFONEVÖLLURINN", VenueId = string.Empty, VenueName = "Vodafonevöllurinn", Latitude = 64.133086, Longitude = -21.923564, Location = "Reykjavík" });
             venues.Add(new VenueModel { VenueKey = "FYLKISVÖLLUR", VenueId = string.Empty, VenueName = "Fylkisvöllur", Latitude = 64.113394, Longitude = -21.792884, Location = "Reykjavík" });
+            venues.Add(new VenueModel { VenueKey = "LAUGARDALSHÖLL", VenueId = string.Empty, VenueName = "Laugardalshöll", Latitude = 64.140185, Longitude = -21.876721, Location = "Reykjavík " });
         }
 
         /// <summary>

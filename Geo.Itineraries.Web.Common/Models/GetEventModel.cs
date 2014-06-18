@@ -7,10 +7,12 @@ namespace Geo.Itineraries.Web.Common.Models
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// The get event model
     /// </summary>
+    [Serializable]
     public class GetEventModel
     {
         /// <summary>
@@ -41,6 +43,6 @@ namespace Geo.Itineraries.Web.Common.Models
         /// Gets or sets the categories to get by
         /// </summary>
         [JsonProperty(PropertyName = "categories")]
-        public Dictionary<object, object> Categories { get; set; }
+        public string Categories { get; set; }
     }
 }

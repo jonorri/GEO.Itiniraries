@@ -55,12 +55,14 @@
     <Compile Include="Models\Apis.Is\ConcertDateModel.cs" />
     <Compile Include="Models\Apis.Is\ConcertListModel.cs" />
     <Compile Include="Models\Apis.Is\ConcertModel.cs" />
+    <Compile Include="Models\Apis.Is\HandballListModel.cs" />
+    <Compile Include="Models\Apis.Is\HandballModel.cs" />
     <Compile Include="Models\Apis.Is\MovieModel.cs" />
     <Compile Include="Models\Apis.Is\MovieTheaterListModel.cs" />
     <Compile Include="Models\Apis.Is\MovieTheaterModel.cs" />
     <Compile Include="Models\Apis.Is\ShowTimeModel.cs" />
-    <Compile Include="Models\Apis.Is\SportListModel.cs" />
-    <Compile Include="Models\Apis.Is\SportModel.cs" />
+    <Compile Include="Models\Apis.Is\FootballListModel.cs" />
+    <Compile Include="Models\Apis.Is\FootballModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\EventListModel.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -71,8 +73,11 @@
     <Compile Include="Models\VenueModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\Apis.Is\ConcertHandler.cs" />
+    <Compile Include="Storage\Apis.Is\HandballHandler.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Storage\Apis.Is\MovieHandler.cs" />
-    <Compile Include="Storage\Apis.Is\SportHandler.cs" />
+    <Compile Include="Storage\Apis.Is\FootballHandler.cs" />
     <Compile Include="Storage\Apis.Is\TheaterHandler.cs" />
     <Compile Include="Storage\IEventHandler.cs" />
     <Compile Include="Storage\IItineraryStorage.cs" />
