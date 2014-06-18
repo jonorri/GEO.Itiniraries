@@ -1,0 +1,42 @@
+﻿@using System.Collections.Generic
+
+@model ICollection<Geo.Itineraries.Web.Common.Models.MissingVenueModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Missing Venues</h2>
+
+<table class="table table-striped table-hover table-condensed">
+    <tr>
+        <th>Venue Name</th>
+        <th>Date missing</th>
+        <th />
+    </tr>
+
+    @foreach (Geo.Itineraries.Web.Common.Models.MissingVenueModel missingVenue in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => missingVenue.VenueName)</td>
+            <td>@Html.DisplayFor(modelItem => missingVenue.DateMissing)</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-target="#missingVenueModal" data-toggle="modal" data-remote="@this.Url.Action("DeleteMissingVenue", "Venues", new { missingVenueName = missingVenue.VenueName })">Delete</a></li>
+                        <li><a href="#" data-target="#missingVenueModal" data-toggle="modal" data-remote="@this.Url.Action("Create", "Venues", new { missingVenue = missingVenue.VenueName })">Create</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="missingVenueModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>

@@ -233,6 +233,8 @@
     <Content Include="Views\Venues\Delete.cshtml" />
     <Content Include="Views\Venues\Edit.cshtml" />
     <Content Include="Views\Venues\Create.cshtml" />
+    <Content Include="Views\Venues\DeleteMissingVenue.cshtml" />
+    <Content Include="Views\Venues\MissingVenues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

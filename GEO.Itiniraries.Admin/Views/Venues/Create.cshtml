@@ -14,7 +14,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.VenueKey, new { @class = "control-label" }) *
-            @Html.TextBoxFor(model => model.VenueKey, new { @class = "form-control", @placeholder = "Enter venue key" })
+            @Html.TextBoxFor(model => model.VenueKey, new { @class = "form-control", @Value = ViewBag.VenueKey, @placeholder = "Enter venue key" })
             @Html.ValidationMessageFor(model => model.VenueKey, string.Empty, new { @class = "help-block" })
         </div>
 

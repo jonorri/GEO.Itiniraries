@@ -29,9 +29,23 @@ namespace GEO.Itiniraries.Admin.Controllers
             return View("missingVenues", missingVenueList);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string missingVenue)
         {
+            this.ViewBag.VenueKey = missingVenue;
             return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "VenueKey,VenueId,VenueName,Latitude,Longitude,Location")]VenueModel venue)
+        {
+            if (ModelState.IsValid)
+            {
+                RedisStorage.CreateVenue(venue);
+                return this.Redirect(Request.UrlReferrer.ToString());
+            }
+
+            return this.View(venue);
         }
 
         public ActionResult Edit(Guid venueId)
@@ -63,17 +77,24 @@ namespace GEO.Itiniraries.Admin.Controllers
             return this.View(venue);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VenueKey,VenueId,VenueName,Latitude,Longitude,Location")]VenueModel venue)
+        public ActionResult DeleteMissingVenue(string missingVenueId)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(missingVenueId))
             {
-                RedisStorage.CreateVenue(venue);
-                return this.Redirect(Request.UrlReferrer.ToString());
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return this.View(venue);
+            RedisStorage.DeleteMissingVenue(missingVenueId);
+
+            return this.View();
+        }
+
+        [HttpPost, ActionName("DeleteMissingVenue")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteMissingVenueConfirmed(string missingVenueId)
+        {
+            // TODO: KRAPP Delete the missing venue
+            return this.Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult Delete(Guid venueId)
@@ -90,9 +111,9 @@ namespace GEO.Itiniraries.Admin.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid venueID)
         {
-            // Delete the venue
+            // TODO: KRAPP Delete the venue
             return this.Redirect(Request.UrlReferrer.ToString());
         }
     }

@@ -116,7 +116,16 @@ namespace Geo.Itineraries.Web.Common.Storage
         /// <param name="venueId">Venue id to add to the list</param>
         public static void AddVenueId(string venueId)
         {
-            cache.StringAppend("VENUE_ID_LIST", ":" + venueId);
+            cache.StringAppend("VENUE_ID_LIST", venueId + ":");
+        }
+
+        /// <summary>
+        /// Maintains a list of all missing venues stored in REDIS
+        /// </summary>
+        /// <param name="missingVenueId">Missing venue id to add to the list</param>
+        public static void AddMissingVenueId(string missingVenueId)
+        {
+            cache.StringAppend("MISSING_VENUE_ID_LIST", missingVenueId + ":");
         }
 
         /// <summary>
@@ -142,7 +151,6 @@ namespace Geo.Itineraries.Web.Common.Storage
             var idList = GetStringListByKey(redisKey);
             foreach (var id in idList)
             {
-                // TODO: KRAPP THIS IS A SHITMIX BECAUSE THE VENUE LIST IN REDIS IS INCORRECTLY CONFIGURED
                 if (!string.IsNullOrWhiteSpace(id))
                 {
                     var cacheObject = cache.StringGet(redisPrefix + id);
@@ -163,6 +171,15 @@ namespace Geo.Itineraries.Web.Common.Storage
         }
 
         /// <summary>
+        /// Deletes a missing venue from REDIS
+        /// </summary>
+        /// <param name="missingVenueId">Id of the missing venue to delete</param>
+        public static void DeleteMissingVenue(string missingVenueId)
+        {
+            DeleteFromRedis(MissingVenueRedisPrefix + missingVenueId);
+        }
+
+        /// <summary>
         /// Stores a missing venue in REDIS
         /// </summary>
         /// <param name="venueName">Venue that is missing</param>
@@ -171,6 +188,8 @@ namespace Geo.Itineraries.Web.Common.Storage
             MissingVenueModel missingVenue = new MissingVenueModel { VenueName = venueName, DateMissing = DateTime.UtcNow };
 
             cache.StringSet(RedisStorage.MissingVenueRedisPrefix + venueName, JsonConvert.SerializeObject(missingVenue));
+
+            AddMissingVenueId(venueName);
         }
 
         /// <summary>
