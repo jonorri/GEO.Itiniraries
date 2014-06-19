@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web
+namespace WhatToDoInIceland.Web
 {
     using System.Web.Http;
     

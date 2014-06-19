@@ -5,9 +5,9 @@
 namespace GEO.Itiniraries.Admin.Controllers
 {
     using System.Web.Mvc;
-    using Geo.Itineraries.Web.Common.Storage;
+    using WhatToDoInIceland.Web.Common.Storage;
     using System.Collections.Generic;
-    using Geo.Itineraries.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Models;
     using System;
     using System.Net;
 

@@ -2,13 +2,13 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web
+namespace WhatToDoInIceland.Web
 {
     using System.Timers;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Geo.Itineraries.Web.Common.Storage;
+    using WhatToDoInIceland.Web.Common.Storage;
 
     /// <summary>
     /// The MVC application

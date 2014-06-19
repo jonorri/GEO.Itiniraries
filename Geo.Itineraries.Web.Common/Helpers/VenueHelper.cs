@@ -2,14 +2,14 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Helpers
+namespace WhatToDoInIceland.Web.Common.Helpers
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Device.Location;
     using System.Linq;
-    using Geo.Itineraries.Web.Common.Models;
-    using Geo.Itineraries.Web.Common.Storage;
+    using WhatToDoInIceland.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Storage;
     
     /// <summary>
     /// The venue helper provides helper methods for venues

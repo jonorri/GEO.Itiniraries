@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Models.ApisIs
+namespace WhatToDoInIceland.Web.Common.Models.ApisIs
 {
     using System;
     using System.Collections.Generic;

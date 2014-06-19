@@ -2,12 +2,12 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Storage.ApisIs
+namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 {
     using System;
     using System.Net.Http;
-    using Geo.Itineraries.Web.Common.Models;
-    using Geo.Itineraries.Web.Common.Models.ApisIs;
+    using WhatToDoInIceland.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Models.ApisIs;
     using Newtonsoft.Json;
 
     /// <summary>

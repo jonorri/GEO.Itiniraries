@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Geo.Itineraries.Web.Common.Helpers;
+using WhatToDoInIceland.Web.Common.Helpers;
 
-namespace Geo.Itineraries.Tests.Unit.Disposable
+namespace WhatToDoInIceland.Tests.Unit.Disposable
 {
     [TestClass]
     public class PrimeCache

@@ -1,6 +1,6 @@
 ﻿@using System.Collections.Generic
 
-@model ICollection<Geo.Itineraries.Web.Common.Models.VenueModel>
+@model ICollection<WhatToDoInIceland.Web.Common.Models.VenueModel>
 
 @{
     ViewBag.Title = "Index";
@@ -23,7 +23,7 @@
         <th />
     </tr>
 
-    @foreach (Geo.Itineraries.Web.Common.Models.VenueModel venue in Model)
+    @foreach (WhatToDoInIceland.Web.Common.Models.VenueModel venue in Model)
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => venue.VenueKey)</td>

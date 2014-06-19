@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Models.Apis.Is
+namespace WhatToDoInIceland.Web.Common.Models.Apis.Is
 {
     using System;
     using Newtonsoft.Json;

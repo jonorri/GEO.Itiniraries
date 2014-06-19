@@ -247,9 +247,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geo.Itineraries.Web.Common\Geo.Itineraries.Web.Common.csproj">
+    <ProjectReference Include="..\Geo.Itineraries.Web.Common\WhatToDoInIceland.Web.Common.csproj">
       <Project>{544e0b7e-8e31-481a-8392-fe180ec192a8}</Project>
-      <Name>Geo.Itineraries.Web.Common</Name>
+      <Name>WhatToDoInIceland.Web.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

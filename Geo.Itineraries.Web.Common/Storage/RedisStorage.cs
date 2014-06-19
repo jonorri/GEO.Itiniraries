@@ -2,14 +2,14 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Storage
+namespace WhatToDoInIceland.Web.Common.Storage
 {
     using System;
     using System.Collections.Generic;
     using System.Device.Location;
     using System.Threading.Tasks;
-    using Geo.Itineraries.Web.Common.Helpers;
-    using Geo.Itineraries.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Helpers;
+    using WhatToDoInIceland.Web.Common.Models;
     using Newtonsoft.Json;
     using StackExchange.Redis;
 

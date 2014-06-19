@@ -2,12 +2,12 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Models.ApisIs
+namespace WhatToDoInIceland.Web.Common.Models.ApisIs
 {
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Geo.Itineraries.Web.Common.Models.Apis.Is;
+    using WhatToDoInIceland.Web.Common.Models.Apis.Is;
     using Newtonsoft.Json;
 
     /// <summary>

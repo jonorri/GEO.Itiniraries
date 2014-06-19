@@ -2,10 +2,10 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Storage.ApisIs
+namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 {
     using System;
-    using Geo.Itineraries.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Models;
 
     /// <summary>
     /// The theater event handler

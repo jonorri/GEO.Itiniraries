@@ -60,9 +60,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geo.Itineraries.Web\Geo.Itineraries.Web.csproj">
+    <ProjectReference Include="..\Geo.Itineraries.Web\WhatToDoInIceland.Web.csproj">
       <Project>{d033a39d-ea8d-46c1-aee4-45b14205e529}</Project>
-      <Name>Geo.Itineraries.Web</Name>
+      <Name>WhatToDoInIceland.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

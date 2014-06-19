@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Controllers
+namespace WhatToDoInIceland.Web.Controllers
 {
     using System.Web.Mvc;
 

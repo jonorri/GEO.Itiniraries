@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Helpers
+namespace WhatToDoInIceland.Web.Common.Helpers
 {
     using System.Configuration;
 

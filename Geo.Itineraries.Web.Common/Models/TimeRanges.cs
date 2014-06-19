@@ -2,7 +2,7 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Common.Web.Models
+namespace WhatToDoInIceland.Web.Common.Web.Models
 {
     /// <summary>
     /// Time ranges supported by the system

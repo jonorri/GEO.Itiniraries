@@ -2,15 +2,15 @@
 //     Copyright 2014, JOK All rights reserved.
 // </copyright>
 
-namespace Geo.Itineraries.Web.Controllers
+namespace WhatToDoInIceland.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Device.Location;
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using Geo.Itineraries.Web.Common.Models;
-    using Geo.Itineraries.Web.Common.Storage;
+    using WhatToDoInIceland.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Storage;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
