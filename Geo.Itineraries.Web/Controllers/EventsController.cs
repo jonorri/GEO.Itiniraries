@@ -9,10 +9,10 @@ namespace WhatToDoInIceland.Web.Controllers
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
-    using WhatToDoInIceland.Web.Common.Models;
-    using WhatToDoInIceland.Web.Common.Storage;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using WhatToDoInIceland.Web.Common.Models;
+    using WhatToDoInIceland.Web.Common.Storage;
 
     /// <summary>
     /// The events controller

@@ -8,10 +8,10 @@ namespace WhatToDoInIceland.Web.Common.Storage
     using System.Collections.Generic;
     using System.Device.Location;
     using System.Threading.Tasks;
-    using WhatToDoInIceland.Web.Common.Helpers;
-    using WhatToDoInIceland.Web.Common.Models;
     using Newtonsoft.Json;
     using StackExchange.Redis;
+    using WhatToDoInIceland.Web.Common.Helpers;
+    using WhatToDoInIceland.Web.Common.Models;
 
     /// <summary>
     /// REDIS storage

@@ -7,11 +7,11 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using System;
     using System.Linq;
     using System.Net.Http;
+    using Newtonsoft.Json;
     using WhatToDoInIceland.Web.Common.Helpers;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.Apis.Is;
-    using Newtonsoft.Json;
-    
+
     /// <summary>
     /// The football event handler
     /// </summary>

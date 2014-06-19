@@ -7,8 +7,8 @@ namespace WhatToDoInIceland.Web.Common.Models.ApisIs
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using WhatToDoInIceland.Web.Common.Models.Apis.Is;
     using Newtonsoft.Json;
+    using WhatToDoInIceland.Web.Common.Models.Apis.Is;
 
     /// <summary>
     /// The movie theater list model
