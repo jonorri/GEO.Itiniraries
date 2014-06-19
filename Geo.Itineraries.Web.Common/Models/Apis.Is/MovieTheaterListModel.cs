@@ -16,8 +16,6 @@ namespace WhatToDoInIceland.Web.Common.Models.ApisIs
     [Serializable]
     public class MovieTheaterListModel
     {
-        // TODO: KRAPP LOOK INTO SERIALIZATION FOR ALL ENTITIES
-
         /// <summary>
         /// Gets or sets the results
         /// </summary>
