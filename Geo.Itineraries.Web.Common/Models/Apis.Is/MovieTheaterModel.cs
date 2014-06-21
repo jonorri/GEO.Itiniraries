@@ -6,8 +6,8 @@ namespace WhatToDoInIceland.Web.Common.Models.Apis.Is
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
     using System.Text;
+    using log4net;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -16,6 +16,11 @@ namespace WhatToDoInIceland.Web.Common.Models.Apis.Is
     [Serializable]
     public class MovieTheaterModel
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MovieTheaterModel));
+
         /// <summary>
         /// Gets or sets the name of the movie theater
         /// </summary>
@@ -52,9 +57,18 @@ namespace WhatToDoInIceland.Web.Common.Models.Apis.Is
                 foreach (var showTime in movie.Schedule)
                 {
                     DateTime tempDateTime = DateTime.UtcNow;
+                    int hour, minute;
+                    if (!int.TryParse(showTime.Substring(0, 2), out hour))
+                    {
+                        Log.Error(string.Format("An error occured parsing the hour part of {0} to a valid show time.", showTime));
+                    }
 
-                    // TODO: KRAPP FINISH THE CHECKING FOR BOUNDARIES HERE
-                    TimeSpan ts = new TimeSpan(int.Parse(showTime.Substring(0, 2)), int.Parse(showTime.Substring(3, 2)), 0);
+                    if (!int.TryParse(showTime.Substring(3, 2), out minute))
+                    {
+                        Log.Error(string.Format("An error occured parsing the minute part of {0} to a valid show time.", showTime));
+                    }
+
+                    TimeSpan ts = new TimeSpan(hour, minute, 0);
                     tempDateTime = tempDateTime.Date + ts;
 
                     if (tempDateTime < firstShowTime)
