@@ -101,7 +101,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                 return DateTime.MinValue;
             }
 
-            if (!int.TryParse(time.Substring(time.IndexOf(':')), out minute))
+            if (!int.TryParse(time.Substring(time.IndexOf(':') + 1), out minute))
             {
                 Log.Error(string.Format("An error occured parsing the minute part of {0} to football DateTime", date));
                 return DateTime.MinValue;

@@ -44,12 +44,6 @@ namespace WhatToDoInIceland.Web.Common.Models
         public double Longitude { get; set; }
 
         /// <summary>
-        /// Gets or sets the location
-        /// </summary>
-        [JsonProperty(PropertyName = "location")]
-        public string Location { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether this venue is sponsored or not
         /// </summary>
         [JsonProperty(PropertyName = "sponsored")]
