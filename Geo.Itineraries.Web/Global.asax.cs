@@ -8,6 +8,7 @@ namespace WhatToDoInIceland.Web
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using log4net.Config;
     using WhatToDoInIceland.Web.Common.Storage;
 
     /// <summary>
@@ -24,6 +25,8 @@ namespace WhatToDoInIceland.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            XmlConfigurator.Configure();
 
             Timer primeCacheTimer = new Timer();
             primeCacheTimer.Interval = 3600000;
