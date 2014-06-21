@@ -5,6 +5,7 @@
 namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 {
     using System;
+    using log4net;
     using WhatToDoInIceland.Web.Common.Models;
 
     /// <summary>
@@ -12,6 +13,11 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     /// </summary>
     public class TheaterHandler : IEventHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MovieHandler));
+
         /// <summary>
         /// Gets theater events and stores them in REDIS
         /// </summary>
@@ -21,9 +27,9 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
             try
             {
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW
+                Log.Error("An error occured getting movie data from apis.is.", ex);
             }
         }
     }

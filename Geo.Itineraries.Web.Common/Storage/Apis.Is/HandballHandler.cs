@@ -7,9 +7,15 @@
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.Apis.Is;
     using Newtonsoft.Json;
+    using log4net;
 
     public class HandballHandler : IEventHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(typeof(HandballHandler));
+
         /// <summary>
         /// Gets handball events and stores them in REDIS
         /// </summary>
@@ -43,9 +49,9 @@
                     updateStorage(eventListModel);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW
+                log.Error("An error occured when fetching handball events to apis.is.", ex);
             }
         }
 
@@ -76,19 +82,22 @@
             int minute, hour, month, dayOfMonth, year;
             if (!int.TryParse(time.Substring(0, 2), out hour))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                log.Error(string.Format("An error occured parsing the hour part of {0} to handball DateTime", date));
+                return DateTime.MinValue;
             }
 
             if (!int.TryParse(time.Substring(time.IndexOf('.')), out minute))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                log.Error(string.Format("An error occured parsing the minute part of {0} to handball DateTime", date));
+                return DateTime.MinValue;
             }
 
             var dateArray = date.Split(new string[] { "." }, StringSplitOptions.None);
 
             if (!int.TryParse(dateArray[1].Trim().Substring(0, 2), out dayOfMonth))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                log.Error(string.Format("An error occured parsing the day of month part of {0} to handball DateTime", date));
+                return DateTime.MinValue;
             }
 
             switch (dateArray[2].Substring(0, 3))
@@ -130,14 +139,14 @@
                     month = 12;
                     break;
                 default:
-                    // TODO: KRAPP LOG AND SWALLOW EXCEPTION
-                    month = -1;
-                    break;
+                    log.Error(string.Format("An error occured parsing the hour part of {0} to handball DateTime", date));
+                    return DateTime.MinValue;
             }
 
             if (!int.TryParse(dateArray[2].Trim(), out year))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                log.Error(string.Format("An error occured parsing the year part of {0} to handball DateTime", date));
+                return DateTime.MinValue;
             }
 
             DateTime dateTime = new DateTime(year, month, dayOfMonth);

@@ -7,6 +7,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using System;
     using System.Linq;
     using System.Net.Http;
+    using log4net;
     using Newtonsoft.Json;
     using WhatToDoInIceland.Web.Common.Helpers;
     using WhatToDoInIceland.Web.Common.Models;
@@ -17,6 +18,11 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     /// </summary>
     public class FootballHandler : IEventHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(FootballHandler));
+
         /// <summary>
         /// Gets football events and stores them in REDIS
         /// </summary>
@@ -59,9 +65,9 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                     updateStorage(eventListModel);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW
+                Log.Error("An error occured getting football events from apis.is.", ex);
             }
         }
 
@@ -91,19 +97,22 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
             int minute, hour, month, dayOfMonth;
             if (!int.TryParse(time.Substring(0, 2), out hour))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                Log.Error(string.Format("An error occured parsing the hour part of {0} to football DateTime", date));
+                return DateTime.MinValue;
             }
 
             if (!int.TryParse(time.Substring(time.IndexOf(':')), out minute))
-            { 
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+            {
+                Log.Error(string.Format("An error occured parsing the minute part of {0} to football DateTime", date));
+                return DateTime.MinValue;
             }
 
             var dateArray = date.Split(new string[] { ". " }, StringSplitOptions.None);
             
             if (!int.TryParse(dateArray[1].Substring(0, 2), out dayOfMonth))
             {
-                // TODO: KRAPP LOG AND SWALLOW EXCEPTION
+                Log.Error(string.Format("An error occured parsing the day of month part of {0} to football DateTime", date));
+                return DateTime.MinValue;
             }
 
             switch (dateArray[2].Substring(0, 3))
@@ -145,8 +154,8 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                     month = 12;
                     break;
                 default:
-                    month = 0;
-                    break;
+                    Log.Error(string.Format("An error occured parsing the month part of {0} to football DateTime", date));
+                    return DateTime.MinValue;
             }
 
             DateTime dateTime = new DateTime(DateTime.UtcNow.Year, month, dayOfMonth);

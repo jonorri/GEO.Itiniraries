@@ -8,6 +8,7 @@ namespace WhatToDoInIceland.Web.Common.Storage
     using System.Collections.Generic;
     using System.Device.Location;
     using System.Threading.Tasks;
+    using log4net;
     using Newtonsoft.Json;
     using StackExchange.Redis;
     using WhatToDoInIceland.Web.Common.Helpers;
@@ -18,6 +19,11 @@ namespace WhatToDoInIceland.Web.Common.Storage
     /// </summary>
     public static class RedisStorage
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(RedisStorage));
+        
         /// <summary>
         /// Venue REDIS prefix
         /// </summary>
@@ -263,9 +269,9 @@ namespace WhatToDoInIceland.Web.Common.Storage
             {
                 cache.StringSet(eventModels.Id.ToString(), JsonConvert.SerializeObject(eventModels));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW ALL EXCEPTIONS
+                Log.Error("An error occured when updating the REDIS cache.", ex);
             }
         }
     }

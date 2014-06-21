@@ -6,6 +6,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 {
     using System;
     using System.Net.Http;
+    using log4net;
     using Newtonsoft.Json;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.ApisIs;
@@ -15,6 +16,11 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     /// </summary>
     public class ConcertHandler : IEventHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ConcertHandler));
+
         /// <summary>
         /// Gets concert events from APIS.is
         /// </summary>
@@ -37,10 +43,9 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                     var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW
-                throw;
+                Log.Error("An error occured getting concert events from apis.is.", ex);
             }
         }
     }

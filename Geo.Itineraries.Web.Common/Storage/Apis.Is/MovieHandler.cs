@@ -7,6 +7,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using System;
     using System.Linq;
     using System.Net.Http;
+    using log4net;
     using Newtonsoft.Json;
     using WhatToDoInIceland.Web.Common.Helpers;
     using WhatToDoInIceland.Web.Common.Models;
@@ -17,6 +18,11 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     /// </summary>
     public class MovieHandler : IEventHandler
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MovieHandler));
+
         /// <summary>
         /// Gets movie events and stores them in REDIS
         /// </summary>
@@ -42,9 +48,9 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                     updateStorage(new EventListModel { Id = (int)Categories.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)Categories.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: KRAPP LOG AND SWALLOW
+                Log.Error("An error occured getting movie data from apis.is.", ex);
             }
         }
     }
