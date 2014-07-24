@@ -8,6 +8,7 @@
     using WhatToDoInIceland.Web.Common.Models.Apis.Is;
     using Newtonsoft.Json;
     using log4net;
+    using System.Threading.Tasks;
 
     public class HandballHandler : IEventHandler
     {
@@ -16,11 +17,7 @@
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(HandballHandler));
 
-        /// <summary>
-        /// Gets handball events and stores them in REDIS
-        /// </summary>
-        /// <param name="updateStorage">The method to call to update the storage</param>
-        public override void GetEvents(Action<EventListModel> updateStorage)
+        public override EventListModel GetEvents()
         {
             try
             {
@@ -32,7 +29,7 @@
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        return;
+                        return new EventListModel();
                     }
 
                     var content = result.Content.ReadAsStringAsync().Result;
@@ -46,12 +43,14 @@
                             .Select(x => new EventModel { ImageUrl = "Content/sport.png", CategoryId = (int)Categories.Handball, EventName = x.Teams, EventDescription = BuildEventDescription(x), Venue = VenueHelper.GetVenueModel(x.Venue), EventDate = ParseDateTime(x.Date, x.Time) })
                             .ToList()
                     };
-                    updateStorage(eventListModel);
+
+                    return eventListModel;
                 }
             }
             catch (Exception ex)
             {
                 log.Error("An error occured when fetching handball events to apis.is.", ex);
+                return null;
             }
         }
 

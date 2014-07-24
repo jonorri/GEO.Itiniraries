@@ -12,6 +12,8 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using WhatToDoInIceland.Web.Common.Helpers;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.ApisIs;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The movie event handler
@@ -23,11 +25,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
         /// </summary>
         private static readonly ILog Log = LogManager.GetLogger(typeof(MovieHandler));
 
-        /// <summary>
-        /// Gets movie events and stores them in REDIS
-        /// </summary>
-        /// <param name="updateStorage">The method to call to update the storage</param>
-        public override void GetEvents(Action<EventListModel> updateStorage)
+        public override EventListModel GetEvents()
         {
             try
             {
@@ -39,18 +37,19 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        return;
+                        return new EventListModel();
                     }
 
                     var content = result.Content.ReadAsStringAsync().Result;
                     var content2 = JsonConvert.DeserializeObject<MovieTheaterListModel>(content);
 
-                    updateStorage(new EventListModel { Id = (int)Categories.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)Categories.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() });
+                    return new EventListModel { Id = (int)Categories.Movies, EventModels = content2.Results.Select(x => new EventModel { ImageUrl = "Content/movie.png", CategoryId = (int)Categories.Movies, EventName = x.Name, EventDescription = x.MoviesList(), Venue = VenueHelper.GetVenueModel(x.Name), EventDate = x.GetFirstShowTime() }).ToList() };
                 }
             }
             catch (Exception ex)
             {
                 Log.Error("An error occured getting movie data from apis.is.", ex);
+                return null;
             }
         }
     }

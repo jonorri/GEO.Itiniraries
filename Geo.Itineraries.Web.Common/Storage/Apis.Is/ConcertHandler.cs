@@ -10,6 +10,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using Newtonsoft.Json;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.ApisIs;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The concert event handler
@@ -24,8 +25,8 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
         /// <summary>
         /// Gets concert events from APIS.is
         /// </summary>
-        /// <param name="updateStorage">Update storage action to run with the fetched events</param>
-        public override async void GetEvents(Action<EventListModel> updateStorage)
+        /// <returns>The event list model</returns>
+        public override EventListModel GetEvents()
         {
             try
             {
@@ -33,19 +34,22 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
                 {
                     client.DefaultRequestHeaders.Add("Accept-Version", "1");
                     client.DefaultRequestHeaders.Add("Accept", "application/json");
-                    var result = await client.GetAsync("http://apis.is/concerts");
+                    var result = client.GetAsync("http://apis.is/concerts").Result;
                     if (!result.IsSuccessStatusCode)
                     {
-                        return;
+                        return new EventListModel();
                     }
 
-                    var content = await result.Content.ReadAsStringAsync();
+                    var content = result.Content.ReadAsStringAsync().Result;
                     var concertListModel = JsonConvert.DeserializeObject<ConcertListModel>(content);
+
+                    return new EventListModel(); // TODO: KRAPP FINISH THIS LATER
                 }
             }
             catch (Exception ex)
             {
                 Log.Error("An error occured getting concert events from apis.is.", ex);
+                return null;
             }
         }
     }

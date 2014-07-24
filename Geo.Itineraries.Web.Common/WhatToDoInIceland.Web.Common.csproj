@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -82,13 +83,18 @@
     <Compile Include="Storage\Apis.Is\MovieHandler.cs" />
     <Compile Include="Storage\Apis.Is\FootballHandler.cs" />
     <Compile Include="Storage\Apis.Is\TheaterHandler.cs" />
+    <Compile Include="Storage\CacheKeys.cs" />
     <Compile Include="Storage\IEventHandler.cs" />
     <Compile Include="Storage\IItineraryStorage.cs" />
-    <Compile Include="Storage\RedisStorage.cs" />
+    <Compile Include="Storage\InMemoryStorage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Files\venues.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

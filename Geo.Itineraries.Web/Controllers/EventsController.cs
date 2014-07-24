@@ -13,6 +13,7 @@ namespace WhatToDoInIceland.Web.Controllers
     using Newtonsoft.Json.Linq;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Storage;
+    using Geo.Itineraries.Web.Common.Storage;
 
     /// <summary>
     /// The events controller
@@ -31,8 +32,17 @@ namespace WhatToDoInIceland.Web.Controllers
                 return new JObject();
             }
 
-            var latitudePosition = double.Parse(model.Position.Split(':')[0], CultureInfo.InvariantCulture);
-            var longitudePosition = double.Parse(model.Position.Split(':')[1], CultureInfo.InvariantCulture);
+            double latitudePosition;
+            if (!double.TryParse(model.Position.Split(':')[0], out latitudePosition))
+            {
+                return new JObject();
+            }
+
+            double longitudePosition;
+            if (!double.TryParse(model.Position.Split(':')[1], out longitudePosition))
+            {
+                return new JObject();
+            }
 
             IList<Categories> categories = new List<Categories>();
             if (model.Categories.Contains("Movies"))
@@ -60,7 +70,7 @@ namespace WhatToDoInIceland.Web.Controllers
                 categories.Add(Categories.Handball);
             }
 
-            var events = RedisStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, categories);
+            var events = InMemoryStorage.GetEvents(new GeoCoordinate(latitudePosition, longitudePosition), model.StartDate, model.EndDate, model.RadiusRange, categories);
             return JObject.FromObject(events);
         }
     }

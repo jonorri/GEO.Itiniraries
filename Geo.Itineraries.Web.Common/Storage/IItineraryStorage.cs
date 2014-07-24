@@ -25,9 +25,6 @@ namespace WhatToDoInIceland.Web.Common.Storage
         /// <returns>An event list model</returns>
         EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<Categories> categories);
 
-        /// <summary>
-        /// Primes the REDIS cache
-        /// </summary>
         void PrimeCache();
     }
 }

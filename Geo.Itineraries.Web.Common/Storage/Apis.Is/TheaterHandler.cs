@@ -7,6 +7,8 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using System;
     using log4net;
     using WhatToDoInIceland.Web.Common.Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The theater event handler
@@ -18,19 +20,9 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
         /// </summary>
         private static readonly ILog Log = LogManager.GetLogger(typeof(MovieHandler));
 
-        /// <summary>
-        /// Gets theater events and stores them in REDIS
-        /// </summary>
-        /// <param name="updateStorage">The method to call to update the storage</param>
-        public override void GetEvents(Action<EventListModel> updateStorage)
+        public override EventListModel GetEvents()
         {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Log.Error("An error occured getting movie data from apis.is.", ex);
-            }
+            return new EventListModel();
         }
     }
 }

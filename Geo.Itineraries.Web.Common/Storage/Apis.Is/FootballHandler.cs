@@ -12,6 +12,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
     using WhatToDoInIceland.Web.Common.Helpers;
     using WhatToDoInIceland.Web.Common.Models;
     using WhatToDoInIceland.Web.Common.Models.Apis.Is;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The football event handler
@@ -23,11 +24,7 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
         /// </summary>
         private static readonly ILog Log = LogManager.GetLogger(typeof(FootballHandler));
 
-        /// <summary>
-        /// Gets football events and stores them in REDIS
-        /// </summary>
-        /// <param name="updateStorage">The method to call to update the storage</param>
-        public override void GetEvents(Action<EventListModel> updateStorage)
+        public override EventListModel GetEvents()
         {
             try
             {
@@ -39,35 +36,37 @@ namespace WhatToDoInIceland.Web.Common.Storage.ApisIs
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        return;
+                        return new EventListModel();
                     }
 
                     var content = result.Content.ReadAsStringAsync().Result;
 
                     var content2 = JsonConvert.DeserializeObject<FootballListModel>(content);
-                    
+
                     var eventListModel = new EventListModel
                     {
                         Id = (int)Categories.Football,
                         EventModels = content2.Results
                             .Where(x => !x.Tournament.Contains("lið") && !x.Tournament.Contains("flokkur")) // I want to filter out the youth games.
-                            .Select(x => new EventModel 
-                            { 
-                                ImageUrl = "Content/sport.png", 
-                                CategoryId = (int)Categories.Football, 
-                                EventName = x.HomeTeam + " vs " + x.AwayTeam, 
-                                EventDescription = this.BuildEventDescription(x), 
-                                Venue = VenueHelper.GetVenueModel(x.Location), 
-                                EventDate = this.ParseDateTime(x.Date, x.Time) 
+                            .Select(x => new EventModel
+                            {
+                                ImageUrl = "Content/sport.png",
+                                CategoryId = (int)Categories.Football,
+                                EventName = x.HomeTeam + " vs " + x.AwayTeam,
+                                EventDescription = this.BuildEventDescription(x),
+                                Venue = VenueHelper.GetVenueModel(x.Location),
+                                EventDate = this.ParseDateTime(x.Date, x.Time)
                             })
                             .ToList()
                     };
-                    updateStorage(eventListModel);
+                    
+                    return eventListModel;
                 }
             }
             catch (Exception ex)
             {
                 Log.Error("An error occured getting football events from apis.is.", ex);
+                return null;
             }
         }
 

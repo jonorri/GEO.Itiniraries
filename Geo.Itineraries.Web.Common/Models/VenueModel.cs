@@ -14,12 +14,6 @@ namespace WhatToDoInIceland.Web.Common.Models
     public class VenueModel
     {
         /// <summary>
-        /// Gets or sets the venue id
-        /// </summary>
-        [JsonProperty(PropertyName = "venueId")]
-        public string VenueId { get; set; }
-
-        /// <summary>
         /// Gets or sets the venue key
         /// </summary>
         [JsonProperty(PropertyName = "venueKey")]

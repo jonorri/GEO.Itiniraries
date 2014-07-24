@@ -5,6 +5,8 @@
 namespace WhatToDoInIceland.Web.Common.Storage
 {
     using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using WhatToDoInIceland.Web.Common.Models;
 
     /// <summary>
@@ -13,9 +15,9 @@ namespace WhatToDoInIceland.Web.Common.Storage
     public abstract class IEventHandler
     {
         /// <summary>
-        /// Gets events and stores them in REDIS
+        /// Gets the movie events 
         /// </summary>
-        /// <param name="updateStorage">The method to call to update the storage</param>
-        public abstract void GetEvents(Action<EventListModel> updateStorage);
+        /// <returns>All movie events in a collection</returns>
+        public abstract EventListModel GetEvents();
     }
 }

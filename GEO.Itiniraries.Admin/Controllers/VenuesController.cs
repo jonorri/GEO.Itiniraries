@@ -19,14 +19,18 @@ namespace GEO.Itiniraries.Admin.Controllers
         // GET: Venues
         public ActionResult Index()
         {
-            var venueList = RedisStorage.GetVenues();
-            return this.View(venueList);
+            return null;
+            // TODO: KRAPP
+            //var venueList = RedisStorage.GetVenues();
+            //return this.View(venueList);
         }
 
         public ActionResult MissingVenues()
         {
-            var missingVenueList = RedisStorage.GetMissingVenues();
-            return View("missingVenues", missingVenueList);
+            return null;
+            // TODO: KRAPP
+            //var missingVenueList = RedisStorage.GetMissingVenues();
+            //return View("missingVenues", missingVenueList);
         }
 
         public ActionResult Create(string missingVenue)
@@ -41,7 +45,8 @@ namespace GEO.Itiniraries.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                RedisStorage.CreateVenue(venue);
+                // TODO: KRAPP
+                //RedisStorage.CreateVenue(venue);
                 return this.Redirect(Request.UrlReferrer.ToString());
             }
 
@@ -55,13 +60,16 @@ namespace GEO.Itiniraries.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            VenueModel venue = RedisStorage.GetVenue(venueId);
-            if (venue == null)
-            {
-                return this.HttpNotFound();
-            }
+            //VenueModel venue = RedisStorage.GetVenue(venueId);
+            //if (venue == null)
+            //{
+            //    return this.HttpNotFound();
+            //}
 
-            return this.View(venue);
+            //return this.View(venue);
+
+            // TODO: KRAPP
+            return null;
         }
 
         [HttpPost]
@@ -70,7 +78,8 @@ namespace GEO.Itiniraries.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                RedisStorage.EditVenue(venue);
+                // TODO: KRAPP
+                //RedisStorage.EditVenue(venue);
                 return this.Redirect(Request.UrlReferrer.ToString());
             }
 
@@ -84,7 +93,8 @@ namespace GEO.Itiniraries.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            RedisStorage.DeleteMissingVenue(missingVenueId);
+            // TODO: KRAPP
+            //RedisStorage.DeleteMissingVenue(missingVenueId);
 
             return this.View();
         }
@@ -104,7 +114,8 @@ namespace GEO.Itiniraries.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            RedisStorage.DeleteVenue(venueId);
+            // TODO: KRAPP
+            //RedisStorage.DeleteVenue(venueId);
 
             return this.View();
         }

@@ -10,6 +10,7 @@ namespace WhatToDoInIceland.Web
     using System.Web.Routing;
     using log4net.Config;
     using WhatToDoInIceland.Web.Common.Storage;
+    using Geo.Itineraries.Web.Common.Storage;
 
     /// <summary>
     /// The MVC application
@@ -28,6 +29,8 @@ namespace WhatToDoInIceland.Web
 
             XmlConfigurator.Configure();
 
+            InMemoryStorage.PrimeProcessWithVenues();
+
             Timer primeCacheTimer = new Timer();
             primeCacheTimer.Interval = 3600000;
             primeCacheTimer.Elapsed += this.PrimeCacheTimer_Elapsed;
@@ -43,7 +46,9 @@ namespace WhatToDoInIceland.Web
         /// <param name="e">The elapsed event argument</param>
         private void PrimeCacheTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            RedisStorage.PrimeCache();
+            InMemoryStorage.PrimeCache();
+            
+            // TODO: KRAPP CREATE A TIMER WHICH SENDS OUT EMAILS BASED ON THE MISSING VENUES.
         }
     }
 }
