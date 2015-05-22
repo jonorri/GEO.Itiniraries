@@ -90,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Files\venues.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

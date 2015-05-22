@@ -157,30 +157,30 @@
         jQuery.support.cors = true;
         var dataSet = {};
 
-        dataSet.position = homeMarker.position.k + ":" + homeMarker.position.A;
+        dataSet.position = homeMarker.position.F + ":" + homeMarker.position.A;
         dataSet.radiusRange = parseInt(document.getElementById("radiusSlider").value);
         dataSet.startDate = document.getElementById("startDate").value;
         dataSet.endDate = document.getElementById("endDate").value;
 
         var categories = new Array();
         if ($("#chkConcerts").is(':checked')) {
-            categories.push("Concerts");
+            categories.push("CONCERTS");
         }
         
         if ($("#chkMovies").is(':checked')) {
-            categories.push("Movies");
+            categories.push("MOVIES");
         }
         
         if ($("#chkTheater").is(':checked')) {
-            categories.push("Theater");
+            categories.push("THEATER");
         }
 
         if ($("#chkFootball").is(':checked')) {
-            categories.push("Football");
+            categories.push("FOOTBALL");
         }
 
         if ($("#chkHandball").is(':checked')) {
-            categories.push("Handball");
+            categories.push("HANDBALL");
         }
 
         dataSet.categories = JSON.stringify(categories);
