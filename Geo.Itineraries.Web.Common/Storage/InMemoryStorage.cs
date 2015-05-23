@@ -21,7 +21,6 @@
 
         static InMemoryStorage()
         {
-            // TODO: KRAPP HERE I SHOULD GET ALL NECESSARY EVENTS AND STORE IT IN PROCESS
         }
 
         public static EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<Categories> categories)
