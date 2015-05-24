@@ -47,8 +47,7 @@ namespace WhatToDoInIceland.Web
 
         private void MissingVenuesTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // TODO: KRAPP SEND OUT MISSING VENUES EMAIL.
-
+            // TODO: KRAPP SEND OUT MISSING VENUES EMAIL
         }
 
         /// <summary>

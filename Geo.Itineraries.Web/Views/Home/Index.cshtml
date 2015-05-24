@@ -1,94 +1,90 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <!-- TODO: KRAPP EXTRACT THE CHECKBOX FRENZY OUT TO A JQUERY LIBRARY -->
+    <div id="searchBar" class="well">
+        <h3 id="searchTitle"><a href="#">Search</a></h3>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="span3">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
+                                </label>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="span3">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkTheater" class="style3" value="option2" disabled="disabled"> Theater (NOT YET ENABLED)
+                                </label>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="span3">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkConcerts" class="style3" value="option3" disabled="disabled"> Concerts (NOT YET ENABLED)
+                                </label>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="span3">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
+                                </label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkFootball" class="style3 sportSubCategory" value="option3"> Football
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="chkHandball" class="style3 sportSubCategory" value="option3"> Handball
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<!-- TODO: KRAPP EXTRACT THE CHECKBOX FRENZY OUT TO A JQUERY LIBRARY -->
-<div id="searchBar" class="well">
-    <h3 id="searchTitle"><a href="#">Search</a></h3>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        <div class="span3">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkMovies" class="style3" value="option1"> Movies
-                            </label>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="span3">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkTheater" class="style3" value="option2" disabled="disabled"> Theater (NOT YET ENABLED)
-                            </label>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="span3">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkConcerts" class="style3" value="option3" disabled="disabled"> Concerts (NOT YET ENABLED)
-                            </label>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="span3">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkSports" class="style3" value="option3"> Sports
-                            </label>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <div>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkFootball" class="style3 sportSubCategory" value="option3"> Football
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="chkHandball" class="style3 sportSubCategory" value="option3"> Handball
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-            </thead>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Start date: <input type="text" class="span2" value="" id="startDate"></th>
+                        <th>End date: <input type="text" class="span2" value="" id="endDate"></th>
+                    </tr>
+                </thead>
+            </table>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Start date: <input type="text" class="span2" value="" id="startDate"></th>
-                    <th>End date: <input type="text" class="span2" value="" id="endDate"></th>
-                </tr>
-            </thead>
-        </table>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        <div class="span9">
-                            Radius to search by: <input type="text" class="span2" value="1000" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="span1">
-                            <input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="span9">
+                                Radius to search by: <input type="text" class="span2" value="1000" data-slider-min="0" data-slider-max="15000" data-slider-step="100" data-slider-value="1000" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" id="radiusSlider">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="span1">
+                                <input type="button" id="btnSearch" value="Search" onclick=resetPosition() />
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
 
-<!-- TODO: KRAPP THE circle should move along with the drag of the marker -->
-<div id="map-canvas" class="jumbotron"></div>
+    <!-- TODO: KRAPP THE circle should move along with the drag of the marker -->
+    <div id="map-canvas" class="jumbotron"></div>
 <!-- TODO: KRAPP REFACTOR ALL THESE SCRIPTS OUT TO A SINGLE SCRIPT FILE -->
 <script>
     var circ = null;
