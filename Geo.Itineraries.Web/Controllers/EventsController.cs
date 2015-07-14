@@ -33,13 +33,13 @@ namespace WhatToDoInIceland.Web.Controllers
             }
 
             double latitudePosition;
-            if (!double.TryParse(model.Position.Split(':')[0], out latitudePosition))
+            if (!double.TryParse(model.Position.Split(':')[0], NumberStyles.Float, CultureInfo.InvariantCulture, out latitudePosition))
             {
                 return new JObject();
             }
 
             double longitudePosition;
-            if (!double.TryParse(model.Position.Split(':')[1], out longitudePosition))
+            if (!double.TryParse(model.Position.Split(':')[1], NumberStyles.Float, CultureInfo.InvariantCulture, out longitudePosition))
             {
                 return new JObject();
             }

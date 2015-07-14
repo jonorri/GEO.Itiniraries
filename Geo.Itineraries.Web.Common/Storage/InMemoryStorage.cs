@@ -21,7 +21,6 @@
 
         static InMemoryStorage()
         {
-            // TODO: KRAPP HERE I SHOULD GET ALL NECESSARY EVENTS AND STORE IT IN PROCESS
         }
 
         public static EventListModel GetEvents(GeoCoordinate position, DateTime startDate, DateTime? endDate, int radiusRange, IList<Categories> categories)
@@ -29,7 +28,7 @@
             EventListModel list = new EventListModel();
             foreach (var category in categories)
             {
-                var eventListModels = (EventListModel)cache.Get(category.ToString()) ?? new EventListModel();
+                var eventListModels = (EventListModel)cache.Get(category.ToString().ToUpper()) ?? new EventListModel();
 
                 list.EventModels.AddRange(eventListModels.EventModels);
             }
@@ -67,7 +66,7 @@
 
         public static void PrimeProcessWithVenues()
         {
-            string venuesString = File.ReadAllText("venues.json");
+            string venuesString = File.ReadAllText(@"C:\storage\sc\GEO.Itiniraries\Geo.Itineraries.Web\bin\Files\venues.json");
             venues = JsonConvert.DeserializeObject<Collection<VenueModel>>(venuesString);
         }
     }

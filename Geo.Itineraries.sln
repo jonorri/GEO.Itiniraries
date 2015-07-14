@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToDoInIceland.Tests.Unit", "Geo.Itineraries.Tests.Unit\WhatToDoInIceland.Tests.Unit.csproj", "{F0509796-C727-4CD5-9A1F-1718BADA52C2}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7EC73E56-3CBD-4999-9944-C6A2C93103BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToDoInIceland.Web.Common", "Geo.Itineraries.Web.Common\WhatToDoInIceland.Web.Common.csproj", "{544E0B7E-8E31-481A-8392-FE180EC192A8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToDoInIceland.Admin", "GEO.Itiniraries.Admin\WhatToDoInIceland.Admin.csproj", "{69DEE9C3-E254-4E6C-85AB-2E4F1D73950E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{544E0B7E-8E31-481A-8392-FE180EC192A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{544E0B7E-8E31-481A-8392-FE180EC192A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{544E0B7E-8E31-481A-8392-FE180EC192A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69DEE9C3-E254-4E6C-85AB-2E4F1D73950E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69DEE9C3-E254-4E6C-85AB-2E4F1D73950E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69DEE9C3-E254-4E6C-85AB-2E4F1D73950E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69DEE9C3-E254-4E6C-85AB-2E4F1D73950E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

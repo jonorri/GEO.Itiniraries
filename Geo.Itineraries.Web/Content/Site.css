@@ -1,8 +1,11 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background: url("congruent_outline.png");
-    color: #FFFFFF;
+    background-color: #F3FFBD;
+}
+
+* {
+    color: #FF1654;
 }
 
 .body-content {
@@ -10,12 +13,12 @@
 }
 
 .navbar {
-    background: url("congruent_outline.png");
+    background-color: #70C1B3;
 }
 
-.well {
-    background: url("congruent_outline.png");
-    color: #FFFFFF;
+.well 
+{
+    background-color: #B2DBBF;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -55,6 +58,12 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
 
 #map-canvas 
 {
