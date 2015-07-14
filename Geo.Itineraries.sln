@@ -10,9 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToDoInIceland.IntegrationTests", "Geo.Itineraries.IntegrationTests\WhatToDoInIceland.IntegrationTests.csproj", "{1BE39C86-CA10-4AFB-AC3F-ED8D551FBA92}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7EC73E56-3CBD-4999-9944-C6A2C93103BF}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatToDoInIceland.Web.Common", "Geo.Itineraries.Web.Common\WhatToDoInIceland.Web.Common.csproj", "{544E0B7E-8E31-481A-8392-FE180EC192A8}"
 EndProject
